@@ -1,4 +1,4 @@
-{% extends "core/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}Thor | Majestanimais{% endblock %}
@@ -6,6 +6,173 @@
 {% block content %}
 
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Animais para adoção | Patinhas</title><meta name="description" content="Encontre um novo amigo e conheça as ONGs de proteção animal."><link rel="stylesheet" href="estilos.css"><script src="interacoes.js" defer></script></head><body><header class="header"><div class="header-inner"><a class="brand" href="animais.html"><span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14c-3 2-3 6 0 7 2 1 3-1 5-1s3 2 5 1c3-1 3-5 0-7l-3-3c-1-1-3-1-4 0z"/><ellipse cx="5" cy="8" rx="2" ry="3"/><ellipse cx="10" cy="5" rx="2" ry="3"/><ellipse cx="16" cy="5" rx="2" ry="3"/><ellipse cx="21" cy="9" rx="2" ry="3"/></svg></span>Patinhas</a><nav class="nav" aria-label="Navegação principal"><a class="active" href="animais.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14c-3 2-3 6 0 7 2 1 3-1 5-1s3 2 5 1c3-1 3-5 0-7l-3-3c-1-1-3-1-4 0z"/><ellipse cx="5" cy="8" rx="2" ry="3"/><ellipse cx="10" cy="5" rx="2" ry="3"/><ellipse cx="16" cy="5" rx="2" ry="3"/><ellipse cx="21" cy="9" rx="2" ry="3"/></svg>Animais</a><a class="" href="ongs.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>ONGs</a><a class="" href="agendar.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 11h18m-12 4h3"/></svg>Agendar visita</a></nav><span class="avatar" aria-label="Perfil"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg></span></div></header><main class="container"><div class="breadcrumb"><a href="animais.html">Início</a><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg><strong>Pesquisa / Animais</strong></div><div class="heading"><div><h1>Animais encontrados <span class="count">32</span></h1><p>Um novo começo está mais perto do que você imagina.</p></div><span class="location"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/></svg>Rio Grande do Norte</span></div><div class="searchbar"><label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input id="pesquisa" type="search" aria-label="Pesquisar animais" placeholder="Pesquisar por nome, raça ou cidade..."><button class="icon-button" id="limpar" aria-label="Limpar pesquisa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></label><div class="tabs"><a href="animais.html" class="tab active">Animais</a><a href="ongs.html" class="tab ">ONGs</a></div></div><div class="results"><div class="results-label"><span>Seu próximo amigo</span><span>ONG e localização</span><span></span></div><a href="animal.html?nome=Bela" class="result" data-search="Bela Vira-lata Patinhas Felizes Pau dos Ferros/RN"><div class="animal-info"><img class="animal-photo" src="img/bela.jpg" alt="Bela" width="100" height="100"><div><h3>Bela</h3><p>Vira-lata · 2 anos</p><span class="tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14c-3 2-3 6 0 7 2 1 3-1 5-1s3 2 5 1c3-1 3-5 0-7l-3-3c-1-1-3-1-4 0z"/><ellipse cx="5" cy="8" rx="2" ry="3"/><ellipse cx="10" cy="5" rx="2" ry="3"/><ellipse cx="16" cy="5" rx="2" ry="3"/><ellipse cx="21" cy="9" rx="2" ry="3"/></svg>Disponível para adoção</span></div></div><div class="org-cell">ONG Patinhas Felizes<span class="location"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/></svg>Pau dos Ferros/RN</span></div><div class="row-end"><span>Conhecer Bela</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></div></a><a href="animal.html?nome=Thor" class="result" data-search="Thor Labrador Esperança Animal Pau dos Ferros/RN"><div class="animal-info"><img class="animal-photo" src="img/thor.jpg" alt="Thor" width="100" height="100"><div><h3>Thor</h3><p>Labrador · 1 ano</p><span class="tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14c-3 2-3 6 0 7 2 1 3-1 5-1s3 2 5 1c3-1 3-5 0-7l-3-3c-1-1-3-1-4 0z"/><ellipse cx="5" cy="8" rx="2" ry="3"/><ellipse cx="10" cy="5" rx="2" ry="3"/><ellipse cx="16" cy="5" rx="2" ry="3"/><ellipse cx="21" cy="9" rx="2" ry="3"/></svg>Disponível para adoção</span></div></div><div class="org-cell">ONG Esperança Animal<span class="location"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/></svg>Pau dos Ferros/RN</span></div><div class="row-end"><span>Conhecer Thor</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></div></a><a href="animal.html?nome=Mel" class="result" data-search="Mel SRD Vida Animal Apodi/RN"><div class="animal-info"><img class="animal-photo" src="img/mel.jpg" alt="Mel" width="100" height="100"><div><h3>Mel</h3><p>SRD · 3 anos</p><span class="tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14c-3 2-3 6 0 7 2 1 3-1 5-1s3 2 5 1c3-1 3-5 0-7l-3-3c-1-1-3-1-4 0z"/><ellipse cx="5" cy="8" rx="2" ry="3"/><ellipse cx="10" cy="5" rx="2" ry="3"/><ellipse cx="16" cy="5" rx="2" ry="3"/><ellipse cx="21" cy="9" rx="2" ry="3"/></svg>Disponível para adoção</span></div></div><div class="org-cell">ONG Vida Animal<span class="location"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/></svg>Apodi/RN</span></div><div class="row-end"><span>Conhecer Mel</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></div></a><a href="animal.html?nome=Luna" class="result" data-search="Luna Vira-lata Patinhas Felizes Pau dos Ferros/RN"><div class="animal-info"><img class="animal-photo" src="{% static 'img/luna.jpg' %}" alt="Luna" width="100" height="100"><div><h3>Luna</h3><p>Vira-lata · 1 ano</p><span class="tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14c-3 2-3 6 0 7 2 1 3-1 5-1s3 2 5 1c3-1 3-5 0-7l-3-3c-1-1-3-1-4 0z"/><ellipse cx="5" cy="8" rx="2" ry="3"/><ellipse cx="10" cy="5" rx="2" ry="3"/><ellipse cx="16" cy="5" rx="2" ry="3"/><ellipse cx="21" cy="9" rx="2" ry="3"/></svg>Disponível para adoção</span></div></div><div class="org-cell">ONG Patinhas Felizes<span class="location"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/></svg>Pau dos Ferros/RN</span></div><div class="row-end"><span>Conhecer Luna</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></div></a><div class="empty" hidden>Nenhum animal encontrado.</div></div><div class="results-footer"><span id="result-count">Mostrando 4 de 32 animais</span><span>Feitos para encontrar um lar. E você.</span></div></main><footer class="footer"><span>Patinhas · Cada encontro, um novo começo.</span><a href="patinhas-desktop.zip" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></svg>Baixar HTML e CSS</a></footer></body></html>
-{% endblock %}
+<html lang="pt-BR">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Animais para adoção | Patinhas</title>
+    <meta name="description" content="Encontre um novo amigo e conheça as ONGs de proteção animal.">
+    <link rel="stylesheet" href="estilos.css">
+    <script src="interacoes.js" defer></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-inner"><a class="brand" href="animais.html"><span class="brand-mark"><svg viewBox="0 0 24 24"
+                        aria-hidden="true">
+                        <path d="M7 14c-3 2-3 6 0 7 2 1 3-1 5-1s3 2 5 1c3-1 3-5 0-7l-3-3c-1-1-3-1-4 0z" />
+                        <ellipse cx="5" cy="8" rx="2" ry="3" />
+                        <ellipse cx="10" cy="5" rx="2" ry="3" />
+                        <ellipse cx="16" cy="5" rx="2" ry="3" />
+                        <ellipse cx="21" cy="9" rx="2" ry="3" />
+                    </svg></span>Patinhas</a>
+            <nav class="nav" aria-label="Navegação principal"><a class="active" href="animais.html"><svg
+                        viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7 14c-3 2-3 6 0 7 2 1 3-1 5-1s3 2 5 1c3-1 3-5 0-7l-3-3c-1-1-3-1-4 0z" />
+                        <ellipse cx="5" cy="8" rx="2" ry="3" />
+                        <ellipse cx="10" cy="5" rx="2" ry="3" />
+                        <ellipse cx="16" cy="5" rx="2" ry="3" />
+                        <ellipse cx="21" cy="9" rx="2" ry="3" />
+                    </svg>Animais</a><a class="" href="ongs.html"><svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" />
+                    </svg>ONGs</a><a class="" href="agendar.html"><svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3" y="5" width="18" height="16" rx="2" />
+                        <path d="M7 3v4m10-4v4M3 11h18m-12 4h3" />
+                    </svg>Agendar visita</a></nav><span class="avatar" aria-label="Perfil"><svg viewBox="0 0 24 24"
+                    aria-hidden="true">
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M4 21v-2a8 8 0 0 1 16 0v2" />
+                </svg></span>
+        </div>
+    </header>
+    <main class="container">
+        <div class="breadcrumb"><a href="animais.html">Início</a><svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m9 5 7 7-7 7" />
+            </svg><strong>Pesquisa / Animais</strong></div>
+        <div class="heading">
+            <div>
+                <h1>Animais encontrados <span class="count">32</span></h1>
+                <p>Um novo começo está mais perto do que você imagina.</p>
+            </div><span class="location"><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
+                    <circle cx="12" cy="10" r="2" />
+                </svg>Rio Grande do Norte</span>
+        </div>
+        <div class="searchbar"><label class="search"><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="10" cy="10" r="6" />
+                    <path d="m15 15 5 5" />
+                </svg><input id="pesquisa" type="search" aria-label="Pesquisar animais"
+                    placeholder="Pesquisar por nome, raça ou cidade..."><button class="icon-button" id="limpar"
+                    aria-label="Limpar pesquisa"><svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m6 6 12 12M6 18 18 6" />
+                    </svg></button></label>
+            <div class="tabs"><a href="animais.html" class="tab active">Animais</a><a href="ongs.html"
+                    class="tab ">ONGs</a></div>
+        </div>
+        <div class="results">
+            <div class="results-label"><span>Seu próximo amigo</span><span>ONG e localização</span><span></span></div><a
+                href="animal.html?nome=Bela" class="result"
+                data-search="Bela Vira-lata Patinhas Felizes Pau dos Ferros/RN">
+                <div class="animal-info"><img class="animal-photo" src="img/bela.jpg" alt="Bela" width="100"
+                        height="100">
+                    <div>
+                        <h3>Bela</h3>
+                        <p>Vira-lata · 2 anos</p><span class="tag"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7 14c-3 2-3 6 0 7 2 1 3-1 5-1s3 2 5 1c3-1 3-5 0-7l-3-3c-1-1-3-1-4 0z" />
+                                <ellipse cx="5" cy="8" rx="2" ry="3" />
+                                <ellipse cx="10" cy="5" rx="2" ry="3" />
+                                <ellipse cx="16" cy="5" rx="2" ry="3" />
+                                <ellipse cx="21" cy="9" rx="2" ry="3" />
+                            </svg>Disponível para adoção</span>
+                    </div>
+                </div>
+                <div class="org-cell">ONG Patinhas Felizes<span class="location"><svg viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
+                            <circle cx="12" cy="10" r="2" />
+                        </svg>Pau dos Ferros/RN</span></div>
+                <div class="row-end"><span>Conhecer Bela</span><svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m9 5 7 7-7 7" />
+                    </svg></div>
+            </a><a href="animal.html?nome=Thor" class="result"
+                data-search="Thor Labrador Esperança Animal Pau dos Ferros/RN">
+                <div class="animal-info"><img class="animal-photo" src="img/thor.jpg" alt="Thor" width="100"
+                        height="100">
+                    <div>
+                        <h3>Thor</h3>
+                        <p>Labrador · 1 ano</p><span class="tag"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7 14c-3 2-3 6 0 7 2 1 3-1 5-1s3 2 5 1c3-1 3-5 0-7l-3-3c-1-1-3-1-4 0z" />
+                                <ellipse cx="5" cy="8" rx="2" ry="3" />
+                                <ellipse cx="10" cy="5" rx="2" ry="3" />
+                                <ellipse cx="16" cy="5" rx="2" ry="3" />
+                                <ellipse cx="21" cy="9" rx="2" ry="3" />
+                            </svg>Disponível para adoção</span>
+                    </div>
+                </div>
+                <div class="org-cell">ONG Esperança Animal<span class="location"><svg viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
+                            <circle cx="12" cy="10" r="2" />
+                        </svg>Pau dos Ferros/RN</span></div>
+                <div class="row-end"><span>Conhecer Thor</span><svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m9 5 7 7-7 7" />
+                    </svg></div>
+            </a><a href="animal.html?nome=Mel" class="result" data-search="Mel SRD Vida Animal Apodi/RN">
+                <div class="animal-info"><img class="animal-photo" src="img/mel.jpg" alt="Mel" width="100" height="100">
+                    <div>
+                        <h3>Mel</h3>
+                        <p>SRD · 3 anos</p><span class="tag"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7 14c-3 2-3 6 0 7 2 1 3-1 5-1s3 2 5 1c3-1 3-5 0-7l-3-3c-1-1-3-1-4 0z" />
+                                <ellipse cx="5" cy="8" rx="2" ry="3" />
+                                <ellipse cx="10" cy="5" rx="2" ry="3" />
+                                <ellipse cx="16" cy="5" rx="2" ry="3" />
+                                <ellipse cx="21" cy="9" rx="2" ry="3" />
+                            </svg>Disponível para adoção</span>
+                    </div>
+                </div>
+                <div class="org-cell">ONG Vida Animal<span class="location"><svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
+                            <circle cx="12" cy="10" r="2" />
+                        </svg>Apodi/RN</span></div>
+                <div class="row-end"><span>Conhecer Mel</span><svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m9 5 7 7-7 7" />
+                    </svg></div>
+            </a><a href="animal.html?nome=Luna" class="result"
+                data-search="Luna Vira-lata Patinhas Felizes Pau dos Ferros/RN">
+                <div class="animal-info"><img class="animal-photo" src="{% static 'img/luna.jpg' %}" alt="Luna"
+                        width="100" height="100">
+                    <div>
+                        <h3>Luna</h3>
+                        <p>Vira-lata · 1 ano</p><span class="tag"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7 14c-3 2-3 6 0 7 2 1 3-1 5-1s3 2 5 1c3-1 3-5 0-7l-3-3c-1-1-3-1-4 0z" />
+                                <ellipse cx="5" cy="8" rx="2" ry="3" />
+                                <ellipse cx="10" cy="5" rx="2" ry="3" />
+                                <ellipse cx="16" cy="5" rx="2" ry="3" />
+                                <ellipse cx="21" cy="9" rx="2" ry="3" />
+                            </svg>Disponível para adoção</span>
+                    </div>
+                </div>
+                <div class="org-cell">ONG Patinhas Felizes<span class="location"><svg viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
+                            <circle cx="12" cy="10" r="2" />
+                        </svg>Pau dos Ferros/RN</span></div>
+                <div class="row-end"><span>Conhecer Luna</span><svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m9 5 7 7-7 7" />
+                    </svg></div>
+            </a>
+            <div class="empty" hidden>Nenhum animal encontrado.</div>
+        </div>
+        <div class="results-footer"><span id="result-count">Mostrando 4 de 32 animais</span><span>Feitos para encontrar
+                um lar. E você.</span></div>
+    </main>
+    <footer class="footer"><span>Patinhas · Cada encontro, um novo começo.</span><a href="patinhas-desktop.zip"
+            download><svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5" />
+            </svg>Baixar HTML e CSS</a></footer>
+</body>
+
+</html>
+{% endblock %}

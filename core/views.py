@@ -5,6 +5,8 @@ from django.shortcuts import render
 def confirmacao(request):
     return render(request, 'core/confirmacao.html')
 
+def home(request):
+    return render(request, 'home.html')
 
 def cadastro_usuario(request):
     return render(request, 'core/cadastro_usuario.html')
