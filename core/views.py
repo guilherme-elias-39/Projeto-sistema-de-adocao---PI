@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def inicio(request):
-    return render(request, 'core/inicio.html')
+def confirmacao(request):
+    return render(request, 'core/confirmacao.html')
 
 
 def cadastro_usuario(request):
@@ -23,7 +23,7 @@ def pesquisa_instituicoes(request):
 
 
 def agendar_visita(request):
-    return render(request, 'core/agendar_visita.html')
+    return render(request, 'core/agendar_visitas.html')
 
 
 def login(request):
