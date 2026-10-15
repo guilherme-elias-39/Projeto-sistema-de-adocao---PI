@@ -1,0 +1,527 @@
+/* Majestanimais — modelo desktop */
+:root {
+  --background: oklch(0.975 0.006 170);
+  --foreground: oklch(0.29 0.035 182);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.405 0.065 181);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.012 175);
+  --secondary-foreground: var(--primary);
+  --muted: var(--secondary);
+  --muted-foreground: oklch(0.55 0.025 184);
+  --accent: oklch(0.94 0.017 175);
+  --accent-foreground: var(--primary);
+  --border: oklch(0.90 0.011 180);
+  --input: var(--border);
+  --ring: var(--primary);
+  --destructive: oklch(0.58 0.19 26);
+  --destructive-foreground: var(--card);
+  --radius: 0.5rem;
+  --photo-overlay: linear-gradient(180deg, oklch(0.17 0.035 175 / 0) 30%, oklch(0.20 0.042 180 / 0.42) 60%, oklch(0.22 0.045 180 / 0.97) 100%);
+  --shell-shadow: 0 18px 65px oklch(0.3 0.035 180 / 0.07), 0 2px 8px oklch(0.3 0.035 180 / 0.03);
+  --font-body: 'Nunito Sans', 'Segoe UI', sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); letter-spacing: 0; -webkit-font-smoothing: antialiased; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+.login-page { min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 56px 40px; }
+.login-shell { width: 1056px; max-width: 100%; min-height: 640px; display: grid; grid-template-columns: 1fr 1fr; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: var(--shell-shadow); }
+.photo-panel { position: relative; min-height: 640px; overflow: hidden; }
+.pet-photo { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; object-position: 47% center; }
+.photo-shade { position: absolute; inset: 0; background: var(--photo-overlay); }
+.brand { position: absolute; bottom: 56px; left: 24px; right: 24px; text-align: center; color: var(--primary-foreground); }
+.brand-paw { width: 54px; height: 54px; margin: 0 auto 15px; display: block; }
+.brand h1 { font-size: 37px; font-weight: 800; margin: 0 0 7px; line-height: 1.2; }
+.brand p { font-size: 16px; margin: 0; opacity: .9; }
+.form-panel { padding: 67px 60px 27px; display: flex; flex-direction: column; justify-content: space-between; }
+.form-content { width: 100%; }
+.welcome-mark { width: 42px; height: 42px; background: var(--secondary); color: var(--primary); display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-bottom: 23px; }
+.welcome h2 { font-size: 26px; line-height: 1.3; font-weight: 800; margin: 0 0 9px; }
+.welcome p { color: var(--muted-foreground); font-size: 14px; margin: 0 0 32px; }
+.fields { display: grid; gap: 16px; }
+.input-field { display: flex; align-items: center; gap: 12px; border: 1px solid var(--input); border-radius: 6px; height: 52px; padding: 0 15px; color: var(--muted-foreground); background: var(--card); transition: border-color .2s; }
+.input-field:focus-within { border-color: var(--primary); outline: 3px solid var(--secondary); }
+.input-field > svg { flex-shrink: 0; width: 19px; height: 19px; }
+.input-field input { border: 0; outline: 0; width: 100%; min-width: 0; color: var(--foreground); background: transparent; font-size: 14px; }
+.input-field input::placeholder { color: var(--muted-foreground); }
+.password-toggle { flex-shrink: 0; width: 26px; height: 32px; padding: 0; color: var(--muted-foreground); background: transparent; border: 0; display: inline-flex; align-items: center; justify-content: center; }
+.password-toggle svg { width: 18px; height: 18px; }
+.submit-button { background: var(--primary); color: var(--primary-foreground); width: 100%; height: 49px; border: 1px solid var(--primary); border-radius: 6px; margin-top: 24px; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: none; transition: opacity .2s; }
+.submit-button:hover { opacity: .9; }
+.signup-text { text-align: center; color: var(--muted-foreground); font-size: 13px; margin: 22px 0 31px; }
+.signup-link { display: inline; color: var(--primary); font-size: 13px; font-weight: 800; border: 0; padding: 0; height: auto; background: transparent; text-decoration: none; }
+.signup-link:hover { text-decoration: underline; }
+.divider { display: flex; align-items: center; gap: 17px; font-size: 12px; color: var(--muted-foreground); margin-bottom: 27px; }
+.divider span { height: 1px; background: var(--border); flex: 1; }
+.organization-button { width: 100%; height: 49px; border: 1px solid var(--primary); border-radius: 6px; color: var(--primary); background: var(--card); font-size: 14px; font-weight: 800; box-shadow: none; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+.organization-button:hover { background: var(--secondary); }
+.form-footer { display: flex; align-items: center; justify-content: center; gap: 7px; color: var(--muted-foreground); font-size: 11px; margin: 35px 0 0; }
+.form-footer svg { width: 13px; height: 13px; }
+.notice { position: fixed; bottom: 24px; right: 24px; left: 24px; margin: auto; max-width: 520px; background: var(--card); color: var(--foreground); border: 1px solid var(--border); border-radius: 6px; padding: 14px 18px; box-shadow: var(--shell-shadow); display: flex; align-items: center; gap: 14px; font-size: 14px; }
+button:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
+@media (min-width: 1500px) { .login-shell { width: 1120px; } .photo-panel { min-height: 680px; } .form-panel { padding: 83px 70px 32px; } }
+@media (max-width: 900px) { .form-panel { padding: 55px 32px 26px; } .welcome h2 { font-size: 24px; } .brand h1 { font-size: 32px; } }
+@media (max-width: 650px) { .login-page { padding: 24px 16px; align-items: flex-start; } .login-shell { grid-template-columns: 1fr; max-width: 420px; } .photo-panel { min-height: 280px; } .pet-photo { object-position: center 39%; } .brand { bottom: 23px; } .brand-paw { width: 40px; height: 40px; margin-bottom: 8px; } .brand h1 { font-size: 29px; } .brand p { font-size: 13px; } .form-panel { padding: 29px 26px 24px; } .welcome-mark { display: none; } .welcome h2 { font-size: 22px; } .welcome p { margin-bottom: 26px; } .form-footer { margin-top: 27px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+
+
+/* Majestanimais — modelo desktop */
+:root {
+  --background: oklch(0.975 0.006 170);
+  --foreground: oklch(0.29 0.035 182);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.405 0.065 181);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.012 175);
+  --secondary-foreground: var(--primary);
+  --muted: var(--secondary);
+  --muted-foreground: oklch(0.55 0.025 184);
+  --accent: oklch(0.94 0.017 175);
+  --accent-foreground: var(--primary);
+  --border: oklch(0.90 0.011 180);
+  --input: var(--border);
+  --ring: var(--primary);
+  --destructive: oklch(0.58 0.19 26);
+  --destructive-foreground: var(--card);
+  --radius: 0.5rem;
+  --photo-overlay: linear-gradient(180deg, oklch(0.17 0.035 175 / 0) 30%, oklch(0.20 0.042 180 / 0.42) 60%, oklch(0.22 0.045 180 / 0.97) 100%);
+  --shell-shadow: 0 18px 65px oklch(0.3 0.035 180 / 0.07), 0 2px 8px oklch(0.3 0.035 180 / 0.03);
+  --font-body: 'Nunito Sans', 'Segoe UI', sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); letter-spacing: 0; -webkit-font-smoothing: antialiased; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+.login-page { min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 56px 40px; }
+.login-shell { width: 1056px; max-width: 100%; min-height: 640px; display: grid; grid-template-columns: 1fr 1fr; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: var(--shell-shadow); }
+.photo-panel { position: relative; min-height: 640px; overflow: hidden; }
+.pet-photo { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; object-position: 47% center; }
+.photo-shade { position: absolute; inset: 0; background: var(--photo-overlay); }
+.brand { position: absolute; bottom: 56px; left: 24px; right: 24px; text-align: center; color: var(--primary-foreground); }
+.brand-paw { width: 54px; height: 54px; margin: 0 auto 15px; display: block; }
+.brand h1 { font-size: 37px; font-weight: 800; margin: 0 0 7px; line-height: 1.2; }
+.brand p { font-size: 16px; margin: 0; opacity: .9; }
+.form-panel { padding: 67px 60px 27px; display: flex; flex-direction: column; justify-content: space-between; }
+.form-content { width: 100%; }
+.welcome-mark { width: 42px; height: 42px; background: var(--secondary); color: var(--primary); display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-bottom: 23px; }
+.welcome h2 { font-size: 26px; line-height: 1.3; font-weight: 800; margin: 0 0 9px; }
+.welcome p { color: var(--muted-foreground); font-size: 14px; margin: 0 0 32px; }
+.fields { display: grid; gap: 16px; }
+.input-field { display: flex; align-items: center; gap: 12px; border: 1px solid var(--input); border-radius: 6px; height: 52px; padding: 0 15px; color: var(--muted-foreground); background: var(--card); transition: border-color .2s; }
+.input-field:focus-within { border-color: var(--primary); outline: 3px solid var(--secondary); }
+.input-field > svg { flex-shrink: 0; width: 19px; height: 19px; }
+.input-field input { border: 0; outline: 0; width: 100%; min-width: 0; color: var(--foreground); background: transparent; font-size: 14px; }
+.input-field input::placeholder { color: var(--muted-foreground); }
+.password-toggle { flex-shrink: 0; width: 26px; height: 32px; padding: 0; color: var(--muted-foreground); background: transparent; border: 0; display: inline-flex; align-items: center; justify-content: center; }
+.password-toggle svg { width: 18px; height: 18px; }
+.submit-button { background: var(--primary); color: var(--primary-foreground); width: 100%; height: 49px; border: 1px solid var(--primary); border-radius: 6px; margin-top: 24px; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: none; transition: opacity .2s; }
+.submit-button:hover { opacity: .9; }
+.signup-text { text-align: center; color: var(--muted-foreground); font-size: 13px; margin: 22px 0 31px; }
+.signup-link { display: inline; color: var(--primary); font-size: 13px; font-weight: 800; border: 0; padding: 0; height: auto; background: transparent; text-decoration: none; }
+.signup-link:hover { text-decoration: underline; }
+.divider { display: flex; align-items: center; gap: 17px; font-size: 12px; color: var(--muted-foreground); margin-bottom: 27px; }
+.divider span { height: 1px; background: var(--border); flex: 1; }
+.organization-button { width: 100%; height: 49px; border: 1px solid var(--primary); border-radius: 6px; color: var(--primary); background: var(--card); font-size: 14px; font-weight: 800; box-shadow: none; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+.organization-button:hover { background: var(--secondary); }
+.form-footer { display: flex; align-items: center; justify-content: center; gap: 7px; color: var(--muted-foreground); font-size: 11px; margin: 35px 0 0; }
+.form-footer svg { width: 13px; height: 13px; }
+.notice { position: fixed; bottom: 24px; right: 24px; left: 24px; margin: auto; max-width: 520px; background: var(--card); color: var(--foreground); border: 1px solid var(--border); border-radius: 6px; padding: 14px 18px; box-shadow: var(--shell-shadow); display: flex; align-items: center; gap: 14px; font-size: 14px; }
+button:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
+@media (min-width: 1500px) { .login-shell { width: 1120px; } .photo-panel { min-height: 680px; } .form-panel { padding: 83px 70px 32px; } }
+@media (max-width: 900px) { .form-panel { padding: 55px 32px 26px; } .welcome h2 { font-size: 24px; } .brand h1 { font-size: 32px; } }
+@media (max-width: 650px) { .login-page { padding: 24px 16px; align-items: flex-start; } .login-shell { grid-template-columns: 1fr; max-width: 420px; } .photo-panel { min-height: 280px; } .pet-photo { object-position: center 39%; } .brand { bottom: 23px; } .brand-paw { width: 40px; height: 40px; margin-bottom: 8px; } .brand h1 { font-size: 29px; } .brand p { font-size: 13px; } .form-panel { padding: 29px 26px 24px; } .welcome-mark { display: none; } .welcome h2 { font-size: 22px; } .welcome p { margin-bottom: 26px; } .form-footer { margin-top: 27px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+
+/* Controles independentes, sem dependências de bibliotecas */
+button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 6px; padding: 8px 12px; background: transparent; color: inherit; font-size: 14px; line-height: 1.4; }
+button svg, .header-actions a svg { width: 18px; height: 18px; flex-shrink: 0; }
+.header-actions a { display: inline-flex; width: 36px; height: 36px; align-items: center; justify-content: center; }
+.header-actions > button, .home-search > button { width: 36px; height: 36px; padding: 8px; }
+.favorite-button { width: 36px; height: 36px; padding: 8px; }
+.section-heading button { color: var(--primary); font-size: 13px; }
+.registration-heading > a svg { width: 18px; height: 18px; }
+.password-toggle { padding: 0; width: 26px; }
+[hidden] { display: none !important; }
+@media(max-width:650px) { .section-heading button { font-size: 11px; } .header-actions > button { width: 28px; padding: 4px; } .favorite-button { width: 27px; height: 27px; padding: 0; } }
+/* Página principal */
+:root { --organization-alternate: oklch(0.46 0.09 245); --banner-overlay: linear-gradient(90deg, oklch(0.22 0.04 172 / .78), oklch(0.22 0.04 172 / 0) 65%); }
+.home-page { min-height: 100svh; }
+.home-header { background: var(--card); border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 1180px; padding: 22px 30px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.home-brand { display: flex; align-items: center; gap: 10px; font-size: 22px; color: var(--primary); font-weight: 800; text-decoration: none; }
+.home-brand svg { width: 30px; height: 30px; }
+.desktop-nav, .header-actions { display: flex; align-items: center; gap: 12px; }
+.desktop-nav button { color: var(--muted-foreground); }
+.desktop-nav .nav-active, .mobile-nav .nav-active { color: var(--primary); background: var(--secondary); }
+.header-actions > button, .header-actions > a { color: var(--muted-foreground); }
+.header-actions .profile-button { border-radius: 50%; background: var(--secondary); color: var(--primary); }
+.home-content { max-width: 1120px; margin: auto; padding: 28px 30px 34px; }
+.home-search { display: flex; gap: 12px; align-items: center; color: var(--muted-foreground); background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px 6px 18px; margin-bottom: 25px; }
+.home-search input { width: 100%; border: 0; outline: 0; font-size: 14px; background: transparent; color: var(--foreground); }
+.home-search input::placeholder { color: var(--muted-foreground); }
+.adoption-banner { position: relative; height: 260px; border-radius: 8px; overflow: hidden; }
+.adoption-banner > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+.banner-shade { position: absolute; inset: 0; background: var(--banner-overlay); }
+.banner-copy { position: relative; padding: 42px; color: var(--primary-foreground); }
+.banner-copy h1 { font-size: 34px; line-height: 1.25; margin: 0 0 21px; font-weight: 800; }
+.banner-button { background: var(--card); color: var(--primary); border: 0; border-radius: 25px; padding: 10px 20px; font-weight: 800; box-shadow: none; }
+.banner-button:hover { background: var(--secondary); }
+.section-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 26px 0 14px; }
+.section-heading h2 { margin: 0; font-size: 21px; font-weight: 800; }
+.section-heading button { font-size: 13px; padding-right: 0; }
+.animal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+.animal-card { display: grid; grid-template-columns: 45% 1fr; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card); }
+.animal-card > img { width: 100%; height: 194px; object-fit: cover; }
+.animal-info { padding: 25px 22px; align-self: center; }
+.animal-name { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.animal-name h3 { font-size: 20px; margin: 0; font-weight: 800; }
+.favorite-button { color: var(--primary); }
+.is-favorite { color: var(--destructive); }
+.animal-info p { color: var(--muted-foreground); font-size: 13px; margin: 8px 0 0; }
+.animal-info .animal-org { font-size: 12px; margin-top: 13px; }
+.organization-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+.organization-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 22px; display: flex; gap: 17px; align-items: center; }
+.organization-logo { width: 57px; height: 57px; background: var(--primary); color: var(--primary-foreground); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.organization-logo.alternate { background: var(--organization-alternate); }
+.organization-logo svg { width: 30px; height: 30px; }
+.organization-card h3 { font-size: 16px; font-weight: 800; margin: 0 0 5px; }
+.organization-tagline { color: var(--muted-foreground); font-size: 12px; margin: 0; }
+.adoption-count { color: var(--muted-foreground); font-size: 12px; display: flex; gap: 6px; align-items: center; margin: 12px 0 0; }
+.home-footer { max-width: 1060px; margin: auto; border-top: 1px solid var(--border); padding: 22px 0 30px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted-foreground); }
+.home-footer span { margin-left: auto; display: flex; gap: 7px; align-items: center; }
+.mobile-nav { display: none; }
+.empty-result { color: var(--muted-foreground); padding: 20px 0; }
+@media (max-width: 900px) { .desktop-nav { display: none; } .animal-card { display: block; } .animal-card > img { height: 215px; } .animal-info { padding: 14px 20px 20px; } .home-footer { margin: 0 30px; } }
+@media (max-width: 650px) { .registration-page { padding: 24px 20px; } .registration-brand { align-self: center; font-size: 18px; } .registration-form { margin-top: 28px; } .registration-heading h1 { font-size: 22px; } .registration-intro { font-size: 13px; margin-bottom: 30px; } .registration-fields { gap: 22px; } .header-inner { padding: 17px 18px; } .home-brand { font-size: 17px; gap: 6px; } .home-brand svg { width: 24px; height: 24px; } .header-actions { gap: 3px; } .header-actions > button { width: 28px; } .home-content { padding: 16px 16px 25px; } .home-search { margin-bottom: 17px; } .adoption-banner { height: 160px; } .banner-copy { padding: 22px 18px; } .banner-copy h1 { font-size: 23px; margin-bottom: 15px; } .banner-button { height: 32px; font-size: 12px; padding: 6px 13px; } .section-heading { gap: 8px; margin-top: 23px; } .section-heading h2 { font-size: 16px; } .section-heading button { font-size: 11px; gap: 0; } .animal-grid, .organization-grid { gap: 12px; } .animal-card > img { height: 150px; } .animal-info { padding: 9px 10px 14px; } .animal-name h3 { font-size: 15px; } .animal-name { gap: 0; } .animal-info p { font-size: 11px; } .animal-info .animal-org { font-size: 10px; } .favorite-button { height: 27px; width: 27px; padding: 0; } .organization-card { padding: 13px 10px; flex-direction: column; align-items: flex-start; gap: 10px; } .organization-card h3 { font-size: 12px; } .organization-tagline, .adoption-count { font-size: 10px; } .organization-logo { width: 40px; height: 40px; } .organization-logo svg { width: 24px; height: 24px; } .home-footer { padding-bottom: 94px; justify-content: center; margin: 0 16px; } .home-footer span { display: none; } .mobile-nav { display: flex; position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 1px solid var(--border); justify-content: space-around; padding: 9px 4px; z-index: 3; } .mobile-nav button { display: flex; flex-direction: column; gap: 5px; height: 48px; font-size: 10px; color: var(--muted-foreground); padding: 6px 12px; } .notice { bottom: 82px; z-index: 4; } }
+
+
+
+
+/* Majestanimais — modelo desktop */
+:root {
+  --background: oklch(0.975 0.006 170);
+  --foreground: oklch(0.29 0.035 182);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.405 0.065 181);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.012 175);
+  --secondary-foreground: var(--primary);
+  --muted: var(--secondary);
+  --muted-foreground: oklch(0.55 0.025 184);
+  --accent: oklch(0.94 0.017 175);
+  --accent-foreground: var(--primary);
+  --border: oklch(0.90 0.011 180);
+  --input: var(--border);
+  --ring: var(--primary);
+  --destructive: oklch(0.58 0.19 26);
+  --destructive-foreground: var(--card);
+  --radius: 0.5rem;
+  --photo-overlay: linear-gradient(180deg, oklch(0.17 0.035 175 / 0) 30%, oklch(0.20 0.042 180 / 0.42) 60%, oklch(0.22 0.045 180 / 0.97) 100%);
+  --shell-shadow: 0 18px 65px oklch(0.3 0.035 180 / 0.07), 0 2px 8px oklch(0.3 0.035 180 / 0.03);
+  --font-body: 'Nunito Sans', 'Segoe UI', sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); letter-spacing: 0; -webkit-font-smoothing: antialiased; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+.login-page { min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 56px 40px; }
+.login-shell { width: 1056px; max-width: 100%; min-height: 640px; display: grid; grid-template-columns: 1fr 1fr; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: var(--shell-shadow); }
+.photo-panel { position: relative; min-height: 640px; overflow: hidden; }
+.pet-photo { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; object-position: 47% center; }
+.photo-shade { position: absolute; inset: 0; background: var(--photo-overlay); }
+.brand { position: absolute; bottom: 56px; left: 24px; right: 24px; text-align: center; color: var(--primary-foreground); }
+.brand-paw { width: 54px; height: 54px; margin: 0 auto 15px; display: block; }
+.brand h1 { font-size: 37px; font-weight: 800; margin: 0 0 7px; line-height: 1.2; }
+.brand p { font-size: 16px; margin: 0; opacity: .9; }
+.form-panel { padding: 67px 60px 27px; display: flex; flex-direction: column; justify-content: space-between; }
+.form-content { width: 100%; }
+.welcome-mark { width: 42px; height: 42px; background: var(--secondary); color: var(--primary); display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-bottom: 23px; }
+.welcome h2 { font-size: 26px; line-height: 1.3; font-weight: 800; margin: 0 0 9px; }
+.welcome p { color: var(--muted-foreground); font-size: 14px; margin: 0 0 32px; }
+.fields { display: grid; gap: 16px; }
+.input-field { display: flex; align-items: center; gap: 12px; border: 1px solid var(--input); border-radius: 6px; height: 52px; padding: 0 15px; color: var(--muted-foreground); background: var(--card); transition: border-color .2s; }
+.input-field:focus-within { border-color: var(--primary); outline: 3px solid var(--secondary); }
+.input-field > svg { flex-shrink: 0; width: 19px; height: 19px; }
+.input-field input { border: 0; outline: 0; width: 100%; min-width: 0; color: var(--foreground); background: transparent; font-size: 14px; }
+.input-field input::placeholder { color: var(--muted-foreground); }
+.password-toggle { flex-shrink: 0; width: 26px; height: 32px; padding: 0; color: var(--muted-foreground); background: transparent; border: 0; display: inline-flex; align-items: center; justify-content: center; }
+.password-toggle svg { width: 18px; height: 18px; }
+.submit-button { background: var(--primary); color: var(--primary-foreground); width: 100%; height: 49px; border: 1px solid var(--primary); border-radius: 6px; margin-top: 24px; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: none; transition: opacity .2s; }
+.submit-button:hover { opacity: .9; }
+.signup-text { text-align: center; color: var(--muted-foreground); font-size: 13px; margin: 22px 0 31px; }
+.signup-link { display: inline; color: var(--primary); font-size: 13px; font-weight: 800; border: 0; padding: 0; height: auto; background: transparent; text-decoration: none; }
+.signup-link:hover { text-decoration: underline; }
+.divider { display: flex; align-items: center; gap: 17px; font-size: 12px; color: var(--muted-foreground); margin-bottom: 27px; }
+.divider span { height: 1px; background: var(--border); flex: 1; }
+.organization-button { width: 100%; height: 49px; border: 1px solid var(--primary); border-radius: 6px; color: var(--primary); background: var(--card); font-size: 14px; font-weight: 800; box-shadow: none; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+.organization-button:hover { background: var(--secondary); }
+.form-footer { display: flex; align-items: center; justify-content: center; gap: 7px; color: var(--muted-foreground); font-size: 11px; margin: 35px 0 0; }
+.form-footer svg { width: 13px; height: 13px; }
+.notice { position: fixed; bottom: 24px; right: 24px; left: 24px; margin: auto; max-width: 520px; background: var(--card); color: var(--foreground); border: 1px solid var(--border); border-radius: 6px; padding: 14px 18px; box-shadow: var(--shell-shadow); display: flex; align-items: center; gap: 14px; font-size: 14px; }
+button:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
+@media (min-width: 1500px) { .login-shell { width: 1120px; } .photo-panel { min-height: 680px; } .form-panel { padding: 83px 70px 32px; } }
+@media (max-width: 900px) { .form-panel { padding: 55px 32px 26px; } .welcome h2 { font-size: 24px; } .brand h1 { font-size: 32px; } }
+@media (max-width: 650px) { .login-page { padding: 24px 16px; align-items: flex-start; } .login-shell { grid-template-columns: 1fr; max-width: 420px; } .photo-panel { min-height: 280px; } .pet-photo { object-position: center 39%; } .brand { bottom: 23px; } .brand-paw { width: 40px; height: 40px; margin-bottom: 8px; } .brand h1 { font-size: 29px; } .brand p { font-size: 13px; } .form-panel { padding: 29px 26px 24px; } .welcome-mark { display: none; } .welcome h2 { font-size: 22px; } .welcome p { margin-bottom: 26px; } .form-footer { margin-top: 27px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+
+/* Controles independentes, sem dependências de bibliotecas */
+button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 6px; padding: 8px 12px; background: transparent; color: inherit; font-size: 14px; line-height: 1.4; }
+button svg, .header-actions a svg { width: 18px; height: 18px; flex-shrink: 0; }
+.header-actions a { display: inline-flex; width: 36px; height: 36px; align-items: center; justify-content: center; }
+.header-actions > button, .home-search > button { width: 36px; height: 36px; padding: 8px; }
+.favorite-button { width: 36px; height: 36px; padding: 8px; }
+.section-heading button { color: var(--primary); font-size: 13px; }
+.registration-heading > a svg { width: 18px; height: 18px; }
+.password-toggle { padding: 0; width: 26px; }
+[hidden] { display: none !important; }
+@media(max-width:650px) { .section-heading button { font-size: 11px; } .header-actions > button { width: 28px; padding: 4px; } .favorite-button { width: 27px; height: 27px; padding: 0; } }
+/* Cadastro de usuário e ONG */
+.registration-page { min-height: 100svh; padding: 34px 32px 24px; background: var(--card); display: flex; flex-direction: column; align-items: center; }
+.registration-brand { align-self: flex-start; display: flex; align-items: center; gap: 9px; color: var(--primary); text-decoration: none; font-weight: 800; font-size: 20px; }
+.registration-brand svg { width: 28px; height: 28px; }
+.registration-form { width: 480px; max-width: 100%; margin: 32px auto 24px; }
+.registration-heading { position: relative; display: flex; align-items: center; justify-content: center; min-height: 42px; }
+.registration-heading > a { position: absolute; left: 0; color: var(--primary); display: inline-flex; width: 36px; height: 36px; align-items: center; justify-content: center; }
+.registration-heading h1 { font-size: 28px; font-weight: 800; margin: 0; }
+.registration-intro { color: var(--muted-foreground); text-align: center; font-size: 15px; margin: 15px 0 37px; }
+.registration-fields { display: grid; gap: 22px; }
+.registration-field { display: flex; align-items: flex-start; gap: 14px; }
+.field-icon { flex-shrink: 0; margin-top: 4px; color: var(--primary); }
+.field-body { width: 100%; min-width: 0; }
+.field-label { font-size: 14px; font-weight: 700; display: block; margin-bottom: 8px; }
+.registration-input { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 6px; padding: 0 14px; min-height: 47px; background: var(--background); }
+.registration-input:focus-within { border-color: var(--primary); outline: 3px solid var(--secondary); }
+.registration-input input, .registration-input textarea { padding: 13px 0; width: 100%; min-width: 0; border: 0; background: transparent; color: var(--foreground); outline: 0; font-family: inherit; font-size: 14px; }
+.registration-input input::placeholder, .registration-input textarea::placeholder { color: var(--muted-foreground); }
+.registration-input textarea { resize: vertical; min-height: 84px; }
+.registration-submit { margin-top: 31px; }
+.registration-notice { background: var(--secondary); color: var(--primary); border-radius: 6px; padding: 14px; font-size: 14px; }
+.registration-bottom { margin: auto 0 0; color: var(--muted-foreground); font-size: 12px; padding-top: 22px; }
+
+
+
+
+
+/* Majestanimais — modelo desktop */
+:root {
+  --background: oklch(0.975 0.006 170);
+  --foreground: oklch(0.29 0.035 182);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.405 0.065 181);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.012 175);
+  --secondary-foreground: var(--primary);
+  --muted: var(--secondary);
+  --muted-foreground: oklch(0.55 0.025 184);
+  --accent: oklch(0.94 0.017 175);
+  --accent-foreground: var(--primary);
+  --border: oklch(0.90 0.011 180);
+  --input: var(--border);
+  --ring: var(--primary);
+  --destructive: oklch(0.58 0.19 26);
+  --destructive-foreground: var(--card);
+  --radius: 0.5rem;
+  --photo-overlay: linear-gradient(180deg, oklch(0.17 0.035 175 / 0) 30%, oklch(0.20 0.042 180 / 0.42) 60%, oklch(0.22 0.045 180 / 0.97) 100%);
+  --shell-shadow: 0 18px 65px oklch(0.3 0.035 180 / 0.07), 0 2px 8px oklch(0.3 0.035 180 / 0.03);
+  --font-body: 'Nunito Sans', 'Segoe UI', sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); letter-spacing: 0; -webkit-font-smoothing: antialiased; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+.login-page { min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 56px 40px; }
+.login-shell { width: 1056px; max-width: 100%; min-height: 640px; display: grid; grid-template-columns: 1fr 1fr; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: var(--shell-shadow); }
+.photo-panel { position: relative; min-height: 640px; overflow: hidden; }
+.pet-photo { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; object-position: 47% center; }
+.photo-shade { position: absolute; inset: 0; background: var(--photo-overlay); }
+.brand { position: absolute; bottom: 56px; left: 24px; right: 24px; text-align: center; color: var(--primary-foreground); }
+.brand-paw { width: 54px; height: 54px; margin: 0 auto 15px; display: block; }
+.brand h1 { font-size: 37px; font-weight: 800; margin: 0 0 7px; line-height: 1.2; }
+.brand p { font-size: 16px; margin: 0; opacity: .9; }
+.form-panel { padding: 67px 60px 27px; display: flex; flex-direction: column; justify-content: space-between; }
+.form-content { width: 100%; }
+.welcome-mark { width: 42px; height: 42px; background: var(--secondary); color: var(--primary); display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-bottom: 23px; }
+.welcome h2 { font-size: 26px; line-height: 1.3; font-weight: 800; margin: 0 0 9px; }
+.welcome p { color: var(--muted-foreground); font-size: 14px; margin: 0 0 32px; }
+.fields { display: grid; gap: 16px; }
+.input-field { display: flex; align-items: center; gap: 12px; border: 1px solid var(--input); border-radius: 6px; height: 52px; padding: 0 15px; color: var(--muted-foreground); background: var(--card); transition: border-color .2s; }
+.input-field:focus-within { border-color: var(--primary); outline: 3px solid var(--secondary); }
+.input-field > svg { flex-shrink: 0; width: 19px; height: 19px; }
+.input-field input { border: 0; outline: 0; width: 100%; min-width: 0; color: var(--foreground); background: transparent; font-size: 14px; }
+.input-field input::placeholder { color: var(--muted-foreground); }
+.password-toggle { flex-shrink: 0; width: 26px; height: 32px; padding: 0; color: var(--muted-foreground); background: transparent; border: 0; display: inline-flex; align-items: center; justify-content: center; }
+.password-toggle svg { width: 18px; height: 18px; }
+.submit-button { background: var(--primary); color: var(--primary-foreground); width: 100%; height: 49px; border: 1px solid var(--primary); border-radius: 6px; margin-top: 24px; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: none; transition: opacity .2s; }
+.submit-button:hover { opacity: .9; }
+.signup-text { text-align: center; color: var(--muted-foreground); font-size: 13px; margin: 22px 0 31px; }
+.signup-link { display: inline; color: var(--primary); font-size: 13px; font-weight: 800; border: 0; padding: 0; height: auto; background: transparent; text-decoration: none; }
+.signup-link:hover { text-decoration: underline; }
+.divider { display: flex; align-items: center; gap: 17px; font-size: 12px; color: var(--muted-foreground); margin-bottom: 27px; }
+.divider span { height: 1px; background: var(--border); flex: 1; }
+.organization-button { width: 100%; height: 49px; border: 1px solid var(--primary); border-radius: 6px; color: var(--primary); background: var(--card); font-size: 14px; font-weight: 800; box-shadow: none; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+.organization-button:hover { background: var(--secondary); }
+.form-footer { display: flex; align-items: center; justify-content: center; gap: 7px; color: var(--muted-foreground); font-size: 11px; margin: 35px 0 0; }
+.form-footer svg { width: 13px; height: 13px; }
+.notice { position: fixed; bottom: 24px; right: 24px; left: 24px; margin: auto; max-width: 520px; background: var(--card); color: var(--foreground); border: 1px solid var(--border); border-radius: 6px; padding: 14px 18px; box-shadow: var(--shell-shadow); display: flex; align-items: center; gap: 14px; font-size: 14px; }
+button:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
+@media (min-width: 1500px) { .login-shell { width: 1120px; } .photo-panel { min-height: 680px; } .form-panel { padding: 83px 70px 32px; } }
+@media (max-width: 900px) { .form-panel { padding: 55px 32px 26px; } .welcome h2 { font-size: 24px; } .brand h1 { font-size: 32px; } }
+@media (max-width: 650px) { .login-page { padding: 24px 16px; align-items: flex-start; } .login-shell { grid-template-columns: 1fr; max-width: 420px; } .photo-panel { min-height: 280px; } .pet-photo { object-position: center 39%; } .brand { bottom: 23px; } .brand-paw { width: 40px; height: 40px; margin-bottom: 8px; } .brand h1 { font-size: 29px; } .brand p { font-size: 13px; } .form-panel { padding: 29px 26px 24px; } .welcome-mark { display: none; } .welcome h2 { font-size: 22px; } .welcome p { margin-bottom: 26px; } .form-footer { margin-top: 27px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+
+/* Controles independentes, sem dependências de bibliotecas */
+button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 6px; padding: 8px 12px; background: transparent; color: inherit; font-size: 14px; line-height: 1.4; }
+button svg, .header-actions a svg { width: 18px; height: 18px; flex-shrink: 0; }
+.header-actions a { display: inline-flex; width: 36px; height: 36px; align-items: center; justify-content: center; }
+.header-actions > button, .home-search > button { width: 36px; height: 36px; padding: 8px; }
+.favorite-button { width: 36px; height: 36px; padding: 8px; }
+.section-heading button { color: var(--primary); font-size: 13px; }
+.registration-heading > a svg { width: 18px; height: 18px; }
+.password-toggle { padding: 0; width: 26px; }
+[hidden] { display: none !important; }
+@media(max-width:650px) { .section-heading button { font-size: 11px; } .header-actions > button { width: 28px; padding: 4px; } .favorite-button { width: 27px; height: 27px; padding: 0; } }
+/* Cadastro de usuário e ONG */
+.registration-page { min-height: 100svh; padding: 34px 32px 24px; background: var(--card); display: flex; flex-direction: column; align-items: center; }
+.registration-brand { align-self: flex-start; display: flex; align-items: center; gap: 9px; color: var(--primary); text-decoration: none; font-weight: 800; font-size: 20px; }
+.registration-brand svg { width: 28px; height: 28px; }
+.registration-form { width: 480px; max-width: 100%; margin: 32px auto 24px; }
+.registration-heading { position: relative; display: flex; align-items: center; justify-content: center; min-height: 42px; }
+.registration-heading > a { position: absolute; left: 0; color: var(--primary); display: inline-flex; width: 36px; height: 36px; align-items: center; justify-content: center; }
+.registration-heading h1 { font-size: 28px; font-weight: 800; margin: 0; }
+.registration-intro { color: var(--muted-foreground); text-align: center; font-size: 15px; margin: 15px 0 37px; }
+.registration-fields { display: grid; gap: 22px; }
+.registration-field { display: flex; align-items: flex-start; gap: 14px; }
+.field-icon { flex-shrink: 0; margin-top: 4px; color: var(--primary); }
+.field-body { width: 100%; min-width: 0; }
+.field-label { font-size: 14px; font-weight: 700; display: block; margin-bottom: 8px; }
+.registration-input { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 6px; padding: 0 14px; min-height: 47px; background: var(--background); }
+.registration-input:focus-within { border-color: var(--primary); outline: 3px solid var(--secondary); }
+.registration-input input, .registration-input textarea { padding: 13px 0; width: 100%; min-width: 0; border: 0; background: transparent; color: var(--foreground); outline: 0; font-family: inherit; font-size: 14px; }
+.registration-input input::placeholder, .registration-input textarea::placeholder { color: var(--muted-foreground); }
+.registration-input textarea { resize: vertical; min-height: 84px; }
+.registration-submit { margin-top: 31px; }
+.registration-notice { background: var(--secondary); color: var(--primary); border-radius: 6px; padding: 14px; font-size: 14px; }
+.registration-bottom { margin: auto 0 0; color: var(--muted-foreground); font-size: 12px; padding-top: 22px; }
+
+
+
+
+
+
+/* Majestanimais - estilo desktop compartilhado */
+:root{--verde:#1f5a4a;--verde-2:#2a7a63;--verde-claro:#e6f1ed;--bg:#f4f7f5;--card:#fff;--txt:#1d2b27;--txt-2:#6b7a75;--borda:#dce5e1;--erro:#d9534f;--r:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5}
+a{color:var(--verde);text-decoration:none;font-weight:700}
+a:hover{text-decoration:underline}
+:focus-visible{outline:3px solid var(--verde-2);outline-offset:2px}
+img{max-width:100%;display:block}
+.btn{display:inline-block;border:0;border-radius:10px;padding:13px 22px;font:700 1rem inherit;font-family:inherit;cursor:pointer;text-align:center;background:var(--verde);color:#fff}
+.btn:hover{background:var(--verde-2);text-decoration:none}
+.btn-outline{background:#fff;color:var(--verde);border:2px solid var(--verde)}
+.btn-outline:hover{background:var(--verde-claro)}
+.btn-block{display:block;width:100%}
+/* Telas de acesso (login / cadastros) */
+.auth{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.auth-lado{background:linear-gradient(160deg,rgba(31,90,74,.55),rgba(31,90,74,.95)),#7c9a8f;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:64px}
+.auth-lado .foto{font-size:6rem;margin-bottom:12px}
+.auth-lado h1{font-size:3rem}
+.auth-lado p{font-size:1.2rem;opacity:.9}
+.auth-form{display:flex;align-items:center;justify-content:center;padding:48px}
+.auth-box{width:100%;max-width:440px}
+.auth-box h2{font-size:1.8rem;margin-bottom:4px}
+.auth-box .sub{color:var(--txt-2);margin-bottom:24px}
+.campo{margin-bottom:16px}
+.campo label{display:block;font-weight:700;font-size:.9rem;margin-bottom:6px}
+.campo input,.campo textarea,.campo select{width:100%;padding:13px 14px;border:1px solid var(--borda);border-radius:10px;font:inherit;background:#fff}
+.campo textarea{min-height:100px;resize:vertical}
+.auth-box .rodape{text-align:center;margin-top:18px;font-size:.95rem;color:var(--txt-2)}
+.ou{display:flex;align-items:center;gap:12px;color:var(--txt-2);margin:18px 0}
+.ou::before,.ou::after{content:"";flex:1;height:1px;background:var(--borda)}
+/* Topo */
+.topo{background:#fff;border-bottom:1px solid var(--borda);position:sticky;top:0;z-index:5}
+.topo-in{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:28px}
+.logo{font-size:1.4rem;font-weight:800;color:var(--verde)}
+.topo form{flex:1;max-width:520px}
+.topo input[type=search]{width:100%;padding:11px 16px;border:1px solid var(--borda);border-radius:999px;background:var(--bg);font:inherit}
+.menu{display:flex;gap:22px;margin-left:auto;align-items:center}
+.menu a{color:var(--txt-2)}
+.menu a.ativo{color:var(--verde);border-bottom:3px solid var(--verde)}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--verde-claro);display:grid;place-items:center}
+/* Conteúdo */
+.wrap{max-width:1200px;margin:0 auto;padding:32px 24px}
+.secao-topo{display:flex;justify-content:space-between;align-items:baseline;margin:36px 0 16px}
+.secao-topo h2{font-size:1.4rem}
+.hero{background:linear-gradient(90deg,var(--verde),var(--verde-2));color:#fff;border-radius:20px;padding:48px;display:flex;justify-content:space-between;align-items:center}
+.hero h1{font-size:2.4rem;line-height:1.15;margin-bottom:20px;max-width:420px}
+.hero .btn{background:#fff;color:var(--verde)}
+.hero .foto{font-size:7rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--borda);border-radius:var(--r);overflow:hidden;display:block;color:inherit}
+.card:hover{text-decoration:none;border-color:var(--verde-2)}
+.card .foto{height:180px;background:var(--verde-claro);display:grid;place-items:center;font-size:4rem;object-fit:cover;width:100%}
+.card .info{padding:14px 16px}
+.card h3{font-size:1.1rem}
+.card p{color:var(--txt-2);font-size:.9rem}
+.ong-card{display:flex;gap:16px;align-items:center;padding:18px}
+.ong-card .logo-ong{width:64px;height:64px;border-radius:50%;background:var(--verde-claro);display:grid;place-items:center;font-size:1.8rem;flex:none}
+/* Pesquisa */
+.pesq{display:grid;grid-template-columns:260px 1fr;gap:28px}
+.filtros{background:#fff;border:1px solid var(--borda);border-radius:var(--r);padding:20px;height:fit-content}
+.filtros h3{margin-bottom:12px}
+.abas{display:flex;gap:8px;margin-bottom:20px}
+.aba{padding:9px 22px;border-radius:999px;border:1px solid var(--borda);background:#fff;color:var(--txt);font-weight:700}
+.aba.ativa{background:var(--verde);color:#fff;border-color:var(--verde)}
+.lista-item{display:flex;gap:16px;align-items:center;background:#fff;border:1px solid var(--borda);border-radius:var(--r);padding:14px;margin-bottom:12px;color:inherit}
+.lista-item .foto{width:84px;height:84px;border-radius:12px;background:var(--verde-claro);display:grid;place-items:center;font-size:2.2rem;flex:none}
+.lista-item:hover{text-decoration:none;border-color:var(--verde-2)}
+/* Detalhe do animal */
+.animal{display:grid;grid-template-columns:1.3fr 1fr;gap:32px}
+.galeria .grande{height:420px;border-radius:20px;background:var(--verde-claro);display:grid;place-items:center;font-size:8rem}
+.galeria .mini{display:flex;gap:10px;margin-top:10px}
+.galeria .mini span{width:80px;height:64px;border-radius:10px;background:var(--verde-claro);display:grid;place-items:center;font-size:1.6rem}
+.painel{background:#fff;border:1px solid var(--borda);border-radius:var(--r);padding:24px}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+.tag{background:var(--verde-claro);color:var(--verde);border-radius:999px;padding:4px 14px;font-size:.85rem;font-weight:700}
+.bloco{margin-top:20px}
+.bloco h3{font-size:1rem;margin-bottom:4px}
+.bloco p{color:var(--txt-2)}
+.ong-mini{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+/* Agendar visita */
+.agenda{display:grid;grid-template-columns:1.2fr 1fr;gap:28px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.cal .dia-sem{font-size:.8rem;color:var(--txt-2);font-weight:700}
+.cal button{border:0;background:none;padding:10px 0;border-radius:50%;font:inherit;cursor:pointer}
+.cal button:hover{background:var(--verde-claro)}
+.cal button.sel{background:var(--verde);color:#fff}
+.cal-topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-weight:800}
+.horas{display:flex;gap:10px;flex-wrap:wrap}
+.horas label{border:1px solid var(--borda);border-radius:10px;padding:10px 22px;cursor:pointer;font-weight:700}
+.horas input{position:absolute;opacity:0}
+.horas input:checked+span{color:#fff}
+.horas label:has(input:checked){background:var(--verde);color:#fff;border-color:var(--verde)}
+.horas label:has(input:focus-visible){outline:3px solid var(--verde-2)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;place-items:center;z-index:10}
+.modal.aberto{display:grid}
+.modal-box{background:#fff;border-radius:20px;padding:36px;max-width:420px;text-align:center}
+.modal-box .ok{width:64px;height:64px;border-radius:50%;background:var(--verde);color:#fff;font-size:2rem;display:grid;place-items:center;margin:0 auto 14px}
+.modal-box .btn{margin-top:10px}
+@media(max-width:900px){.auth,.pesq,.animal,.agenda{grid-template-columns:1fr}.auth-lado{display:none}.menu{display:none}.hero .foto{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}

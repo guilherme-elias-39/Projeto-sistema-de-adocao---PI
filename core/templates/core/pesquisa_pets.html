@@ -1,0 +1,111 @@
+{% extends "core/base.html" %}
+
+{% block title %}Animais | Majestanimais{% endblock %}
+
+{% block content %}
+
+<header class="topo">
+    <div class="topo-in">
+        <a class="logo" href="{% url 'pagina_principal' %}">🐾 Majestanimais</a>
+
+        <form action="{% url 'pesquisa_pets' %}" method="get">
+            <input
+                type="search"
+                name="busca"
+                placeholder="Buscar animais ou ONGs..."
+                aria-label="Buscar"
+            >
+        </form>
+
+        <nav class="menu">
+            <a href="{% url 'pagina_principal' %}">Início</a>
+            <a href="{% url 'pesquisa_pets' %}" class="ativo">Pesquisa</a>
+            <a href="#">Mensagens</a>
+            <a href="#" class="avatar" aria-label="Perfil">👤</a>
+        </nav>
+    </div>
+</header>
+
+<main class="wrap">
+    <div class="abas">
+        <a class="aba ativa" href="{% url 'pesquisa_pets' %}">Animais</a>
+        <a class="aba" href="{% url 'pesquisa_instituicoes' %}">ONGs</a>
+    </div>
+
+    <div class="pesq">
+        <aside class="filtros">
+            <h3>Filtros</h3>
+
+            <form action="{% url 'pesquisa_pets' %}" method="get">
+                <div class="campo">
+                    <label for="esp">Espécie</label>
+                    <select id="esp" name="especie">
+                        <option value="">Todas</option>
+                        <option value="caes">Cães</option>
+                        <option value="gatos">Gatos</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="porte">Porte</label>
+                    <select id="porte" name="porte">
+                        <option value="">Todos</option>
+                        <option value="pequeno">Pequeno</option>
+                        <option value="medio">Médio</option>
+                        <option value="grande">Grande</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="cid">Cidade</label>
+                    <input
+                        id="cid"
+                        name="cidade"
+                        type="text"
+                        placeholder="Ex.: Pau dos Ferros"
+                    >
+                </div>
+
+                <button class="btn btn-block" type="submit">Filtrar</button>
+            </form>
+        </aside>
+
+        <section>
+            <h2 style="margin-bottom: 16px;">Animais encontrados (32)</h2>
+
+            <a class="lista-item" href="{% url 'perfil_animal' %}">
+                <div class="foto">🐶</div>
+                <div>
+                    <h3>Bela</h3>
+                    <p>Vira-lata • 2 anos<br>ONG Patinhas Felizes • Pau dos Ferros/RN</p>
+                </div>
+            </a>
+
+            <a class="lista-item" href="{% url 'perfil_animal' %}">
+                <div class="foto">🐕</div>
+                <div>
+                    <h3>Thor</h3>
+                    <p>Labrador • 1 ano<br>ONG Esperança Animal • Pau dos Ferros/RN</p>
+                </div>
+            </a>
+
+            <a class="lista-item" href="{% url 'perfil_animal' %}">
+                <div class="foto">🐩</div>
+                <div>
+                    <h3>Mel</h3>
+                    <p>SRD • 3 anos<br>ONG Vida Animal • Apodi/RN</p>
+                </div>
+            </a>
+
+            <a class="lista-item" href="{% url 'perfil_animal' %}">
+                <div class="foto">🐕‍🦺</div>
+                <div>
+                    <h3>Luna</h3>
+                    <p>Vira-lata • 1 ano<br>ONG Patinhas Felizes • Pau dos Ferros/RN</p>
+                </div>
+            </a>
+        </section>
+    </div>
+</main>
+
+{% endblock %}

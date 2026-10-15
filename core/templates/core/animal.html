@@ -1,0 +1,125 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Thor | Majestanimais{% endblock %}
+
+{% block content %}
+
+<header class="topo">
+    <div class="topo-in">
+        <a class="logo" href="{% url 'pagina_principal' %}">🐾 Majestanimais</a>
+
+        <form action="{% url 'pesquisa_pets' %}" method="get">
+            <input
+                type="search"
+                name="busca"
+                placeholder="Buscar animais ou ONGs..."
+                aria-label="Buscar"
+            >
+        </form>
+
+        <nav class="menu">
+            <a href="{% url 'pagina_principal' %}">Início</a>
+            <a href="{% url 'pesquisa_pets' %}" class="ativo">Pesquisa</a>
+            <a href="#">Mensagens</a>
+            <a href="#" class="avatar" aria-label="Perfil">👤</a>
+        </nav>
+    </div>
+</header>
+
+<main class="wrap">
+
+    <p style="margin-bottom:16px">
+        <a href="{% url 'pesquisa_pets' %}">← Voltar para a pesquisa</a>
+    </p>
+
+    <div class="animal">
+
+        <section class="galeria">
+            <div class="grande">🐕</div>
+
+            <div class="mini">
+                <span>🐕</span>
+                <span>🐕</span>
+                <span>🐕</span>
+                <span>🐕</span>
+            </div>
+        </section>
+
+        <section class="painel">
+
+            <div class="ong-mini">
+                <span class="avatar">🐾</span>
+
+                <div>
+                    <strong>Patinhas Felizes</strong>
+                    <p style="color:var(--txt-2);font-size:.9rem">
+                        ONG • Pau dos Ferros/RN
+                    </p>
+                </div>
+
+                <a class="btn btn-outline"
+                   style="margin-left:auto;padding:6px 16px"
+                   href="#">
+                    Seguir
+                </a>
+            </div>
+
+            <h1>Thor ♂</h1>
+
+            <div class="tags">
+                <span class="tag">2 anos</span>
+                <span class="tag">Médio</span>
+                <span class="tag">SRD</span>
+            </div>
+
+            <p style="color:var(--txt-2)">
+                Encontrado em Pau dos Ferros/RN
+            </p>
+
+            <div class="bloco">
+                <h3>Características</h3>
+
+                <div class="tags">
+                    <span class="tag">Carinhoso</span>
+                    <span class="tag">Brincalhão</span>
+                    <span class="tag">Sociável</span>
+                    <span class="tag">Dócil</span>
+                </div>
+            </div>
+
+            <div class="bloco">
+                <h3>Histórico</h3>
+                <p>
+                    Thor foi encontrado na região central da cidade,
+                    com sinais de abandono. Desde então, está sob os
+                    cuidados da ONG Patinhas Felizes, recebendo todo
+                    o amor e atenção que merece.
+                </p>
+            </div>
+
+            <div class="bloco">
+                <h3>Saúde</h3>
+                <p>Vacinado, vermifugado e castrado.</p>
+            </div>
+
+            <div class="bloco">
+                <h3>Comportamento</h3>
+                <p>
+                    É muito carinhoso, adora brincar e se dá bem com
+                    outros animais. Ideal para famílias que buscam
+                    um companheiro leal e alegre.
+                </p>
+            </div>
+
+            <a class="btn btn-block"
+               style="margin-top:24px"
+               href="{% url 'agendar_visita' %}">
+                Agendar visita
+            </a>
+
+        </section>
+    </div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agendar visita | Majestanimais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<header class="topo"><div class="topo-in">
+  <a class="logo" href="principal.html">🐾 Majestanimais</a>
+  <form action="pesquisa-animais.html"><input type="search" placeholder="Buscar animais ou ONGs..." aria-label="Buscar"></form>
+  <nav class="menu">
+    <a href="principal.html" class="">Início</a>
+    <a href="pesquisa-animais.html" class="ativo">Pesquisa</a>
+    <a href="#">Mensagens</a>
+    <a href="#" class="avatar" aria-label="Perfil">👤</a>
+  </nav>
+</div></header>
+<main class="wrap">
+  <p style="margin-bottom:16px"><a href="animal.html">← Voltar para o Thor</a></p>
+  <h1 style="margin-bottom:20px">Agendar visita</h1>
+  <div class="agenda">
+    <section class="painel">
+      <h2 style="margin-bottom:12px">Selecione a data</h2>
+      <div class="cal-topo"><span>‹</span><span>Abril 2026</span><span>›</span></div>
+      <div class="cal" id="cal"></div>
+    </section>
+    <section class="painel">
+      <h2 style="margin-bottom:12px">Horários disponíveis</h2>
+      <div class="horas">
+        <label><input type="radio" name="hora" value="08:00">08:00</label>
+        <label><input type="radio" name="hora" value="10:00">10:00</label>
+        <label><input type="radio" name="hora" value="14:00" checked>14:00</label>
+        <label><input type="radio" name="hora" value="16:00">16:00</label>
+      </div>
+      <button class="btn btn-block" style="margin-top:28px" id="confirmar">Confirmar visita</button>
+    </section>
+  </div>
+</main>
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <div class="ok">✓</div>
+    <h2>Visita agendada!</h2>
+    <p id="msg" style="color:var(--txt-2)"></p>
+    <a class="btn btn-block" href="#">Ver meus agendamentos</a>
+    <a class="btn btn-outline btn-block" href="principal.html">Fechar</a>
+  </div>
+</div>
+<script>
+// Calendário de abril/2026 (dia 1 cai numa quarta-feira; 30 dias)
+let dia = 16;
+const cal = document.getElementById('cal');
+function desenhar(){
+  cal.innerHTML = ['D','S','T','Q','Q','S','S'].map(d=>`<span class="dia-sem">${d}</span>`).join('') + '<span></span>'.repeat(3);
+  for(let i=1;i<=30;i++) cal.innerHTML += `<button type="button" class="${i===dia?'sel':''}" data-d="${i}">${i}</button>`;
+}
+cal.addEventListener('click', e => { if(e.target.dataset.d){ dia = +e.target.dataset.d; desenhar(); } });
+desenhar();
+document.getElementById('confirmar').onclick = () => {
+  const h = document.querySelector('input[name=hora]:checked').value;
+  document.getElementById('msg').textContent = `Sua visita ao Thor foi confirmada para o dia ${dia} de abril de 2026, às ${h}.`;
+  document.getElementById('modal').classList.add('aberto');
+};
+</script>
+</body></html>

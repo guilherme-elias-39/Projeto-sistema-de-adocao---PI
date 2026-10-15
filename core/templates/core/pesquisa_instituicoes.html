@@ -1,0 +1,75 @@
+{% extends "core/base.html" %}
+
+{% block title %}ONGs | Majestanimais{% endblock %}
+
+{% block content %}
+
+<header class="topo">
+    <div class="topo-in">
+        <a class="logo" href="{% url 'pagina_principal' %}">🐾 Majestanimais</a>
+
+        <form action="{% url 'pesquisa_pets' %}" method="get">
+            <input type="search" name="busca"
+                   placeholder="Buscar animais ou ONGs..."
+                   aria-label="Buscar">
+        </form>
+
+        <nav class="menu">
+            <a href="{% url 'pagina_principal' %}">Início</a>
+            <a href="{% url 'pesquisa_pets' %}" class="ativo">Pesquisa</a>
+            <a href="#">Mensagens</a>
+            <a href="#" class="avatar" aria-label="Perfil">👤</a>
+        </nav>
+    </div>
+</header>
+
+<main class="wrap">
+    <div class="abas">
+        <a class="aba" href="{% url 'pesquisa_pets' %}">Animais</a>
+        <a class="aba ativa" href="{% url 'pesquisa_instituicoes' %}">ONGs</a>
+    </div>
+
+    <h2 style="margin-bottom: 16px;">ONGs encontradas (12)</h2>
+
+    <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));">
+
+        <a class="card ong-card" href="#">
+            <span class="logo-ong">🐾</span>
+            <div>
+                <h3>Patinhas Felizes</h3>
+                <p>Pau dos Ferros/RN</p>
+                <p>32 animais disponíveis</p>
+            </div>
+        </a>
+
+        <a class="card ong-card" href="#">
+            <span class="logo-ong">🐾</span>
+            <div>
+                <h3>Esperança Animal</h3>
+                <p>Apodi/RN</p>
+                <p>18 animais disponíveis</p>
+            </div>
+        </a>
+
+        <a class="card ong-card" href="#">
+            <span class="logo-ong">🐾</span>
+            <div>
+                <h3>Vida Animal</h3>
+                <p>Pau dos Ferros/RN</p>
+                <p>25 animais disponíveis</p>
+            </div>
+        </a>
+
+        <a class="card ong-card" href="#">
+            <span class="logo-ong">🐾</span>
+            <div>
+                <h3>Amor de 4 Patas</h3>
+                <p>Currais Novos/RN</p>
+                <p>14 animais disponíveis</p>
+            </div>
+        </a>
+
+    </div>
+</main>
+
+{% endblock %}
