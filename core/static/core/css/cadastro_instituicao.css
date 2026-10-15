@@ -1,0 +1,363 @@
+
+
+/* ========================================
+   CADASTRO DE ONG / ABRIGO
+======================================== */
+
+.cadastro-ong-page {
+    min-height: 100vh;
+    background: radial-gradient(
+        ellipse at 50% 35%,
+        #ffffff 0%,
+        #f5f9f8 65%,
+        #edf4f2 100%
+    );
+}
+
+.cadastro-ong-layout {
+    min-height: 100vh;
+    padding: 32px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cadastro-ong-card {
+    width: min(100%, 480px);
+    padding: 27px 32px 29px;
+    background: var(--white);
+    border: 1px solid #d9e4e0;
+    border-radius: 17px;
+    box-shadow: var(--shadow);
+}
+
+.cadastro-ong-header {
+    position: relative;
+    margin-bottom: 22px;
+    text-align: center;
+}
+
+.cadastro-ong-voltar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green);
+    border-radius: 9px;
+    transition: background 0.2s ease;
+}
+
+.cadastro-ong-voltar:hover {
+    background: var(--green-light);
+}
+
+.cadastro-ong-voltar svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.cadastro-ong-header h1 {
+    margin: 0;
+    padding: 2px 28px 0;
+    color: var(--green);
+    font-size: 1.45rem;
+    font-weight: 750;
+    line-height: 1.4;
+    letter-spacing: -0.4px;
+}
+
+.cadastro-ong-header p {
+    margin: 7px 0 0;
+    color: var(--green);
+    font-size: 0.9rem;
+}
+
+/* Formulário */
+
+.cadastro-ong-form {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.ong-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ong-campo > label {
+    color: var(--green);
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.ong-input-wrap {
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 11px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: #fcfdfd;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ong-input-wrap:focus-within {
+    border-color: #6da69b;
+    box-shadow: 0 0 0 3px rgba(20, 91, 82, 0.08);
+}
+
+.ong-icone {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: #71847f;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ong-input-wrap input {
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.87rem;
+}
+
+.ong-input-wrap input::placeholder,
+.ong-input-wrap textarea::placeholder {
+    color: #899893;
+    opacity: 1;
+}
+
+.ong-input-wrap input:focus-visible,
+.ong-input-wrap textarea:focus-visible {
+    outline: none;
+}
+
+/* Campo de descrição */
+
+.ong-textarea-wrap {
+    min-height: 76px;
+    align-items: flex-start;
+    padding-top: 10px;
+    padding-bottom: 8px;
+}
+
+.ong-icone-descricao {
+    margin-top: 3px;
+}
+
+.ong-input-wrap textarea {
+    width: 100%;
+    min-width: 0;
+    min-height: 54px;
+    padding: 0;
+    resize: vertical;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.87rem;
+    line-height: 1.5;
+}
+
+.ong-contador {
+    color: var(--muted);
+    font-size: 0.74rem;
+    text-align: right;
+}
+
+/* Mensagens de validação */
+
+.ong-erro {
+    color: #b33b36;
+    font-size: 0.77rem;
+    line-height: 1.4;
+}
+
+.ong-mensagem {
+    margin: 0;
+    font-size: 0.84rem;
+    overflow-wrap: anywhere;
+}
+
+.ong-mensagem:empty {
+    display: none;
+}
+
+.ong-mensagem-erro {
+    color: #a63b35;
+}
+
+.ong-mensagem-success {
+    color: var(--green);
+}
+
+/* Botão */
+
+.cadastro-ong-submit {
+    width: 100%;
+    min-height: 46px;
+    margin-top: 3px;
+}
+
+/* Tablet e celular */
+
+@media (max-width: 520px) {
+    .cadastro-ong-layout {
+        padding: 20px 14px;
+    }
+
+    .cadastro-ong-card {
+        width: 100%;
+        padding: 24px 20px 25px;
+        border-radius: 14px;
+    }
+
+    .cadastro-ong-header {
+        margin-bottom: 19px;
+    }
+
+    .cadastro-ong-header h1 {
+        font-size: 1.3rem;
+        padding-right: 22px;
+        padding-left: 30px;
+    }
+
+    .cadastro-ong-header p {
+        font-size: 0.85rem;
+    }
+
+    .cadastro-ong-form {
+        gap: 12px;
+    }
+}
+
+
+
+
+/* ========================================
+   6. BOTÕES E LINKS
+======================================== */
+
+.btn-primary,
+.btn-outline {
+    min-height: 48px;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    border: 1px solid var(--green);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.btn-primary {
+    color: var(--white);
+    background: var(--green);
+}
+
+.btn-primary:hover {
+    background: var(--green-dark);
+}
+
+.btn-primary:active,
+.btn-outline:active {
+    transform: scale(0.99);
+}
+
+.btn-outline {
+    color: var(--green);
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background: var(--green-light);
+}
+
+.login-form .btn-primary {
+    margin-top: 2px;
+}
+
+.create-account {
+    margin: 17px 0 0;
+    text-align: center;
+    font-size: 0.84rem;
+    color: #6d7c77;
+}
+
+.create-account a {
+    color: var(--green);
+    font-weight: 700;
+}
+
+.create-account a:hover {
+    text-decoration: underline;
+}
+
+.login-divider {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin: 19px 0;
+}
+
+.login-divider > span:first-child,
+.login-divider > span:last-child {
+    height: 1px;
+    flex: 1;
+    background: #e1e9e6;
+}
+
+.divider-label {
+    color: #89958f;
+    font-size: 0.84rem;
+}
+
+.login-message {
+    margin: 0;
+    color: #a63b35;
+    font-size: 0.84rem;
+}
+
+.login-message:empty {
+    display: none;
+}
+
+.login-caption {
+    margin: 0;
+    color: #83918c;
+    text-align: center;
+    font-size: 0.86rem;
+}
+

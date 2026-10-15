@@ -1,0 +1,163 @@
+/* ========================================
+   1. IDENTIDADE VISUAL E RESET
+======================================== */
+
+:root {
+    --green: #145b52;
+    --green-dark: #10473f;
+    --green-light: #e6f0ed;
+    --text: #263936;
+    --muted: #73817e;
+    --border: #dce5e2;
+    --background: #f4f8f7;
+    --white: #ffffff;
+    --radius: 14px;
+    --shadow: 0 18px 55px rgba(24, 67, 59, 0.09);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    background: var(--background);
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button,
+a,
+input {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid #81bcb0;
+    outline-offset: 3px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/* ========================================
+   2. CABEÇALHO
+======================================== */
+
+.site-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+}
+
+.header-container {
+    width: min(1180px, calc(100% - 48px));
+    min-height: 78px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.brand,
+.footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: 750;
+    color: var(--green);
+}
+
+.brand-icon {
+    font-size: 1.8rem;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.main-nav a {
+    color: #53645f;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.main-nav a:hover {
+    color: var(--green);
+}
+
+.header-login {
+    padding: 10px 24px;
+    color: var(--white);
+    background: var(--green);
+    border-radius: 9px;
+    font-weight: 650;
+}
+
+
+
+/* ========================================
+   8. RODAPÉ
+======================================== */
+
+.site-footer {
+    padding: 38px 24px;
+    background: #123f38;
+    color: #e9f3ef;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.footer-brand {
+    color: var(--white);
+}
+
+.footer-container p {
+    color: #c2d4ce;
+    font-size: 0.91rem;
+}
+
+.footer-container small {
+    color: #afc4bd;
+    font-size: 0.8rem;
+}
+
+
+
+
+
+

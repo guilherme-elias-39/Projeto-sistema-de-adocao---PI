@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Painel principal | MajestAnimais{% endblock %}
+{% block body_class %}painel-principal-page{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/css/principal.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="painel-layout">
+    <aside class="painel-sidebar" aria-label="Menu principal">
+        <a class="painel-brand" href="{% url 'pagina_principal' %}">
+            <span class="painel-brand-icon" aria-hidden="true">🐾</span>
+            <span>MajestAnimais</span>
+        </a>
+
+        <p class="painel-menu-label">MENU PRINCIPAL</p>
+        <nav class="painel-nav">
+            <a class="painel-nav-link is-active" href="{% url 'pagina_principal' %}">
+                <span aria-hidden="true">⌂</span> Início
+            </a>
+            <a class="painel-nav-link" href="{% url 'pesquisa_pets' %}">
+                <span aria-hidden="true">⌕</span> Pesquisar animais
+            </a>
+            <a class="painel-nav-link" href="{'#'}">
+                <span aria-hidden="true">♡</span> ONGs
+            </a>
+            <a class="painel-nav-link" href="{'#'}">
+                <span aria-hidden="true">▤</span> Mensagens
+                <span class="painel-nav-badge">2</span>
+            </a>
+            <a class="painel-nav-link" href="{'#'}">
+                <span aria-hidden="true">♙</span> Meu perfil
+            </a>
+        </nav>
+
+        <div class="painel-sidebar-note">
+            <span class="painel-note-paw" aria-hidden="true">🐾</span>
+            <h2>Um novo amigo espera por você!</h2>
+            <p>Adotar transforma duas vidas: a sua e a dele.</p>
+            <a href="{% url 'pesquisa_pets' %}">Encontrar meu amigo <span>→</span></a>
+        </div>
+    </aside>
+
+    <div class="painel-main">
+        <div class="painel-topline">
+            <div class="painel-breadcrumb">
+                <a href="{% url 'pagina_principal' %}">Início</a><span>/</span><span>Página principal</span>
+            </div>
+            <div class="painel-account-actions">
+                <button class="painel-icon-button" type="button" aria-label="Notificações" title="Notificações">♧<i></i></button>
+                <a class="painel-icon-button" href="{'#'}" aria-label="Mensagens" title="Mensagens">▤</a>
+                <a class="painel-user-chip" href="{'#'}">
+                    <span class="painel-avatar" aria-hidden="true">A</span>
+                    <span class="painel-user-copy"><strong>Olá, Ana!</strong><small>Adotante</small></span>
+                    <span class="painel-user-chevron">⌄</span>
+                </a>
+            </div>
+        </div>
+
+        <section class="painel-welcome">
+            <div class="painel-welcome-copy">
+                <span class="painel-eyebrow">BEM-VINDA À COMUNIDADE</span>
+                <h1>Um lar cheio de amor <span>começa aqui.</span></h1>
+                <p>Encontre seu novo melhor amigo e transforme uma vida para sempre.</p>
+            </div>
+            <form class="painel-search" id="painel-search-form" role="search">
+                <label for="painel-search-input" class="painel-sr-only">Buscar animais ou ONGs</label>
+                <span aria-hidden="true">⌕</span>
+                <input id="painel-search-input" type="search" placeholder="Buscar animais ou ONGs..." autocomplete="off">
+                <kbd>Ctrl K</kbd>
+            </form>
+        </section>
+
+        <section class="painel-hero" aria-label="Adoção responsável">
+            <div class="painel-hero-overlay"></div>
+            <div class="painel-hero-content">
+                <span class="painel-hero-label">ADOÇÃO RESPONSÁVEL</span>
+                <h2>Adote um amigo<br>para toda a vida!</h2>
+                <p>Amor verdadeiro não se compra. Se adota.</p>
+                <a class="painel-hero-button" href="{% url 'pesquisa_pets' %}">Encontrar meu amigo <span>→</span></a>
+            </div>
+            <div class="painel-hero-note"><span>♥</span> Uma adoção muda tudo</div>
+        </section>
+
+        <section class="painel-pets" id="animais-disponiveis">
+            <div class="painel-section-heading">
+                <div>
+                    <span class="painel-eyebrow">SEU PRÓXIMO MELHOR AMIGO</span>
+                    <div class="painel-title-line"><h2>Animais disponíveis</h2><span class="painel-count" id="painel-pet-count">4 amigos</span></div>
+                </div>
+                <div class="painel-section-actions">
+                    <label for="painel-pet-filter">Filtrar:</label>
+                    <select id="painel-pet-filter">
+                        <option value="todos">Todos</option>
+                        <option value="cachorro">Cachorros</option>
+                        <option value="gato">Gatos</option>
+                    </select>
+                    <a href="{% url 'pesquisa_pets' %}" class="painel-view-all">Ver todos <span>→</span></a>
+                </div>
+            </div>
+
+            <div class="painel-pet-grid" id="painel-pet-grid">
+                <article class="painel-pet-card" data-kind="cachorro" data-name="Bela" data-search="bela carinhosa vira-lata">
+                    <div class="painel-pet-photo"><img src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=700&q=85" alt="Cachorro de pelagem dourada" loading="lazy"><span class="painel-pet-tag">Carinhosa</span><button class="painel-favorite" type="button" aria-label="Favoritar Bela" aria-pressed="false">♡</button></div>
+                    <div class="painel-pet-info"><div class="painel-pet-title"><h3>Bela</h3><span>Cachorro</span></div><p>Vira-lata · 2 anos</p><a href="{% url 'pesquisa_pets' %}" class="painel-pet-link">Conhecer pet <span>→</span></a></div>
+                </article>
+                <article class="painel-pet-card" data-kind="cachorro" data-name="Thor" data-search="thor brincalhao labrador">
+                    <div class="painel-pet-photo"><img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=700&q=85" alt="Cachorro disponível para adoção" loading="lazy"><span class="painel-pet-tag">Brincalhão</span><button class="painel-favorite" type="button" aria-label="Favoritar Thor" aria-pressed="false">♡</button></div>
+                    <div class="painel-pet-info"><div class="painel-pet-title"><h3>Thor</h3><span>Cachorro</span></div><p>Labrador · 1 ano</p><a href="{% url 'pesquisa_pets' %}" class="painel-pet-link">Conhecer pet <span>→</span></a></div>
+                </article>
+                <article class="painel-pet-card" data-kind="cachorro" data-name="Luna" data-search="luna sociavel vira-lata">
+                    <div class="painel-pet-photo"><img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=700&q=85" alt="Cachorro de pequeno porte" loading="lazy"><span class="painel-pet-tag">Sociável</span><button class="painel-favorite" type="button" aria-label="Favoritar Luna" aria-pressed="false">♡</button></div>
+                    <div class="painel-pet-info"><div class="painel-pet-title"><h3>Luna</h3><span>Cachorro</span></div><p>Vira-lata · 1 ano</p><a href="{% url 'pesquisa_pets' %}" class="painel-pet-link">Conhecer pet <span>→</span></a></div>
+                </article>
+                <article class="painel-pet-card" data-kind="gato" data-name="Mel" data-search="mel docil gato laranja">
+                    <div class="painel-pet-photo"><img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=700&q=85" alt="Gato laranja disponível para adoção" loading="lazy"><span class="painel-pet-tag">Dócil</span><button class="painel-favorite" type="button" aria-label="Favoritar Mel" aria-pressed="false">♡</button></div>
+                    <div class="painel-pet-info"><div class="painel-pet-title"><h3>Mel</h3><span>Gato</span></div><p>SRD · 2 anos</p><a href="{% url 'pesquisa_pets' %}" class="painel-pet-link">Conhecer pet <span>→</span></a></div>
+                </article>
+            </div>
+            <p class="painel-empty" id="painel-no-pets" hidden>Nenhum animal corresponde a esse filtro.</p>
+        </section>
+
+        <section class="painel-ongs">
+            <div><span class="painel-eyebrow">JUNTOS PELA ADOÇÃO</span><h2>ONGs em destaque</h2><p>Conheça as instituições que cuidam dos animais e ajudam cada um a encontrar uma família.</p></div>
+            <a href="{% url 'pesquisa_instituicoes' %}">Ver ONGs <span>→</span></a>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}pesquisa
+<script src="{% static 'js/principal.js' %}" defer></script>
+{% endblock %}

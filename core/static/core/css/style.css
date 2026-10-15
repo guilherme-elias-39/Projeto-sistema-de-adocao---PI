@@ -1,0 +1,687 @@
+/* ========================================
+   1. IDENTIDADE VISUAL E RESET
+======================================== */
+
+:root {
+    --green: #145b52;
+    --green-dark: #10473f;
+    --green-light: #e6f0ed;
+    --text: #263936;
+    --muted: #73817e;
+    --border: #dce5e2;
+    --background: #f4f8f7;
+    --white: #ffffff;
+    --radius: 14px;
+    --shadow: 0 18px 55px rgba(24, 67, 59, 0.09);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    background: var(--background);
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button,
+a,
+input {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid #81bcb0;
+    outline-offset: 3px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/* ========================================
+   2. CABEÇALHO
+======================================== */
+
+.site-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+}
+
+.header-container {
+    width: min(1180px, calc(100% - 48px));
+    min-height: 78px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.brand,
+.footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: 750;
+    color: var(--green);
+}
+
+.brand-icon {
+    font-size: 1.8rem;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.main-nav a {
+    color: #53645f;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.main-nav a:hover {
+    color: var(--green);
+}
+
+.header-login {
+    padding: 10px 24px;
+    color: var(--white);
+    background: var(--green);
+    border-radius: 9px;
+    font-weight: 650;
+}
+
+
+/* ========================================
+   3. LOGIN — FUNDO E CARTÃO
+======================================== */
+
+.login-page {
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            ellipse at 50% 35%,
+            #ffffff 0%,
+            #f5f9f8 65%,
+            #edf4f2 100%
+        );
+}
+
+.login-page #conteudo-principal {
+    min-height: 100vh;
+}
+
+.login-layout {
+    min-height: 100vh;
+    padding: 46px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+
+.login-card {
+    width: min(100%, 480px);
+    background: var(--white);
+    border: 1px solid #d9e4e0;
+    border-radius: 17px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+
+/* ========================================
+   4. BANNER COM CÃO E GATO
+======================================== */
+
+.login-hero {
+    min-height: 255px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--green);
+}
+
+.login-hero-image {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 43%;
+}
+
+.hero-overlay {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(9, 35, 30, 0.04) 10%,
+        rgba(7, 39, 34, 0.30) 48%,
+        rgba(6, 39, 34, 0.94) 100%
+    );
+}
+
+.hero-content {
+    width: 100%;
+    padding: 25px 20px 24px;
+    text-align: center;
+    color: var(--white);
+}
+
+.hero-paw {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 2.3rem;
+    line-height: 1.3;
+    filter: grayscale(1) brightness(0) invert(1);
+}
+
+.hero-content h1 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.1rem);
+    font-weight: 750;
+    letter-spacing: -0.8px;
+    line-height: 1.25;
+}
+
+.hero-content p {
+    margin: 7px 0 0;
+    font-size: 0.93rem;
+    color: rgba(255, 255, 255, 0.91);
+}
+
+
+/* ========================================
+   5. FORMULÁRIO
+======================================== */
+
+.login-content {
+    padding: 28px 34px 32px;
+}
+
+.login-heading h2 {
+    margin: 0 0 3px;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    font-weight: 750;
+    color: #145b52;
+}
+
+.login-heading p {
+    margin: 0;
+    color: #145b52;
+    font-size: 0.91rem;
+}
+
+.login-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.form-field {
+    min-height: 49px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 0 13px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fcfdfd;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-field:focus-within {
+    border-color: #6da69b;
+    box-shadow: 0 0 0 3px rgba(20, 91, 82, 0.08);
+}
+
+.field-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: #71847f;
+}
+
+.field-icon svg,
+.password-toggle svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.form-field input {
+    width: 100%;
+    min-width: 0;
+    height: 46px;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 0.91rem;
+}
+
+.form-field input::placeholder {
+    color: #899893;
+    opacity: 1;
+}
+
+.form-field input:focus-visible {
+    outline: none;
+}
+
+.password-toggle {
+    width: 25px;
+    height: 25px;
+    padding: 4px;
+    flex-shrink: 0;
+    border: 0;
+    border-radius: 5px;
+    color: #73847f;
+    background: transparent;
+    cursor: pointer;
+}
+
+.password-toggle:hover {
+    color: var(--green);
+    background: var(--green-light);
+}
+
+
+/* ========================================
+   6. BOTÕES E LINKS
+======================================== */
+
+.btn-primary,
+.btn-outline {
+    min-height: 48px;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    border: 1px solid var(--green);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.btn-primary {
+    color: var(--white);
+    background: var(--green);
+}
+
+.btn-primary:hover {
+    background: var(--green-dark);
+}
+
+.btn-primary:active,
+.btn-outline:active {
+    transform: scale(0.99);
+}
+
+.btn-outline {
+    color: var(--green);
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background: var(--green-light);
+}
+
+.login-form .btn-primary {
+    margin-top: 2px;
+}
+
+.create-account {
+    margin: 17px 0 0;
+    text-align: center;
+    font-size: 0.84rem;
+    color: #6d7c77;
+}
+
+.create-account a {
+    color: var(--green);
+    font-weight: 700;
+}
+
+.create-account a:hover {
+    text-decoration: underline;
+}
+
+.login-divider {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin: 19px 0;
+}
+
+.login-divider > span:first-child,
+.login-divider > span:last-child {
+    height: 1px;
+    flex: 1;
+    background: #e1e9e6;
+}
+
+.divider-label {
+    color: #89958f;
+    font-size: 0.84rem;
+}
+
+.login-message {
+    margin: 0;
+    color: #a63b35;
+    font-size: 0.84rem;
+}
+
+.login-message:empty {
+    display: none;
+}
+
+.login-caption {
+    margin: 0;
+    color: #83918c;
+    text-align: center;
+    font-size: 0.86rem;
+}
+
+
+/* ========================================
+   7. PÁGINA PRINCIPAL
+======================================== */
+
+.home-page {
+    background: #f8faf9;
+}
+
+.home-hero {
+    width: min(1180px, calc(100% - 48px));
+    min-height: 470px;
+    margin: 0 auto;
+    padding: 80px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.home-hero-content {
+    max-width: 650px;
+}
+
+.eyebrow {
+    color: var(--green);
+    font-size: 0.83rem;
+    font-weight: 750;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+}
+
+.home-hero h1 {
+    margin: 15px 0;
+    font-size: clamp(2.5rem, 5vw, 4.3rem);
+    line-height: 1.1;
+    letter-spacing: -2px;
+    color: #1d3832;
+}
+
+.home-hero-content > p,
+.home-section > p {
+    max-width: 660px;
+    color: #657670;
+    font-size: 1.05rem;
+}
+
+.home-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 13px;
+    margin-top: 28px;
+}
+
+.home-actions .btn-primary,
+.home-actions .btn-outline {
+    width: auto;
+    min-width: 180px;
+}
+
+.home-hero-decoration {
+    width: 310px;
+    height: 310px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-radius: 50%;
+    background: var(--green-light);
+}
+
+.home-hero-decoration span {
+    font-size: 4.3rem;
+}
+
+.home-section {
+    padding: 72px 24px;
+    text-align: center;
+}
+
+.home-section h2 {
+    margin: 10px 0;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+.home-section > p {
+    margin: 12px auto 0;
+}
+
+.adoption-section {
+    background: #eaf3f0;
+}
+
+.adoption-section .btn-primary {
+    width: auto;
+    margin-top: 25px;
+}
+
+
+/* ========================================
+   8. RODAPÉ
+======================================== */
+
+.site-footer {
+    padding: 38px 24px;
+    background: #123f38;
+    color: #e9f3ef;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.footer-brand {
+    color: var(--white);
+}
+
+.footer-container p {
+    color: #c2d4ce;
+    font-size: 0.91rem;
+}
+
+.footer-container small {
+    color: #afc4bd;
+    font-size: 0.8rem;
+}
+
+
+/* ========================================
+   9. RESPONSIVIDADE
+======================================== */
+
+@media (min-width: 1200px) {
+    .login-layout {
+        padding-top: 55px;
+        padding-bottom: 55px;
+    }
+
+    .login-card {
+        width: 480px;
+    }
+
+    .login-hero {
+        min-height: 270px;
+    }
+
+    .login-content {
+        padding: 30px 36px 34px;
+    }
+}
+
+@media (max-width: 760px) {
+    .header-container {
+        width: calc(100% - 32px);
+        min-height: 68px;
+    }
+
+    .main-nav {
+        display: none;
+    }
+
+    .home-hero {
+        width: calc(100% - 36px);
+        padding: 55px 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 35px;
+    }
+
+    .home-hero-decoration {
+        width: 220px;
+        height: 220px;
+        align-self: center;
+    }
+
+    .home-hero-decoration span {
+        font-size: 3rem;
+    }
+
+    .home-hero h1 {
+        letter-spacing: -1px;
+    }
+}
+
+@media (max-width: 520px) {
+    .login-layout {
+        min-height: 100vh;
+        padding: 20px 14px;
+        justify-content: center;
+    }
+
+    .login-card {
+        width: 100%;
+        border-radius: 14px;
+    }
+
+    .login-hero {
+        min-height: 205px;
+    }
+
+    .hero-content {
+        padding: 20px 14px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.65rem;
+    }
+
+    .login-content {
+        padding: 24px 20px 25px;
+    }
+
+    .login-heading h2 {
+        font-size: 1.18rem;
+    }
+
+    .login-caption {
+        font-size: 0.8rem;
+    }
+
+    .header-login {
+        padding: 8px 15px;
+    }
+
+    .home-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .home-actions .btn-primary,
+    .home-actions .btn-outline {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

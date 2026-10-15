@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}MajestAnimais{% endblock %}</title>
+    <meta name="description"
+          content="MajestAnimais: encontre, conheça e adote animais.">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+
+    {% block header %}
+        {% include "fragments/__header.html" %}
+    {% endblock %}
+
+    <main id="conteudo-principal">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block footer %}
+        {% include "fragments/__footer.html" %}
+    {% endblock %}
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
