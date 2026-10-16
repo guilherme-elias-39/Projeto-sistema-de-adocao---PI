@@ -1,42 +1,61 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector("#painel-search-form");
-  const input = document.querySelector("#painel-search-input");
-  const filter = document.querySelector("#painel-pet-filter");
-  const cards = [...document.querySelectorAll(".painel-pet-card")];
-  const count = document.querySelector("#painel-pet-count");
-  const empty = document.querySelector("#painel-no-pets");
-  const normalize = s => (s || "").toLocaleLowerCase("pt-BR").normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
-  function update() {
-    const term = normalize(input.value); let visible = 0;
-    cards.forEach(card => {
-      const matches = (!term || normalize(`${card.dataset.name} ${card.dataset.search} ${card.textContent}`).includes(term)) && (filter.value === "todos" || card.dataset.kind === filter.value);
-      card.hidden = !matches;
-      if (matches) visible++;
-    });
-    count.textContent = `${visible} ${visible === 1 ? "amigo" : "amigos"}`;
-    empty.hidden = visible !== 0;
-  }
-  form.addEventListener("submit", event => {
+  const form = document.getElementById("painel-search-form");
+  const searchInput = document.getElementById("painel-search-input");
+  const searchType = document.getElementById("painel-search-type");
+
+  // Encaminha a busca para a página correta sem depender de caminhos fixos.
+  form?.addEventListener("submit", (event) => {
+    if (!searchType) return;
     event.preventDefault();
-    const url = new URL("/pesquisar-animais/", window.location.origin);
-    if (input.value.trim()) url.searchParams.set("q", input.value.trim());
+    const target = searchType.value === "ongs"
+      ? form.dataset.ongsUrl
+      : form.dataset.animalsUrl;
+    const fallback = searchType.value === "ongs"
+      ? "/pesquisa-instituicoes/"
+      : "/pesquisa-pets/";
+    const url = new URL(target || fallback, window.location.origin);
+    const query = searchInput?.value.trim();
+    if (query) url.searchParams.set("q", query);
     window.location.href = url.toString();
   });
-  input.addEventListener("input", update);
-  filter.addEventListener("change", update);
-  document.addEventListener("keydown", event => {
+
+  // Atalho Ctrl/Cmd + K para focar a busca.
+  document.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
-      event.preventDefault(); input.focus();
+      event.preventDefault();
+      searchInput?.focus();
     }
-    if (event.key === "Escape" && document.activeElement === input) {
-      input.value = ""; update(); input.blur();
+    if (event.key === "Escape" && document.activeElement === searchInput) {
+      searchInput.blur();
     }
   });
-  document.querySelectorAll(".painel-favorite").forEach(button => button.addEventListener("click", () => {
-    const saved = button.getAttribute("aria-pressed") !== "true";
-    button.setAttribute("aria-pressed", String(saved));
-    button.textContent = saved ? "♥" : "♡";
-    button.setAttribute("aria-label", `${saved ? "Remover dos favoritos" : "Favoritar"} ${button.closest(".painel-pet-card").dataset.name}`);
-  }));
-  update();
+
+  // Filtro demonstrativo por tipo de animal.
+  const filter = document.getElementById("painel-pet-filter");
+  const cards = [...document.querySelectorAll(".painel-pet-card")];
+  const count = document.getElementById("painel-pet-count");
+  const empty = document.getElementById("painel-no-pets");
+  function applyFilter() {
+    const selected = filter?.value || "todos";
+    let visible = 0;
+    cards.forEach((card) => {
+      const show = selected === "todos" || card.dataset.kind === selected;
+      card.hidden = !show;
+      if (show) visible++;
+    });
+    if (count) count.textContent = `${visible} ${visible === 1 ? "amigo" : "amigos"}`;
+    if (empty) empty.hidden = visible !== 0;
+  }
+  filter?.addEventListener("change", applyFilter);
+
+  // Favoritos apenas visuais; persistência requer integração com Django.
+  document.querySelectorAll(".painel-favorite").forEach((button) => {
+    button.addEventListener("click", () => {
+      const active = button.getAttribute("aria-pressed") === "true";
+      button.setAttribute("aria-pressed", String(!active));
+      button.textContent = active ? "♡" : "♥";
+      const name = button.closest(".painel-pet-card")?.dataset.name || "animal";
+      button.setAttribute("aria-label", active ? `Favoritar ${name}` : `Remover ${name} dos favoritos`);
+    });
+  });
 });

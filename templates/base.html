@@ -15,9 +15,8 @@
 
 <body class="{% block body_class %}{% endblock %}">
 
-    {% block header %}
-        {% include "fragments/__header.html" %}
-    {% endblock %}
+    {% include "fragments/__header.html" %}
+    
 
     <main id="conteudo-principal">
         {% block content %}{% endblock %}

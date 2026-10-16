@@ -218,21 +218,7 @@
     min-height: 49px;
 }
 
-.cadastro-login {
-    margin: 21px 0 0;
-    color: #6d7c77;
-    font-size: 0.88rem;
-    text-align: center;
-}
 
-.cadastro-login a {
-    color: #145b52;
-    font-weight: 750;
-}
-
-.cadastro-login a:hover {
-    text-decoration: underline;
-}
 
 /* Responsividade */
 
