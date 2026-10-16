@@ -1,18 +1,82 @@
+
+<header class="site-header">
+
+    <div class="header-top">
+        <div class="header-top-inner">
+
+            <!-- Logotipo -->
+            <a class="brand" href="/" aria-label="Majestanimais - página inicial">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="7" cy="7" r="2"/>
+                        <circle cx="12" cy="4.5" r="2"/>
+                        <circle cx="17" cy="7" r="2"/>
+                        <circle cx="19" cy="12" r="1.7"/>
+                        <path d="M12 11c-3.2 0-6.5 3.1-6.5 6.1A3 3 0 0 0 8.6 20c1.3 0 2.3-.8 3.4-.8s2.1.8 3.4.8a3 3 0 0 0 3.1-2.9c0-3-3.3-6.1-6.5-6.1Z"/>
+                    </svg>
+                </span>
+                <span>majestanimais</span>
+            </a>
+
+            <!-- Notificações, configurações e usuário -->
+            <div class="header-actions">
+
+                <a
+                    href="/notificacoes/"
+                    class="header-icon"
+                    aria-label="Notificações"
+                    title="Notificações"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+                        <path d="M10 21h4"/>
+                    </svg>
+                    <span class="notification-dot"></span>
+                </a>
+
+                <a
+                    href="/configuracoes/"
+                    class="header-icon"
+                    aria-label="Configurações"
+                    title="Configurações"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.7a8 8 0 0 1-1.7 1l-.3 1.8h-2.8l-.3-1.8a8 8 0 0 1-1.7-1l-1.7.7-1.4-2.4 1.4-1.1a7 7 0 0 1 0-2l-1.4-1.1 1.4-2.4 1.7.7a8 8 0 0 1 1.7-1l.3-1.8h2.8l.3 1.8a8 8 0 0 1 1.7 1l1.7-.7 1.4 2.4-1.4 1.1a7 7 0 0 1 0 2z"/>
+                    </svg>
+                </a>
+
+                <a
+                    href="/perfil/"
+                    class="user-avatar"
+                    aria-label="Meu perfil"
+                    title="Meu perfil"
+                >
+                    U
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- 
 <header class="site-header">
     <div class="header-container">
-        <a href="{% url 'home' %}" class="brand">
+        <a href="{% url 'pagina_principal' %}" class="brand">
             <span class="brand-icon" aria-hidden="true">🐾</span>
             <span>MajestAnimais</span>
         </a>
 
         <nav class="main-nav" aria-label="Navegação principal">
-            <a href="{% url 'home' %}">Início</a>
-            <a href="{% url 'home' %}#sobre">Sobre nós</a>
-            <a href="{% url 'home' %}#adocao">Adoção</a>
+            <a href="{% url 'pagina_principal' %}">Início</a>
+            <a href="{'#'}#sobre">Sobre nós</a>
+            <a href="{'#'}#adocao">Adoção</a>
         </nav>
 
         <a href="{% url 'login' %}" class="header-login">
             Entrar
         </a>
     </div>
-</header>
+</header> -->

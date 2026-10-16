@@ -6,12 +6,12 @@
 {% block content %}
 <section class="animal-detail">
   <nav class="breadcrumb" aria-label="Navegação estrutural">
-    <a href="{% url 'home' %}">Início</a><span>/</span><a href="{% url 'pesquisa_pets' %}">Encontrar animais</a><span>/</span><span aria-current="page">Detalhes</span>
+    <a href="{% url 'pagina_principal' %}">Início</a><span>/</span><a href="{% url 'pesquisa_pets' %}">Encontrar animais</a><span>/</span><span aria-current="page">Detalhes</span>
   </nav>
   <div class="animal-layout">
     <section class="animal-gallery" aria-label="Fotos do animal">
       <div class="gallery-main">
-        <img id="main-animal-image" src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=1200&q=85" alt="Thor, cachorro caramelo sorrindo">
+        <img id="main-animal-image" src="{% static 'core/img/cat1.avif' %}" alt="Thor, cachorro caramelo sorrindo">
         <span class="photo-counter" id="photo-counter">1/5</span>
         <button class="gallery-arrow gallery-prev" type="button" id="photo-prev" aria-label="Foto anterior">‹</button>
         <button class="gallery-arrow gallery-next" type="button" id="photo-next" aria-label="Próxima foto">›</button>
