@@ -1,0 +1,198 @@
+:root {
+    --green-900: #123f3a;
+    --green-800: #14564e;
+    --green-700: #176b60;
+    --green-100: #e8f3ef;
+    --green-50: #f4f9f7;
+    --text: #243532;
+    --muted: #71817d;
+    --line: #e3ebe7;
+    --white: #fff;
+    --shadow: 0 12px 36px rgba(24, 65, 56, .08);
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    background: #f5f8f6;
+    color: var(--text);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    line-height: 1.55;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+
+.profile-layout {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 0.32fr) minmax(0, 0.68fr);
+    gap: 22px;
+    align-items: stretch;
+}
+.profile-sidebar,
+.animals-section {
+    height: 100%;
+}
+
+.profile-sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.animals-section {
+    min-height: 100%;
+}
+.profile-sidebar, .animals-section { background: var(--white); border: 1px solid #e8eeeb; border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
+.cover-photo { height: 190px; background: linear-gradient(135deg, #c8dfd2, #789d87); overflow: hidden; }
+.cover-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.identity { display: flex; align-items: center; gap: 16px; padding: 0 26px; margin-top: -36px; position: relative; }
+.ong-logo { flex: 0 0 82px; width: 82px; height: 82px; border: 5px solid white; border-radius: 50%; background: var(--green-800); display: grid; place-items: center; color: white; font-size: 35px; overflow: hidden; box-shadow: 0 3px 12px #173f351c; }
+.ong-logo img { width: 100%; height: 100%; object-fit: cover; }
+.identity-text { min-width: 0; padding-top: 32px; }
+.identity-text h1 { font-size: 22px; letter-spacing: -.4px; line-height: 1.2; margin: 0 0 5px; color: #1b302c; }
+.location { margin: 0; color: var(--muted); font-size: 12px; }
+.verified { display: inline-block; margin-top: 7px; color: var(--green-700); background: var(--green-50); border-radius: 20px; padding: 3px 8px; font-size: 10px; font-weight: 700; }
+.stats { margin: 24px 25px 0; padding: 18px 8px; display: grid; grid-template-columns: 1fr 1fr; border-radius: 13px; background: var(--green-50); }
+.stat { text-align: center; display: flex; flex-direction: column; gap: 3px; padding: 0 8px; }
+.stat + .stat { border-left: 1px solid #dce9e3; }
+.stat strong { font-size: 25px; line-height: 1.2; color: var(--green-800); }
+.stat span { color: #71817b; font-size: 11px; }
+.about { padding: 22px 26px 0; }
+.about h2 { margin: 0 0 8px; color: var(--green-900); font-size: 14px; }
+.about p { margin: 0; color: #64736e; font-size: 15px; line-height: 1.9; }
+.contact-list { display: grid; gap: 20px; padding: 28px 26px 28px; }
+.contact-list p { margin: 0; display: flex; align-items: center; gap: 11px; font-size: 14px; color: #61726c; overflow-wrap: anywhere; }
+.contact-list a:hover { color: var(--green-700); text-decoration: underline; }
+.contact-icon { width: 18px; flex: 0 0 18px; text-align: center; color: var(--green-700); font-size: 16px; }
+.button { display: flex; justify-content: center; align-items: center; gap: 9px; border: 0; border-radius: 10px; min-height: 47px; padding: 12px 18px; font-weight: 700; font-size: 13px; transition: background .2s, transform .2s; }
+.button-primary { background: var(--green-800); color: white; }
+.button-primary:hover { background: var(--green-900); transform: translateY(-1px); }
+.chat-button { margin: 0 25px; }
+.chat-hint { margin: 9px 25px 23px; text-align: center; font-size: 10px; color: #8a9691; }
+.animals-section { padding: 30px; min-height: 620px; }
+.section-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.eyebrow { margin: 0 0 5px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--green-700); font-size: 10px; font-weight: 800; }
+.section-heading h2 { margin: 0; font-size: 25px; letter-spacing: -.6px; line-height: 1.3; color: #1e332e; }
+.section-description { margin: 8px 0 0; font-size: 13px; color: #7b8983; }
+.count-pill { flex: 0 0 auto; padding: 7px 12px; background: var(--green-50); border: 1px solid #e0ece6; color: var(--green-800); border-radius: 30px; font-size: 11px; font-weight: 700; }
+.tabs { display: flex; gap: 26px; border-bottom: 1px solid var(--line); margin: 26px 0 23px; }
+.tab { position: relative; border: 0; background: transparent; padding: 0 2px 14px; color: #7a8983; cursor: pointer; font-size: 13px; font-weight: 700; }
+.tab.active { color: var(--green-800); }
+.tab.active::after { content: ""; position: absolute; bottom: -1px; left: 0; right: 0; height: 3px; border-radius: 4px 4px 0 0; background: var(--green-700); }
+.animal-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.animal-card { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: white; transition: transform .2s, box-shadow .2s; }
+.animal-card:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #123f3a12; }
+.animal-photo { display: block; position: relative; height: 205px; overflow: hidden; background: #e9f1ec; }
+.animal-photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+.animal-card:hover .animal-photo img { transform: scale(1.04); }
+.photo-placeholder { display: grid; place-items: center; height: 100%; font-size: 60px; }
+.adoption-badge { position: absolute; left: 10px; top: 10px; border-radius: 20px; padding: 5px 8px; background: #ffffffed; color: var(--green-800); font-size: 9px; font-weight: 800; }
+.animal-info { padding: 14px; }
+.animal-title-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.animal-title-row h3 { margin: 0; font-size: 16px; color: #243b35; }
+.animal-sex { font-size: 10px; color: var(--green-700); background: var(--green-50); padding: 3px 7px; border-radius: 20px; }
+.animal-info p { margin: 5px 0 12px; color: #87928d; font-size: 11px; }
+.text-link { display: inline-flex; gap: 8px; align-items: center; color: var(--green-800); font-size: 11px; font-weight: 800; }
+.text-link:hover { text-decoration: underline; }
+.about-panel { color: #66756f; font-size: 14px; line-height: 1.8; }
+.about-panel h3 { color: var(--green-900); }
+.about-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 25px; }
+.about-details div { background: var(--green-50); padding: 15px; border-radius: 10px; display: flex; flex-direction: column; gap: 5px; overflow-wrap: anywhere; }
+.about-details span { color: #7b8983; font-size: 11px; }
+.about-details strong { color: var(--green-900); font-size: 13px; }
+.empty-state { grid-column: 1 / -1; text-align: center; padding: 60px 25px; border: 1px dashed #cfddd5; border-radius: 14px; color: #7b8983; }
+.empty-icon { font-size: 35px; }
+.empty-state h3 { color: var(--green-900); font-size: 17px; }
+.empty-state p { font-size: 13px; }
+
+.page-container {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 26px 28px 64px;
+}
+.profile-sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-sidebar .about {
+    padding-top: 28px;
+}
+
+.profile-sidebar .contact-list {
+    margin-top: 4px;
+}
+
+.profile-sidebar .chat-button {
+    margin-top: 20px;
+}
+
+.profile-sidebar .chat-hint {
+    margin-bottom: 28px;
+}
+[hidden] { display: none !important; }
+@media (max-width: 1000px) {
+    .profile-layout {
+        grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+        gap: 20px;
+    }   
+    .animals-section { padding: 22px; }
+    .animal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .animal-photo { height: 190px; }
+    .identity { padding: 0 18px; gap: 12px; }
+    .identity-text h1 { font-size: 19px; }
+    .about, .contact-list { padding-left: 20px; padding-right: 20px; }
+    .stats { margin-left: 20px; margin-right: 20px; }
+    .chat-button { margin-left: 20px; margin-right: 20px; }
+}
+@media (max-width: 760px) {
+    .page-container {
+        padding: 18px 14px 35px;
+    }
+
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .cover-photo {
+        height: 180px;
+    }
+
+    .profile-sidebar {
+        max-width: none;
+    }
+
+    .animals-section {
+        min-height: 0;
+        padding: 20px 16px;
+    }
+
+    .section-heading h2 {
+        font-size: 21px;
+    }
+
+    .animal-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .animal-photo {
+        height: 180px;
+    }
+
+    .footer-inner {
+        padding: 22px 16px;
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+}
+@media (max-width: 430px) {
+    .animal-grid { grid-template-columns: 1fr; }
+    .animal-photo { height: 230px; }
+    .identity { align-items: flex-start; }
+    .identity-text { padding-top: 40px; }
+    .identity-text h1 { font-size: 17px; }
+    .section-heading { flex-direction: column; }
+    .about-details { grid-template-columns: 1fr; }
+}

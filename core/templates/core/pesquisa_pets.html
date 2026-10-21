@@ -72,12 +72,17 @@
                              alt="Thor, um cão da raça labrador" loading="lazy">
                     </div>
                     <div class="result-info">
-                        <h3>Thor</h3>
-                        <p class="animal-meta">Labrador <span>•</span> 1 ano</p>
-                        <p class="result-organization">ONG Esperança Animal</p>
-                        <p class="result-location">Pau dos Ferros/RN</p>
+                        <a href="{% url 'perfil_animal' %}" aria-label="Ver detalhes de Thor">
+                            <h3>Thor</h3>
+                            <p class="animal-meta">Labrador <span>•</span> 1 ano</p>
+                            <p class="result-organization">ONG Esperança Animal</p>
+                            <p class="result-location">Pau dos Ferros/RN</p>
+                        </a>
                     </div>
-                    <a class="result-arrow" href="{% url 'perfil_animal' %}" aria-label="Ver detalhes de Thor">›</a>
+
+                    <a class="result-arrow"
+                    href="{% url 'perfil_animal' %}"
+                    aria-label="Ver detalhes de Thor">›</a>
                 </article>
 
                 <article class="result-card" data-search="mel srd 3 anos onda vida animal apodi rn cachorro">

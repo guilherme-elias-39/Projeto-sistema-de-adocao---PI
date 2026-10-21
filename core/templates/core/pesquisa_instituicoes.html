@@ -43,33 +43,66 @@
         </div>
 
         <div class="results-grid ngo-results-grid" id="ngo-results">
-            <article class="result-card ngo-card" data-search="ong patinhas felizes pau dos ferros rn adoção acolhimento">
-                <div class="ngo-avatar" aria-hidden="true">🐾</div>
-                <div class="result-info">
-                    <h3>ONG Patinhas Felizes</h3>
-                    <p class="result-organization">Adoção responsável e acolhimento</p>
-                    <p class="result-location">Pau dos Ferros/RN</p>
-                </div>
-                <a class="result-arrow" href="#" aria-label="Ver detalhes da ONG Patinhas Felizes">›</a>
-            </article>
-            <article class="result-card ngo-card" data-search="ong esperança animal pau dos ferros rn adoção proteção">
+
+            <!-- ONG Patinhas Felizes -->
+            <a class="result-card ngo-card"
+                href="{% url 'perfil_ong' %}"
+                data-search="ong patinhas felizes pau dos ferros rn adoção acolhimento"
+                aria-label="Ver perfil da ONG Patinhas Felizes">
+
+                    <div class="ngo-avatar" aria-hidden="true">🐾</div>
+
+                    <div class="result-info">
+                        <h3>ONG Patinhas Felizes</h3>
+                        <p class="result-organization">
+                            Adoção responsável e acolhimento
+                        </p>
+                        <p class="result-location">Pau dos Ferros/RN</p>
+                    </div>
+
+                    <span class="result-arrow" aria-hidden="true">›</span>
+            </a>
+
+
+            <!-- ONG Esperança Animal -->
+            <a class="result-card ngo-card"
+            href="{% url 'perfil_ong' %}"
+            data-search="ong esperança animal pau dos ferros rn adoção proteção"
+            aria-label="Ver perfil da ONG Esperança Animal">
+
                 <div class="ngo-avatar" aria-hidden="true">💚</div>
+
                 <div class="result-info">
                     <h3>ONG Esperança Animal</h3>
-                    <p class="result-organization">Proteção e busca por novos lares</p>
+                    <p class="result-organization">
+                        Proteção e busca por novos lares
+                    </p>
                     <p class="result-location">Pau dos Ferros/RN</p>
                 </div>
-                <a class="result-arrow" href="#" aria-label="Ver detalhes da ONG Esperança Animal">›</a>
-            </article>
-            <article class="result-card ngo-card" data-search="ong vida animal apodi rn adoção cuidado">
+
+                <span class="result-arrow" aria-hidden="true">›</span>
+            </a>
+
+
+            <!-- ONG Vida Animal -->
+            <a class="result-card ngo-card"
+            href="{% url 'perfil_ong' %}"
+            data-search="ong vida animal apodi rn adoção cuidado"
+            aria-label="Ver perfil da ONG Vida Animal">
+
                 <div class="ngo-avatar" aria-hidden="true">🐶</div>
+
                 <div class="result-info">
                     <h3>ONG Vida Animal</h3>
-                    <p class="result-organization">Cuidado e adoção de animais</p>
+                    <p class="result-organization">
+                        Cuidado e adoção de animais
+                    </p>
                     <p class="result-location">Apodi/RN</p>
                 </div>
-                <a class="result-arrow" href="#" aria-label="Ver detalhes da ONG Vida Animal">›</a>
-            </article>
+
+                <span class="result-arrow" aria-hidden="true">›</span>
+            </a>
+
         </div>
         <p class="empty-results" id="ngo-empty" hidden>Nenhuma ONG encontrada. Tente outro nome ou localização.</p>
         <p class="demo-note">As instituições exibidas são dados demonstrativos; a integração com o banco de dados pode ser feita na view do Django.</p>

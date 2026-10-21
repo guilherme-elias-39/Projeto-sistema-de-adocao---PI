@@ -1,0 +1,653 @@
+/* ==========================================
+   PÁGINA DE NOTIFICAÇÕES — MAJESTANIMAIS
+========================================== */
+
+.notifications-page {
+    background: #f4f8f7;
+}
+
+.notifications-page #conteudo-principal {
+    min-height: 70vh;
+}
+
+
+/* ==========================================
+   1. CONTAINER PRINCIPAL
+========================================== */
+
+.notifications-container {
+    width: min(1440px, calc(100% - 80px));
+    margin: 0 auto;
+    padding: 48px 0 72px;
+}
+
+
+/* ==========================================
+   2. CABEÇALHO DA PÁGINA
+========================================== */
+
+.notifications-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 32px;
+}
+
+.notifications-heading-text {
+    max-width: 700px;
+}
+
+.notifications-eyebrow {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #52877d;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.notifications-heading h1 {
+    margin: 0;
+    color: #1d3933;
+    font-size: clamp(2rem, 3vw, 2.7rem);
+    font-weight: 750;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.notifications-heading-text > p {
+    margin: 12px 0 0;
+    color: #73817e;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.notifications-heading-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 13px;
+    flex-shrink: 0;
+}
+
+.notifications-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 15px;
+    color: #315f55;
+    background: #e5f1ed;
+    border: 1px solid #d7e8e2;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.count-dot {
+    width: 8px;
+    height: 8px;
+    background: #2c8b72;
+    border-radius: 50%;
+}
+
+.mark-all-button {
+    padding: 8px 0;
+    border: 0;
+    background: transparent;
+    color: #145b52;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.mark-all-button:hover {
+    color: #0c4038;
+    text-decoration: underline;
+}
+
+.mark-all-button:disabled {
+    color: #84938e;
+    cursor: default;
+    text-decoration: none;
+}
+
+
+/* ==========================================
+   3. LAYOUT
+========================================== */
+
+.notifications-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+    gap: 28px;
+}
+
+
+/* ==========================================
+   4. CARTÃO DA LISTA
+========================================== */
+
+.notifications-card {
+    min-width: 0;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #dce5e2;
+    border-radius: 17px;
+    box-shadow: 0 12px 36px rgba(24, 67, 59, 0.045);
+}
+
+.notifications-card-header {
+    min-height: 105px;
+    padding: 25px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid #e8eeeb;
+}
+
+.notifications-card-header h2 {
+    margin: 0;
+    color: #29413b;
+    font-size: 1.12rem;
+    font-weight: 750;
+}
+
+.notifications-card-header p {
+    margin: 5px 0 0;
+    color: #85928e;
+    font-size: 0.87rem;
+}
+
+.notifications-total {
+    min-width: 39px;
+    height: 39px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: #edf5f2;
+    color: #145b52;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+
+/* ==========================================
+   5. ITENS DE NOTIFICAÇÃO
+========================================== */
+
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr);
+    align-items: start;
+    gap: 20px;
+    padding: 27px 30px;
+    border-bottom: 1px solid #edf1ef;
+    background: #ffffff;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.notification-item:last-child {
+    border-bottom: 0;
+}
+
+.notification-item:hover {
+    background: #fbfdfc;
+}
+
+.notification-item.unread {
+    background: #fcfefd;
+}
+
+.notification-item.unread:hover {
+    background: #f4faf7;
+}
+
+
+/* Ícones */
+
+.notification-icon {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.notification-icon svg {
+    display: block;
+    width: 26px;
+    height: 26px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.icon-appointment {
+    color: #ffffff;
+    background: #7bcab3;
+}
+
+.icon-message {
+    color: #ffffff;
+    background: #4d9fc6;
+}
+
+.icon-animal {
+    color: #ffffff;
+    background: #4c9b61;
+}
+
+.icon-changed {
+    color: #ffffff;
+    background: #e6b83d;
+}
+
+.icon-welcome {
+    color: #ffffff;
+    background: #6da66b;
+}
+
+
+/* Conteúdo */
+
+.notification-content {
+    min-width: 0;
+    padding-right: 12px;
+}
+
+.notification-title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.notification-title-row h3 {
+    margin: 1px 0 0;
+    color: #2a3d38;
+    font-size: 1rem;
+    font-weight: 750;
+    line-height: 1.5;
+}
+
+.notification-time {
+    flex-shrink: 0;
+    padding-top: 3px;
+    color: #91a09a;
+    font-size: 0.78rem;
+    white-space: nowrap;
+}
+
+.notification-content > p {
+    max-width: 660px;
+    margin: 8px 0 0;
+    color: #6d7c77;
+    font-size: 0.91rem;
+    line-height: 1.75;
+}
+
+
+/* Rodapé de cada notificação */
+
+.notification-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.notification-category {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: #eff5f2;
+    color: #5c7d72;
+    font-size: 0.73rem;
+    font-weight: 700;
+}
+
+.notification-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #145b52;
+    font-size: 0.82rem;
+    font-weight: 750;
+    transition: color 0.2s ease;
+}
+
+.notification-link:hover {
+    color: #0c4038;
+    text-decoration: underline;
+}
+
+.notification-link svg {
+    width: 15px;
+    height: 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* Indicador de notificação não lida */
+
+.unread-indicator {
+    position: absolute;
+    top: 33px;
+    right: 14px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #32967a;
+}
+
+
+/* ==========================================
+   6. PAINEL LATERAL
+========================================== */
+
+.notifications-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.notification-info-card,
+.notification-summary-card {
+    padding: 27px;
+    background: #ffffff;
+    border: 1px solid #dce5e2;
+    border-radius: 16px;
+    box-shadow: 0 12px 36px rgba(24, 67, 59, 0.04);
+}
+
+.info-card-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-radius: 13px;
+    color: #145b52;
+    background: #e6f0ed;
+}
+
+.info-card-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.notification-info-card h2,
+.notification-summary-card h2 {
+    margin: 0;
+    color: #29413b;
+    font-size: 1.04rem;
+    font-weight: 750;
+    line-height: 1.5;
+}
+
+.notification-info-card p {
+    margin: 12px 0 0;
+    color: #788680;
+    font-size: 0.87rem;
+    line-height: 1.8;
+}
+
+
+/* Resumo */
+
+.notification-summary-card h2 {
+    margin-bottom: 20px;
+}
+
+.summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 14px 0;
+    border-bottom: 1px solid #edf1ef;
+}
+
+.summary-row:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.summary-label {
+    color: #788680;
+    font-size: 0.85rem;
+}
+
+.summary-row strong {
+    color: #145b52;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+
+/* ==========================================
+   7. RESPONSIVIDADE
+========================================== */
+
+@media (min-width: 1500px) {
+
+    .notifications-container {
+        padding-top: 58px;
+    }
+
+    .notifications-layout {
+        grid-template-columns: minmax(0, 1fr) 350px;
+        gap: 34px;
+    }
+
+    .notification-item {
+        padding: 31px 34px;
+    }
+
+}
+
+@media (max-width: 1050px) {
+
+    .notifications-container {
+        width: calc(100% - 48px);
+    }
+
+    .notifications-layout {
+        grid-template-columns: minmax(0, 1fr) 270px;
+        gap: 20px;
+    }
+
+    .notification-item {
+        padding: 24px 22px;
+        gap: 16px;
+    }
+
+    .notifications-card-header {
+        padding: 23px 22px;
+    }
+
+    .notification-info-card,
+    .notification-summary-card {
+        padding: 22px;
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    .notifications-container {
+        width: calc(100% - 36px);
+        padding-top: 34px;
+        padding-bottom: 45px;
+    }
+
+    .notifications-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .notifications-heading-actions {
+        width: 100%;
+        align-items: flex-start;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .notifications-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .notifications-sidebar {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: stretch;
+    }
+
+}
+
+@media (max-width: 560px) {
+
+    .notifications-container {
+        width: calc(100% - 24px);
+        padding-top: 25px;
+        padding-bottom: 35px;
+    }
+
+    .notifications-heading {
+        margin-bottom: 23px;
+    }
+
+    .notifications-heading h1 {
+        font-size: 1.85rem;
+    }
+
+    .notifications-heading-text > p {
+        font-size: 0.9rem;
+    }
+
+    .notifications-heading-actions {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .notifications-card {
+        border-radius: 13px;
+    }
+
+    .notifications-card-header {
+        min-height: auto;
+        padding: 20px 16px;
+    }
+
+    .notifications-card-header h2 {
+        font-size: 0.98rem;
+    }
+
+    .notifications-card-header p {
+        font-size: 0.8rem;
+    }
+
+    .notification-item {
+        grid-template-columns: 43px minmax(0, 1fr);
+        gap: 12px;
+        padding: 22px 14px;
+    }
+
+    .notification-icon {
+        width: 43px;
+        height: 43px;
+    }
+
+    .notification-icon svg {
+        width: 21px;
+        height: 21px;
+    }
+
+    .notification-content {
+        padding-right: 5px;
+    }
+
+    .notification-title-row {
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .notification-title-row h3 {
+        font-size: 0.9rem;
+    }
+
+    .notification-time {
+        padding-top: 0;
+        font-size: 0.73rem;
+    }
+
+    .notification-content > p {
+        font-size: 0.83rem;
+        line-height: 1.65;
+    }
+
+    .notification-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .unread-indicator {
+        top: 15px;
+        right: 12px;
+    }
+
+    .notifications-sidebar {
+        grid-template-columns: 1fr;
+    }
+
+    .notification-info-card,
+    .notification-summary-card {
+        padding: 22px;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .notification-item,
+    .notification-link,
+    .mark-all-button {
+        transition: none;
+    }
+
+}

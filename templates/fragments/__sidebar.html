@@ -1,0 +1,34 @@
+
+{% load static %}
+
+<aside class="painel-sidebar" aria-label="Menu principal">
+    <a class="painel-brand" href="{% url 'pagina_principal' %}">
+        <span class="painel-brand-icon" aria-hidden="true">🐾</span>
+        <span>MajestAnimais</span>
+    </a>
+
+    <p class="painel-menu-label">MENU PRINCIPAL</p>
+
+    <nav class="painel-nav">
+        <a class="painel-nav-link" href="{% url 'pagina_principal' %}">
+            <span aria-hidden="true">⌂</span> Início
+        </a>
+
+        <a class="painel-nav-link" href="{% url 'pesquisa_pets' %}">
+            <span aria-hidden="true">⌕</span> Pesquisar animais
+        </a>
+
+        <a class="painel-nav-link" href="{% url 'pesquisa_instituicoes' %}">
+            <span aria-hidden="true">♡</span> ONGs
+        </a>
+
+        <a class="painel-nav-link" href="{% url 'pesquisa_instituicoes' %}">
+            <span aria-hidden="true">▤</span> Mensagens
+            <span class="painel-nav-badge">2</span>
+        </a>
+
+        <a class="painel-nav-link" href="{% url 'login' %}">
+            <span aria-hidden="true">♙</span> Meu perfil
+        </a>
+    </nav>
+</aside>

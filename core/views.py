@@ -38,3 +38,22 @@ def perfil_animal(request):
 
 def pagina_principal(request):
     return render(request, 'core/pagina_principal.html')
+
+def perfil_ong(request):
+    return render(request, 'core/perfil_ong.html')
+
+def mensagens(request):
+    return render(request, 'core/mensagens.html')
+
+def perfil_usuario(request):
+    return render(request, 'core/perfil_usuario.html')
+
+def agendamentos(request):
+    return render(request, 'core/agendamentos.html')
+
+def notificacoes(request):
+    return render(request, 'core/notificacoes.html')
+
+def agend_completo(request):
+    return render(request, "core/agend_completo.html")
+

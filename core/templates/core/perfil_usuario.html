@@ -1,0 +1,529 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Meu perfil | MajestAnimais{% endblock %}
+
+{% block body_class %}user-profile-page{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/css/perfil_usuario.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-page-container">
+
+    <!-- CABEÇALHO DA PÁGINA -->
+    <header class="profile-page-heading">
+        <div>
+            <span class="profile-eyebrow">SUA CONTA</span>
+            <h1>Meu perfil</h1>
+            <p>Gerencie suas informações e acompanhe suas atividades.</p>
+        </div>
+    </header>
+
+    <!-- ESTRUTURA DO PERFIL -->
+    <div class="profile-layout">
+
+        <!-- MENU LATERAL -->
+        <aside class="profile-sidebar" aria-label="Menu do perfil">
+
+            <!-- IDENTIFICAÇÃO DO USUÁRIO -->
+            <div class="profile-user-card">
+                <div class="profile-user-avatar">
+                    <img
+                        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=85"
+                        alt="Foto de perfil de Ana Silva"
+                    >
+                </div>
+
+                <div class="profile-user-info">
+                    <h2>Ana Silva</h2>
+                    <p>Ana.silva@email.com</p>
+                </div>
+            </div>
+
+            <!-- NAVEGAÇÃO -->
+            <nav class="profile-menu" aria-label="Opções da conta">
+
+                <button type="button"
+                        class="profile-menu-item active"
+                        data-section="dados"
+                        aria-current="page">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="8" r="4"/>
+                        <path d="M4 21v-2a8 8 0 0 1 16 0v2Z"/>
+                    </svg>
+
+                    <span>Meus dados</span>
+                    <span class="menu-chevron" aria-hidden="true">›</span>
+                </button>
+
+                <a href="{% url 'agendamentos' %}"
+                    class="profile-menu-item"
+                    data-section="agendamentos">
+
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="3" y="5" width="18" height="16" rx="2"/>
+                            <path d="M16 3v4M8 3v4M3 10h18"/>
+                            <path d="m9 15 2 2 4-4"/>
+                        </svg>
+
+                        <span>Meus agendamentos</span>
+                        <span class="menu-chevron" aria-hidden="true">›</span>
+                </a>
+                <button type="button"
+                        class="profile-menu-item"
+                        data-section="favoritos">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/>
+                    </svg>
+
+                    <span>Favoritos</span>
+                    <span class="menu-chevron" aria-hidden="true">›</span>
+                </button>
+
+                <button type="button"
+                        class="profile-menu-item"
+                        data-section="historico">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M12 7v5l3 2"/>
+                    </svg>
+
+                    <span>Histórico de pesquisas</span>
+                    <span class="menu-chevron" aria-hidden="true">›</span>
+                </button>
+
+                <a href="{% url 'notificacoes' %}"
+                    class="profile-menu-item"
+                    data-section="notificacoes">
+
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+                            <path d="M10 21h4"/>
+                        </svg>
+
+                        <span>Notificações</span>
+                        <span class="menu-chevron" aria-hidden="true">›</span>
+                </a>
+
+                <button type="button"
+                        class="profile-menu-item"
+                        data-section="configuracoes">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.7a8 8 0 0 1-1.7 1l-.3 1.8h-2.8l-.3-1.8a8 8 0 0 1-1.7-1l-1.7.7-1.4-2.4 1.4-1.1a7 7 0 0 1 0-2l-1.4-1.1 1.4-2.4 1.7.7a8 8 0 0 1 1.7-1l.3-1.8h2.8l.3 1.8a8 8 0 0 1 1.7 1l1.7-.7 1.4 2.4-1.4 1.1a7 7 0 0 1 0 2Z"/>
+                    </svg>
+
+                    <span>Configurações</span>
+                    <span class="menu-chevron" aria-hidden="true">›</span>
+                </button>
+
+                <button type="button"
+                        class="profile-menu-item"
+                        data-section="ajuda">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M9.5 9a2.6 2.6 0 1 1 4.6 1.7c-1.2 1.2-2.1 1.5-2.1 3"/>
+                        <path d="M12 17.5h.01"/>
+                    </svg>
+
+                    <span>Ajuda e suporte</span>
+                    <span class="menu-chevron" aria-hidden="true">›</span>
+                </button>
+
+                <div class="profile-menu-divider"></div>
+
+                <a href="{% url 'login' %}"
+                    class="profile-menu-item profile-logout"
+                    id="logout-button">
+
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M10 17l5-5-5-5"/>
+                            <path d="M15 12H3"/>
+                            <path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/>
+                        </svg>
+
+                        <span>Sair</span>
+                        <span class="menu-chevron" aria-hidden="true">›</span>
+                </a>
+
+            </nav>
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="profile-content">
+
+            <!-- MEUS DADOS -->
+            <section class="profile-section active"
+                     id="section-dados"
+                     aria-labelledby="heading-dados">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-eyebrow">INFORMAÇÕES PESSOAIS</span>
+                        <h2 id="heading-dados">Meus dados</h2>
+                        <p>Confira e atualize suas informações pessoais.</p>
+                    </div>
+
+                    <span class="section-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="8" r="4"></circle>
+                            <path d="M4.5 21a7.5 7.5 0 0 1 15 0"></path>
+                        </svg>
+                    </span>
+                </div>
+
+                <form class="profile-form" id="profile-form">
+
+                    <div class="profile-form-grid">
+
+                        <div class="profile-field">
+                            <label for="user-name">Nome completo</label>
+                            <input
+                                type="text"
+                                id="user-name"
+                                name="nome"
+                                value="Ana Silva"
+                                autocomplete="name"
+                                required
+                            >
+                        </div>
+
+                        <div class="profile-field">
+                            <label for="user-email">E-mail</label>
+                            <input
+                                type="email"
+                                id="user-email"
+                                name="email"
+                                value="ana.silva@email.com"
+                                autocomplete="email"
+                                required
+                            >
+                        </div>
+
+                        <div class="profile-field">
+                            <label for="user-phone">Telefone</label>
+                            <input
+                                type="tel"
+                                id="user-phone"
+                                name="telefone"
+                                value="(84) 9867-3994"
+                                placeholder="(00) 00000-0000"
+                                autocomplete="tel"
+                            >
+                        </div>
+
+                        <div class="profile-field">
+                            <label for="user-city">Cidade</label>
+                            <input
+                                type="text"
+                                id="user-city"
+                                name="cidade"
+                                value="Pau dos Ferros/RN"
+                                placeholder="Informe sua cidade"
+                                autocomplete="address-level2"
+                            >
+                        </div>
+
+                    </div>
+
+                    <div class="profile-form-actions">
+                       <a href="{% url 'pagina_principal' %}" class="profile-button secondary">
+                            ←
+                        </a>
+
+                        <button type="submit" class="profile-button primary">
+                            Salvar alterações
+                        </button>
+                    </div>
+
+                    <p class="profile-feedback"
+                       id="profile-feedback"
+                       role="status"
+                       aria-live="polite"></p>
+
+                </form>
+
+                <div class="profile-info-card">
+                    <div class="info-card-icon" aria-hidden="true">i</div>
+
+                    <div>
+                        <h3>Mantenha seus dados atualizados</h3>
+                        <p>
+                            Informações corretas facilitam o contato com as ONGs
+                            e ajudam no acompanhamento dos seus agendamentos.
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- MEUS AGENDAMENTOS -->
+            <section class="profile-section"
+                     id="section-agendamentos"
+                     aria-labelledby="heading-agendamentos"
+                     hidden>
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-eyebrow">ADOÇÃO RESPONSÁVEL</span>
+                        <h2 id="heading-agendamentos">Meus agendamentos</h2>
+                        <p>Acompanhe suas visitas às instituições.</p>
+                    </div>
+                </div>
+
+                <div class="empty-state">
+                    <span class="empty-state-icon" aria-hidden="true">▦</span>
+                    <h3>Seus agendamentos aparecerão aqui</h3>
+                    <p>
+                        Quando você agendar uma visita para conhecer um animal,
+                        poderá acompanhar os detalhes nesta área.
+                    </p>
+                    <a href="/pesquisa/" class="profile-button primary">
+                        Encontrar animais
+                    </a>
+                </div>
+
+            </section>
+
+            <!-- FAVORITOS -->
+            <section class="profile-section"
+                     id="section-favoritos"
+                     aria-labelledby="heading-favoritos"
+                     hidden>
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-eyebrow">SEUS PREFERIDOS</span>
+                        <h2 id="heading-favoritos">Favoritos</h2>
+                        <p>Reúna os animais que despertaram seu interesse.</p>
+                    </div>
+                </div>
+
+                <div class="empty-state">
+                    <span class="empty-state-icon" aria-hidden="true">♡</span>
+                    <h3>Nenhum favorito por enquanto</h3>
+                    <p>
+                        Ao favoritar um animal, ele ficará disponível
+                        nesta seção para você consultar depois.
+                    </p>
+                    <a href="/pesquisa/" class="profile-button primary">
+                        Explorar animais
+                    </a>
+                </div>
+
+            </section>
+
+            <!-- HISTÓRICO DE PESQUISAS -->
+            <section class="profile-section"
+                     id="section-historico"
+                     aria-labelledby="heading-historico"
+                     hidden>
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-eyebrow">SUAS ATIVIDADES</span>
+                        <h2 id="heading-historico">Histórico de pesquisas</h2>
+                        <p>Consulte suas pesquisas recentes.</p>
+                    </div>
+                </div>
+
+                <div class="empty-state">
+                    <span class="empty-state-icon" aria-hidden="true">⌕</span>
+                    <h3>Seu histórico aparecerá aqui</h3>
+                    <p>
+                        As pesquisas realizadas na plataforma poderão
+                        ser consultadas nesta área.
+                    </p>
+                    <a href="/pesquisa/" class="profile-button primary">
+                        Fazer uma pesquisa
+                    </a>
+                </div>
+
+            </section>
+
+            <!-- NOTIFICAÇÕES -->
+            <section class="profile-section"
+                     id="section-notificacoes"
+                     aria-labelledby="heading-notificacoes"
+                     hidden>
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-eyebrow">FIQUE POR DENTRO</span>
+                        <h2 id="heading-notificacoes">Notificações</h2>
+                        <p>Acompanhe os avisos relacionados à sua conta.</p>
+                    </div>
+                </div>
+
+                <div class="empty-state">
+                    <span class="empty-state-icon" aria-hidden="true">♧</span>
+                    <h3>Nenhuma notificação no momento</h3>
+                    <p>
+                        Quando houver novidades sobre sua conta ou
+                        seus agendamentos, elas aparecerão aqui.
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- CONFIGURAÇÕES -->
+            <section class="profile-section"
+                     id="section-configuracoes"
+                     aria-labelledby="heading-configuracoes"
+                     hidden>
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-eyebrow">PREFERÊNCIAS</span>
+                        <h2 id="heading-configuracoes">Configurações</h2>
+                        <p>Personalize algumas preferências da sua conta.</p>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+
+                    <div class="setting-row">
+                        <div>
+                            <h3>Receber notificações</h3>
+                            <p>Permitir avisos sobre novidades e agendamentos.</p>
+                        </div>
+
+                        <label class="toggle-switch">
+                            <input type="checkbox"
+                                   id="notifications-toggle"
+                                   checked>
+                            <span class="toggle-slider"></span>
+                            <span class="sr-only">
+                                Ativar ou desativar notificações
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="setting-row">
+                        <div>
+                            <h3>Privacidade do perfil</h3>
+                            <p>Controlar a exibição das informações pessoais.</p>
+                        </div>
+
+                        <label class="toggle-switch">
+                            <input type="checkbox"
+                                   id="privacy-toggle">
+                            <span class="toggle-slider"></span>
+                            <span class="sr-only">
+                                Ativar ou desativar a opção de privacidade
+                            </span>
+                        </label>
+                    </div>
+
+                    <p class="profile-feedback"
+                       id="settings-feedback"
+                       role="status"
+                       aria-live="polite"></p>
+
+                </div>
+
+                <div class="profile-info-card">
+                    <div class="info-card-icon" aria-hidden="true">i</div>
+                    <div>
+                        <h3>Sobre suas preferências</h3>
+                        <p>
+                            Estas opções são demonstrativas. Para manter
+                            as preferências após sair da conta, será
+                            necessário salvá-las no backend.
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- AJUDA E SUPORTE -->
+            <section class="profile-section"
+                     id="section-ajuda"
+                     aria-labelledby="heading-ajuda"
+                     hidden>
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-eyebrow">ESTAMOS AQUI PARA AJUDAR</span>
+                        <h2 id="heading-ajuda">Ajuda e suporte</h2>
+                        <p>Encontre orientações para utilizar a plataforma.</p>
+                    </div>
+                </div>
+
+                <div class="help-card">
+                    <h3>Como podemos ajudar?</h3>
+                    <p>
+                        Confira algumas orientações para utilizar o Majestanimais.
+                    </p>
+
+                    <details>
+                        <summary>Como funciona o processo de adoção?</summary>
+                        <p>
+                            Você pode explorar os animais disponíveis,
+                            consultar as informações e entrar em contato
+                            com a ONG responsável para obter orientações.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>Como agendar uma visita?</summary>
+                        <p>
+                            Acesse a página de um animal e verifique as
+                            opções de agendamento disponibilizadas pela instituição.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>Como alterar meus dados?</summary>
+                        <p>
+                            Acesse a opção “Meus dados”, atualize os campos
+                            e utilize o botão para salvar as alterações.
+                        </p>
+                    </details>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+</div>
+
+<!-- CONFIRMAÇÃO DE SAÍDA -->
+<dialog class="logout-dialog" id="logout-dialog">
+    <div class="logout-dialog-content">
+        <span class="logout-dialog-icon" aria-hidden="true">↗</span>
+
+        <h2>Deseja sair da sua conta?</h2>
+
+        <p>
+            Para sair com segurança, confirme sua escolha.
+        </p>
+
+        <div class="logout-dialog-actions">
+            <button type="button"
+                    class="profile-button secondary"
+                    id="cancel-logout">
+                Cancelar
+            </button>
+
+            <a href="/logout/" class="profile-button primary" id="confirm-logout">
+                Sair da conta
+            </a>
+        </div>
+    </div>
+</dialog>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'core/js/perfil_usuario.js' %}" defer></script>
+{% endblock %}

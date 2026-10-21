@@ -1,0 +1,533 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Notificações | Majestanimais{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/css/notificacoes.css' %}">
+{% endblock %}
+
+{% block body_class %}notifications-page{% endblock %}
+
+{% block content %}
+
+<section class="notifications-container">
+
+    <!-- Cabeçalho da página -->
+    <div class="notifications-heading">
+
+        <div class="notifications-heading-text">
+            <span class="notifications-eyebrow">SUA CONTA</span>
+
+            <h1>Notificações</h1>
+
+            <p>
+                Acompanhe atualizações sobre seus agendamentos,
+                mensagens e animais.
+            </p>
+        </div>
+
+        <div class="notifications-heading-actions">
+            <span class="notifications-count">
+                <span class="count-dot"></span>
+                5 notificações
+            </span>
+
+            <button
+                type="button"
+                class="mark-all-button"
+                id="mark-all-read"
+            >
+                Marcar todas como lidas
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- Área principal -->
+    <div class="notifications-layout">
+
+        <!-- Lista de notificações -->
+        <section
+            class="notifications-card"
+            aria-labelledby="notifications-list-title"
+        >
+
+            <div class="notifications-card-header">
+
+                <div>
+                    <h2 id="notifications-list-title">
+                        Todas as notificações
+                    </h2>
+
+                    <p>
+                        Fique por dentro das novidades da sua conta.
+                    </p>
+                </div>
+
+                <span class="notifications-total">05</span>
+
+            </div>
+
+
+            <div class="notifications-list" id="notifications-list">
+
+                <!-- Notificação 1 -->
+                <article
+                    class="notification-item unread"
+                    data-notification="agendamento"
+                >
+
+                    <div class="notification-icon icon-appointment"
+                         aria-hidden="true">
+
+                        <svg viewBox="0 0 24 24">
+                            <rect x="4" y="5" width="16" height="15" rx="3"/>
+                            <path d="M8 3v4M16 3v4M4 10h16"/>
+                            <path d="m8 14 2.5 2.5L16 12"/>
+                        </svg>
+
+                    </div>
+
+                    <div class="notification-content">
+
+                        <div class="notification-title-row">
+
+                            <h3>Agendamento confirmado</h3>
+
+                            <time
+                                class="notification-time"
+                                datetime="2026-04-22T10:00"
+                            >
+                                Há 2h
+                            </time>
+
+                        </div>
+
+                        <p>
+                            Sua visita com a ONG Patinhas Felizes
+                            foi confirmada para o dia 22/04 às 10:00.
+                        </p>
+
+                        <div class="notification-bottom">
+
+                            <span class="notification-category">
+                                Agendamentos
+                            </span>
+
+                            <a
+                                href="/agendamentos/"
+                                class="notification-link"
+                            >
+                                Ver agendamento
+
+                                <svg viewBox="0 0 24 24"
+                                     aria-hidden="true">
+                                    <path d="m9 18 6-6-6-6"/>
+                                </svg>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <span class="unread-indicator"
+                          aria-label="Não lida"></span>
+
+                </article>
+
+
+                <!-- Notificação 2 -->
+                <article
+                    class="notification-item unread"
+                    data-notification="mensagem"
+                >
+
+                    <div class="notification-icon icon-message"
+                         aria-hidden="true">
+
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H7l-3 2v-5.5a7.5 7.5 0 1 1 16-4Z"/>
+                            <path d="M8 10h8M8 13h5"/>
+                        </svg>
+
+                    </div>
+
+                    <div class="notification-content">
+
+                        <div class="notification-title-row">
+
+                            <h3>Nova mensagem</h3>
+
+                            <time
+                                class="notification-time"
+                                datetime="2026-04-22T08:00"
+                            >
+                                Há 4h
+                            </time>
+
+                        </div>
+
+                        <p>
+                            Você recebeu uma mensagem da ONG
+                            Esperança Animal.
+                        </p>
+
+                        <div class="notification-bottom">
+
+                            <span class="notification-category">
+                                Mensagens
+                            </span>
+
+                            <a
+                                href="/chat/"
+                                class="notification-link"
+                            >
+                                Abrir conversa
+
+                                <svg viewBox="0 0 24 24"
+                                     aria-hidden="true">
+                                    <path d="m9 18 6-6-6-6"/>
+                                </svg>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <span class="unread-indicator"
+                          aria-label="Não lida"></span>
+
+                </article>
+
+
+                <!-- Notificação 3 -->
+                <article
+                    class="notification-item unread"
+                    data-notification="animal"
+                >
+
+                    <div class="notification-icon icon-animal"
+                         aria-hidden="true">
+
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="7" cy="7" r="2"/>
+                            <circle cx="12" cy="4.5" r="2"/>
+                            <circle cx="17" cy="7" r="2"/>
+                            <path d="M12 11c-3.3 0-6 2.7-6 5.5a3 3 0 0 0 3 3c1.2 0 2-.7 3-.7s1.8.7 3 .7a3 3 0 0 0 3-3c0-2.8-2.7-5.5-6-5.5Z"/>
+                        </svg>
+
+                    </div>
+
+                    <div class="notification-content">
+
+                        <div class="notification-title-row">
+
+                            <h3>Novo animal disponível</h3>
+
+                            <time
+                                class="notification-time"
+                                datetime="2026-04-21"
+                            >
+                                Ontem
+                            </time>
+
+                        </div>
+
+                        <p>
+                            Conheça o Mel, um filhote de 6 meses,
+                            resgatado pela ONG Vida Animal.
+                        </p>
+
+                        <div class="notification-bottom">
+
+                            <span class="notification-category">
+                                Adoção
+                            </span>
+
+                            <a
+                                href="/pesquisa/"
+                                class="notification-link"
+                            >
+                                Conhecer animais
+
+                                <svg viewBox="0 0 24 24"
+                                     aria-hidden="true">
+                                    <path d="m9 18 6-6-6-6"/>
+                                </svg>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <span class="unread-indicator"
+                          aria-label="Não lida"></span>
+
+                </article>
+
+
+                <!-- Notificação 4 -->
+                <article
+                    class="notification-item"
+                    data-notification="alteracao"
+                >
+
+                    <div class="notification-icon icon-changed"
+                         aria-hidden="true">
+
+                        <svg viewBox="0 0 24 24">
+                            <rect x="4" y="5" width="16" height="15" rx="3"/>
+                            <path d="M8 3v4M16 3v4M4 10h16"/>
+                            <path d="M12 13v3M12 18h.01"/>
+                        </svg>
+
+                    </div>
+
+                    <div class="notification-content">
+
+                        <div class="notification-title-row">
+
+                            <h3>Agendamento alterado</h3>
+
+                            <time
+                                class="notification-time"
+                                datetime="2026-04-21"
+                            >
+                                Ontem
+                            </time>
+
+                        </div>
+
+                        <p>
+                            A ONG Amor de 4 Patas alterou a data
+                            do seu agendamento.
+                        </p>
+
+                        <div class="notification-bottom">
+
+                            <span class="notification-category">
+                                Agendamentos
+                            </span>
+
+                            <a
+                                href="/agendamentos/"
+                                class="notification-link"
+                            >
+                                Conferir alteração
+
+                                <svg viewBox="0 0 24 24"
+                                     aria-hidden="true">
+                                    <path d="m9 18 6-6-6-6"/>
+                                </svg>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Notificação 5 -->
+                <article
+                    class="notification-item"
+                    data-notification="boas-vindas"
+                >
+
+                    <div class="notification-icon icon-welcome"
+                         aria-hidden="true">
+
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 3a7 7 0 0 0-4 12.7V19h8v-3.3A7 7 0 0 0 12 3Z"/>
+                            <path d="M9 22h6M9 16h6"/>
+                            <path d="m10 10 1.5 1.5L14 9"/>
+                        </svg>
+
+                    </div>
+
+                    <div class="notification-content">
+
+                        <div class="notification-title-row">
+
+                            <h3>Bem-vindo(a)!</h3>
+
+                            <time
+                                class="notification-time"
+                                datetime="2026-04-20"
+                            >
+                                Há 2 dias
+                            </time>
+
+                        </div>
+
+                        <p>
+                            Obrigado por fazer parte do Majestanimais!
+                        </p>
+
+                        <div class="notification-bottom">
+
+                            <span class="notification-category">
+                                Sua conta
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- Painel lateral -->
+        <aside class="notifications-sidebar">
+
+            <section class="notification-info-card">
+
+                <div class="info-card-icon" aria-hidden="true">
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 3a9 9 0 1 0 9 9"/>
+                        <path d="M12 7v5l3 2"/>
+                    </svg>
+
+                </div>
+
+                <h2>Não perca nenhuma novidade</h2>
+
+                <p>
+                    Consulte suas notificações para acompanhar
+                    os agendamentos, as mensagens recebidas e
+                    os novos animais disponíveis para adoção.
+                </p>
+
+            </section>
+
+
+            <section class="notification-summary-card">
+
+                <h2>Resumo</h2>
+
+                <div class="summary-row">
+                    <span class="summary-label">
+                        Total de notificações
+                    </span>
+
+                    <strong id="summary-total">5</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-label">
+                        Não lidas
+                    </span>
+
+                    <strong id="summary-unread">3</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-label">
+                        Lidas
+                    </span>
+
+                    <strong id="summary-read">2</strong>
+                </div>
+
+            </section>
+
+        </aside>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const notificationItems = document.querySelectorAll(
+        ".notification-item"
+    );
+
+    const markAllButton = document.getElementById("mark-all-read");
+
+    const unreadSummary = document.getElementById("summary-unread");
+    const readSummary = document.getElementById("summary-read");
+
+    function updateSummary() {
+
+        let unread = 0;
+        let read = 0;
+
+        notificationItems.forEach(function (item) {
+
+            if (item.classList.contains("unread")) {
+                unread++;
+            } else {
+                read++;
+            }
+
+        });
+
+        unreadSummary.textContent = unread;
+        readSummary.textContent = read;
+
+    }
+
+    function markAsRead(item) {
+
+        item.classList.remove("unread");
+
+        const indicator = item.querySelector(".unread-indicator");
+
+        if (indicator) {
+            indicator.remove();
+        }
+
+    }
+
+    notificationItems.forEach(function (item) {
+
+        item.addEventListener("click", function (event) {
+
+            /*
+             * Não interfere na navegação dos links.
+             * Ao clicar no conteúdo da notificação, ela é marcada
+             * como lida.
+             */
+
+            if (!event.target.closest("a")) {
+                markAsRead(item);
+                updateSummary();
+            }
+
+        });
+
+    });
+
+    markAllButton.addEventListener("click", function () {
+
+        notificationItems.forEach(function (item) {
+            markAsRead(item);
+        });
+
+        updateSummary();
+
+        markAllButton.textContent = "Todas marcadas como lidas";
+        markAllButton.disabled = true;
+
+    });
+
+    updateSummary();
+
+});
+</script>
+
+{% endblock %}

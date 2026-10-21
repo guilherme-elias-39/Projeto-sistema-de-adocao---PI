@@ -1,0 +1,166 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Agendamento completo | MajestAnimais{% endblock %}
+
+{% block body_class %}agendamento-completo-page{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/css/agend_completo.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="agendamento-page">
+
+    <!-- Título da página -->
+    <div class="agendamento-heading">
+        <div>
+            <span class="agendamento-eyebrow">MINHA ADOÇÃO</span>
+            <h1>Agendamento completo</h1>
+            <p>Confira as informações da sua visita e acompanhe o agendamento.</p>
+        </div>
+
+        <a href="{% url 'agendamentos' %}" class="agendamento-back">
+            <span aria-hidden="true">←</span>
+            Voltar
+        </a>
+    </div>
+
+    <!-- Cartão principal -->
+    <article class="agendamento-card" id="agendamento-card">
+
+        <!-- Fotografia do animal -->
+        <div class="agendamento-cover">
+            <img
+                src="{% static 'core/img/thor.jpg' %}"
+                alt="Thor, cachorro disponível para adoção"
+            >
+
+            <span class="agendamento-cover-label">Visita de adoção</span>
+        </div>
+
+        <!-- Informações -->
+        <div class="agendamento-content">
+
+            <!-- Animal e instituição -->
+            <div class="agendamento-animal">
+                <div class="agendamento-ong-avatar" aria-hidden="true">🐾</div>
+
+                <div class="agendamento-animal-text">
+                    <h2>Thor</h2>
+                    <p>ONG Esperança Animal</p>
+                </div>
+
+                <span class="agendamento-status" id="agendamento-status">
+                    <span class="status-dot"></span>
+                    Confirmado
+                </span>
+            </div>
+
+            <div class="agendamento-divider"></div>
+
+            <!-- Data -->
+            <div class="agendamento-detail">
+                <div class="agendamento-detail-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="5" width="18" height="16" rx="2"/>
+                        <path d="M16 3v4M8 3v4M3 10h18"/>
+                    </svg>
+                </div>
+
+                <div>
+                    <h3>Data da visita</h3>
+                    <p>16 de abril de 2026</p>
+                </div>
+            </div>
+
+            <!-- Horário -->
+            <div class="agendamento-detail">
+                <div class="agendamento-detail-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M12 7v5l3 2"/>
+                    </svg>
+                </div>
+
+                <div>
+                    <h3>Horário</h3>
+                    <p>14:00</p>
+                </div>
+            </div>
+
+            <!-- Local -->
+            <div class="agendamento-detail agendamento-location">
+                <div class="agendamento-detail-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/>
+                        <circle cx="12" cy="10" r="2.5"/>
+                    </svg>
+                </div>
+
+                <div>
+                    <h3>Local</h3>
+                    <p>Rua das Flores, 123 - Centro</p>
+                    <p>Pau dos Ferros/RN</p>
+                </div>
+            </div>
+
+            <!-- Mensagem de confirmação -->
+            <div class="agendamento-notice" id="agendamento-notice">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m5 12 4 4L19 6"/>
+                </svg>
+                <p>Seu agendamento está confirmado. Esperamos por você!</p>
+            </div>
+
+            <!-- Ações -->
+            <div class="agendamento-actions" id="agendamento-actions">
+
+                <a href="{% url 'perfil_animal' %}" class="agendamento-animal-link">
+                    Conhecer o perfil de Thor
+                    <span aria-hidden="true">→</span>
+                </a>
+
+                <button
+                    type="button"
+                    class="agendamento-cancel"
+                    id="cancelar-agendamento"
+                >
+                    Cancelar agendamento
+                </button>
+
+            </div>
+
+            <!-- Exibido somente após confirmar o cancelamento -->
+            <div class="agendamento-cancelled" id="agendamento-cancelled" style="display: none;">
+                <span class="cancelled-icon" aria-hidden="true">×</span>
+
+                <div>
+                    <h3>Agendamento cancelado</h3>
+                    <p>
+                        Este agendamento foi cancelado. Entre em contato com a ONG
+                        se precisar combinar uma nova visita.
+                    </p>
+                </div>
+
+                <a href="{% url 'agendamentos' %}" class="agendamento-new-link">
+                    Voltar
+                </a>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- Informação complementar -->
+    <p class="agendamento-help">
+        <span aria-hidden="true">ⓘ</span>
+        Em caso de dúvidas sobre a visita, entre em contato com a ONG responsável.
+    </p>
+
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'core/js/agenda_completo.js' %}" defer></script>
+{% endblock %}

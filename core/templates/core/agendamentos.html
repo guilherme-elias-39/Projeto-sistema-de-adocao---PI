@@ -1,0 +1,470 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Meus Agendamentos | Majestanimais{% endblock %}
+
+{% block body_class %}appointments-page{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/css/agendamentos.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="appointments-container">
+
+    <!-- CABEÇALHO DA PÁGINA -->
+    <header class="appointments-heading">
+
+        <div class="appointments-heading-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                <path d="M16 3v4M8 3v4M3 10h18"></path>
+                <path d="m9 15 2 2 4-4"></path>
+            </svg>
+        </div>
+
+        <div>
+            <span class="appointments-eyebrow">MINHA CONTA</span>
+            <h1>Meus agendamentos</h1>
+            <p>Acompanhe suas visitas e os encontros com seus futuros companheiros.</p>
+        </div>
+
+    </header>
+
+
+    <!-- RESUMO DOS AGENDAMENTOS -->
+    <section class="appointments-summary" aria-label="Resumo dos agendamentos">
+
+        <article class="summary-card">
+            <div class="summary-icon summary-icon-green" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M12 7v5l3 2"></path>
+                </svg>
+            </div>
+
+            <div>
+                <span class="summary-label">Próximos</span>
+                <strong id="upcoming-count">2</strong>
+                <span class="summary-description">Visitas programadas</span>
+            </div>
+        </article>
+
+        <article class="summary-card">
+            <div class="summary-icon summary-icon-blue" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                    <path d="m5 12 4 4L19 6"></path>
+                    <circle cx="12" cy="12" r="9"></circle>
+                </svg>
+            </div>
+
+            <div>
+                <span class="summary-label">Finalizados</span>
+                <strong id="finished-count">1</strong>
+                <span class="summary-description">Visitas anteriores</span>
+            </div>
+        </article>
+
+    </section>
+
+
+    <!-- ÁREA PRINCIPAL -->
+    <section class="appointments-panel">
+
+        <div class="appointments-panel-header">
+
+            <div>
+                <h2>Suas visitas</h2>
+                <p>Consulte os detalhes de cada agendamento.</p>
+            </div>
+
+            <span class="appointments-total" id="appointments-total">
+                3 agendamentos
+            </span>
+
+        </div>
+
+
+        <!-- ABAS -->
+        <div class="appointments-tabs"
+             role="tablist"
+             aria-label="Filtrar agendamentos">
+
+            <button
+                class="appointment-tab active"
+                id="tab-upcoming"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                aria-controls="panel-upcoming"
+                data-tab="upcoming">
+
+                Próximos
+                <span class="tab-count" id="upcoming-tab-count">2</span>
+
+            </button>
+
+            <button
+                class="appointment-tab"
+                id="tab-finished"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panel-finished"
+                data-tab="finished"
+                tabindex="-1">
+
+                Finalizados
+                <span class="tab-count" id="finished-tab-count">1</span>
+
+            </button>
+
+        </div>
+
+
+        <!-- LISTA DE PRÓXIMOS AGENDAMENTOS -->
+        <div
+            class="appointments-list"
+            id="panel-upcoming"
+            role="tabpanel"
+            aria-labelledby="tab-upcoming">
+
+            <!-- THOR -->
+            <article class="appointment-card" data-status="upcoming"
+                    onclick="window.location.href='/agend_completo/'"
+                    style="cursor: pointer;">
+
+                <img
+                    class="appointment-image"
+                    src="{% static 'core/img/thor.jpg' %}"
+                    alt="Thor, cachorro disponível para adoção"
+                    onerror="this.onerror=null;this.src='https://placehold.co/160x160/e6f0ed/145b52?text=Thor';">
+
+                <div class="appointment-information">
+
+                    <div class="appointment-animal-heading">
+                        <h3>Thor</h3>
+                        <span class="appointment-reference">Agendamento #001</span>
+                    </div>
+
+                    <a href="/ongs/esperanca-animal/"
+                       class="appointment-organization">
+                        ONG Patinhas Felizes
+                    </a>
+
+                    <div class="appointment-details">
+
+                        <span class="appointment-detail">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                                <path d="M16 3v4M8 3v4M3 10h18"></path>
+                            </svg>
+                            16 de novembro de 2026
+                        </span>
+
+                        <span class="appointment-detail">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <path d="M12 7v5l3 2"></path>
+                            </svg>
+                            14h00
+                        </span>
+
+                    </div>
+
+                    <div class="appointment-card-bottom">
+                        <span class="appointment-status status-confirmed">
+                            <span class="status-dot"></span>
+                            Confirmado
+                        </span>
+
+                        <span class="appointment-type">Visita presencial</span>
+                    </div>
+
+                </div>
+
+                <a
+                    href="{% url 'agend_completo' %}"
+                    class="appointment-open"
+                    aria-label="Ver detalhes do agendamento de Thor"
+                    title="Ver detalhes">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+
+                </a>
+
+            </article>
+
+            <!-- LUNA -->
+            <article class="appointment-card" data-status="upcoming">
+
+                <img
+                    class="appointment-image"
+                    src="{% static 'core/img/luna.jpg' %}"
+                    alt="Luna, cachorro disponível para adoção"
+                    onerror="this.onerror=null;this.src='https://placehold.co/160x160/e6f0ed/145b52?text=Luna';">
+
+                <div class="appointment-information">
+
+                    <div class="appointment-animal-heading">
+                        <h3>Luna</h3>
+                        <span class="appointment-reference">Agendamento #002</span>
+                    </div>
+
+                    <a href="/ongs/patinhas-felizes/"
+                       class="appointment-organization">
+                        ONG Patinhas Felizes
+                    </a>
+
+                    <div class="appointment-details">
+
+                        <span class="appointment-detail">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                                <path d="M16 3v4M8 3v4M3 10h18"></path>
+                            </svg>
+                            20 de novembro de 2026
+                        </span>
+
+                        <span class="appointment-detail">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <path d="M12 7v5l3 2"></path>
+                            </svg>
+                            10h00
+                        </span>
+
+                    </div>
+
+                    <div class="appointment-card-bottom">
+                        <span class="appointment-status status-pending">
+                            <span class="status-dot"></span>
+                            Pendente
+                        </span>
+
+                        <span class="appointment-type">Visita presencial</span>
+                    </div>
+
+                </div>
+
+                <a
+                    href="/agendamentos/2/"
+                    class="appointment-open"
+                    aria-label="Ver detalhes do agendamento de Luna"
+                    title="Ver detalhes">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+
+                </a>
+
+            </article>
+
+            <!-- LUNA -->
+            <article class="appointment-card" data-status="upcoming">
+
+                <img
+                    class="appointment-image"
+                    src="{% static 'core/img/Hera.png' %}"
+                    alt="Luna, cachorro disponível para adoção"
+                    onerror="this.onerror=null;this.src='https://placehold.co/160x160/e6f0ed/145b52?text=Luna';">
+
+                <div class="appointment-information">
+
+                    <div class="appointment-animal-heading">
+                        <h3>Luna</h3>
+                        <span class="appointment-reference">Agendamento #002</span>
+                    </div>
+
+                    <a href="/ongs/patinhas-felizes/"
+                       class="appointment-organization">
+                        ONG Patinhas Felizes
+                    </a>
+
+                    <div class="appointment-details">
+
+                        <span class="appointment-detail">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                                <path d="M16 3v4M8 3v4M3 10h18"></path>
+                            </svg>
+                            20 de novembro de 2026
+                        </span>
+
+                        <span class="appointment-detail">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <path d="M12 7v5l3 2"></path>
+                            </svg>
+                            10h00
+                        </span>
+
+                    </div>
+
+                    <div class="appointment-card-bottom">
+                        <span class="appointment-status status-pending">
+                            <span class="status-dot"></span>
+                            Pendente
+                        </span>
+
+                        <span class="appointment-type">Visita presencial</span>
+                    </div>
+
+                </div>
+
+                <a
+                    href="/agendamentos/2/"
+                    class="appointment-open"
+                    aria-label="Ver detalhes do agendamento de Luna"
+                    title="Ver detalhes">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+
+                </a>
+
+            </article>
+
+        </div>
+
+
+        <!-- LISTA DE AGENDAMENTOS FINALIZADOS -->
+        <div
+            class="appointments-list"
+            id="panel-finished"
+            role="tabpanel"
+            aria-labelledby="tab-finished"
+            hidden>
+
+            <!-- MEL -->
+            <article class="appointment-card" data-status="finished">
+
+                <img
+                    class="appointment-image"
+                    src="{% static 'core/img/mel-gato.png' %}"
+                    alt="Mel, cachorro disponível para adoção"
+                    onerror="this.onerror=null;this.src='https://placehold.co/160x160/e6f0ed/145b52?text=Mel';">
+
+                <div class="appointment-information">
+
+                    <div class="appointment-animal-heading">
+                        <h3>Mel</h3>
+                        <span class="appointment-reference">Agendamento #003</span>
+                    </div>
+
+                    <a href="/ongs/vida-animal/"
+                       class="appointment-organization">
+                        ONG Vida Animal
+                    </a>
+
+                    <div class="appointment-details">
+
+                        <span class="appointment-detail">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                                <path d="M16 3v4M8 3v4M3 10h18"></path>
+                            </svg>
+                            10 de outubro de 2026
+                        </span>
+
+                        <span class="appointment-detail">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <path d="M12 7v5l3 2"></path>
+                            </svg>
+                            16h00
+                        </span>
+
+                    </div>
+
+                    <div class="appointment-card-bottom">
+                        <span class="appointment-status status-finished">
+                            <span class="status-dot"></span>
+                            Finalizado
+                        </span>
+
+                        <span class="appointment-type">Visita presencial</span>
+                    </div>
+
+                </div>
+
+                <a
+                    href="/agendamentos/3/"
+                    class="appointment-open"
+                    aria-label="Ver detalhes do agendamento de Mel"
+                    title="Ver detalhes">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+
+                </a>
+
+            </article>
+
+        </div>
+
+
+        <!-- MENSAGEM PARA LISTAS VAZIAS -->
+        <div class="appointments-empty" id="appointments-empty" hidden>
+
+            <div class="empty-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                    <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                    <path d="M16 3v4M8 3v4M3 10h18"></path>
+                </svg>
+            </div>
+
+            <h3>Nenhum agendamento por aqui</h3>
+
+            <p>
+                Quando houver agendamentos nesta categoria,
+                eles aparecerão nesta área.
+            </p>
+
+            <a href="/pesquisa/" class="appointments-search-button">
+                Encontrar animais
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- INFORMAÇÃO ADICIONAL -->
+    <aside class="appointments-help">
+
+        <div class="help-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 11v5M12 8h.01"></path>
+            </svg>
+        </div>
+
+        <div>
+            <h2>Precisa de ajuda com uma visita?</h2>
+            <p>
+                Se tiver dúvidas sobre um agendamento, entre em contato
+                com a ONG responsável pela visita.
+            </p>
+        </div>
+
+        <a href="/chat/" class="help-button">
+            Falar com a ONG
+        </a>
+
+    </aside>
+
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script src="{% static 'js/meus_agendamentos.js' %}"></script>
+{% endblock %}
