@@ -36,6 +36,29 @@
 #visit-form input,#visit-form textarea{width:100%;box-sizing:border-box;padding:12px 13px;border:1px solid var(--border,#dce5e2);border-radius:10px;outline:none;color:var(--text,#263936);background:#fff;font:inherit;font-size:14px}
 #visit-form input:focus,#visit-form textarea:focus{border-color:var(--green,#145b52);box-shadow:0 0 0 3px rgba(20,91,82,.1)}.dialog-submit{width:100%;margin-top:10px}.form-note{margin:0;color:var(--green,#145b52);font-size:13px}
 .toast{position:fixed;right:24px;bottom:24px;z-index:1000;max-width:min(380px,calc(100% - 48px));padding:13px 17px;border-radius:12px;color:#fff;background:var(--green-dark,#10473f);box-shadow:0 12px 30px rgba(0,0,0,.18);font-size:14px;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .2s,transform .2s}.toast.is-visible{opacity:1;transform:translateY(0)}
+.filter-button {
+    min-height: 32px;
+    padding: 6px 13px;
+    border: 1px solid var(--messages-border);
+    border-radius: 20px;
+    background: #fff;
+    color: #71817b;
+    font-size: 0.76rem;
+    font-weight: 650;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.filter-button:hover {
+    border-color: #9cbfb5;
+    color: var(--messages-green);
+}
+
+.filter-button.voltar {
+    border-color: var(--messages-green);
+    background: var(--messages-green);
+    color: #fff;
+}
 @media(max-width:900px){.animal-layout{grid-template-columns:minmax(0,1fr)}.animal-gallery{position:static}.gallery-main{aspect-ratio:1.45/1}}
 @media(max-width:560px){.animal-detail-page #conteudo-principal{padding:18px 12px 36px}.animal-layout{padding:15px;gap:25px;border-radius:16px}.gallery-main{aspect-ratio:1/.9}.gallery-thumbnails{gap:6px}.animal-title-row h1{font-size:32px}.animal-topline{gap:10px}.organization-mark{width:40px;height:40px;flex-basis:40px}.outline-button{padding:8px 12px}.animal-actions .primary-button{width:100%}.breadcrumb{margin-bottom:14px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important}}

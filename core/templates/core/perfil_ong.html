@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ ong.nome|default:"Patinhas Felizes" }} | Majestanimais{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/css/perfil_ong.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <section class="profile-layout">
+    <aside class="profile-sidebar">
+        <div class="cover-photo">
+            {% if ong.foto_capa %}
+                <img src="{{ ong.foto_capa.url }}" alt="Foto de capa da {{ ong.nome }}">
+            {% else %}
+                <img src="{% static 'core/img/ong-capa.jpg' %}" alt="Animais acolhidos pela ONG">
+            {% endif %}
+        </div>
+        <div class="identity">
+            <div class="ong-logo">
+                {% if ong.logo %}
+                    <img src="{{ ong.logo.url }}" alt="Logo da {{ ong.nome }}">
+                {% else %}
+                    <span aria-hidden="true">🐾</span>
+                {% endif %}
+            </div>
+            <div class="identity-text">
+                <h1>{{ ong.nome|default:"Patinhas Felizes" }}</h1>
+                <p class="location">{{ ong.cidade|default:"Pau dos Ferros" }}{% if ong.estado %}/{{ ong.estado }}{% else %}/RN{% endif %}</p>
+                {% if ong.verificada %}<span class="verified">✓ Instituição verificada</span>{% endif %}
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <strong>{{ total_animais|default:"4" }}</strong>
+                <span>animais disponíveis</span>
+            </div>
+            <div class="stat">
+                <strong>{{ total_adocoes|default:"12" }}</strong>
+                <span>adoções este mês</span>
+            </div>
+        </div>
+
+        <div class="about">
+            <h2>Sobre a instituição</h2>
+            <p>{{ ong.descricao|default:"Somos uma ONG independente que atua no resgate, cuidado e adoção de animais em situação de vulnerabilidade. Acreditamos que todo pet merece uma segunda chance!" }}</p>
+        </div>
+
+        <div class="contact-list">
+            <p><span class="contact-icon">⌖</span><span>{{ ong.cidade|default:"Pau dos Ferros" }}{% if ong.estado %}/{{ ong.estado }}{% else %}/RN{% endif %}</span></p>
+            {% if ong.telefone %}<p><span class="contact-icon">☎</span><a href="tel:{{ ong.telefone }}">{{ ong.telefone }}</a></p>
+            {% else %}<p><span class="contact-icon">☎</span><span>(84) 99900-0000</span></p>{% endif %}
+            {% if ong.email %}<p><span class="contact-icon">✉</span><a href="mailto:{{ ong.email }}">{{ ong.email }}</a></p>
+            {% else %}<p><span class="contact-icon">✉</span><span>patinhasfelizes@gmail.com</span></p>{% endif %}
+        </div>
+
+        {# Ajuste o nome da URL abaixo para corresponder à rota de chat do seu projeto. #}
+        <a class="button button-primary chat-button"
+          
+        <a href="{% url 'mensagens' %}" class="button button-primary chat-button"><span aria-hidden="true"></span> Conversar com a instituição</a>
+        <p class="chat-hint">Tire dúvidas sobre adoção diretamente com a ONG.</p>
+        <a href="{% url 'pesquisa_instituicoes' %}" class="button button-second voltar-button"><span aria-hidden="true"></span> Voltar à página anterior </a>
+    </aside>
+
+    <section class="animals-section" aria-labelledby="animals-title">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Conheça nossos animais</p>
+                <h2 id="animals-title">Pets disponíveis para adoção</h2>
+                <p class="section-description">Encontre um novo melhor amigo para fazer parte da sua família.</p>
+            </div>
+            <span class="count-pill">{{ animais|length|default:"4" }} pets</span>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Conteúdo do perfil">
+            <button class="tab active" type="button" role="tab" aria-selected="true" data-tab="animais">🐾 Animais</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="sobre">ⓘ Sobre a ONG</button>
+        </div>
+
+        <div class="tab-panel" id="tab-animais">
+            <div class="animal-grid">
+                {% for animal in animais %}
+                    <article class="animal-card">
+                        <a class="animal-photo" href="{% url 'detalhe_animal' animal.id %}">
+                            {% if animal.foto %}
+                                <img src="{{ animal.foto.url }}" alt="{{ animal.nome }}">
+                            {% else %}
+                                <div class="photo-placeholder">🐶</div>
+                            {% endif %}
+                            <span class="adoption-badge">À espera de um lar</span>
+                        </a>
+                        <div class="animal-info">
+                            <div class="animal-title-row">
+                                <h3>{{ animal.nome }}</h3>
+                                {% if animal.sexo %}<span class="animal-sex">{{ animal.sexo }}</span>{% endif %}
+                            </div>
+                            <p>{{ animal.raca|default:"Sem raça definida" }}{% if animal.idade %} · {{ animal.idade }}{% endif %}</p>
+                            <a class="text-link" href="{% url 'detalhe_animal' animal.id %}">Conhecer pet <span>→</span></a>
+                        </div>
+                    </article>
+                {% empty %}
+                   <article class="animal-card">
+                        <a class="animal-photo" href="{% url 'perfil_animal' %}">
+                            <img src="{% static 'core/img/thor.jpg' %}" alt="Thor, cão disponível para adoção">
+                            <span class="adoption-badge">À espera de um lar</span>
+                        </a>
+
+                        <div class="animal-info">
+                            <div class="animal-title-row">
+                                <h3>Thor</h3>
+                                <span class="animal-sex">Macho</span>
+                            </div>
+
+                            <p>SRD · 2 anos</p>
+
+                            <a href="{% url 'perfil_animal' %}" class="text-link">
+                                Conhecer pet <span>→</span>
+                            </a>
+                        </div>
+                    </article>
+                    <article class="animal-card">
+                        <a class="animal-photo" href="#">
+                            <img src="{% static 'core/img/cat3.avif' %}" alt="Luna, cadela disponível para adoção">
+                            <span class="adoption-badge">À espera de um lar</span>
+                        </a>
+                        <div class="animal-info">
+                            <div class="animal-title-row"><h3>Luna</h3><span class="animal-sex">Fêmea</span></div>
+                            <p>SRD · 3 anos</p>
+                            <a class="text-link" href="#">Conhecer pet <span>→</span></a>
+                        </div>
+                    </article>
+                    <article class="animal-card">
+                        <a class="animal-photo" href="#">
+                            <img src="{% static 'core/img/mel-gato.png' %}" alt="Mel, cadela disponível para adoção">
+                            <span class="adoption-badge">À espera de um lar</span>
+                        </a>
+                        <div class="animal-info">
+                            <div class="animal-title-row"><h3>Mel</h3><span class="animal-sex">Fêmea</span></div>
+                            <p>SRD · 2 anos</p>
+                            <a class="text-link" href="#">Conhecer pet <span>→</span></a>
+                        </div>
+                    </article>
+                    <article class="animal-card">
+                        <a class="animal-photo" href="#">
+                            <img src="{% static 'core/img/Hera.png' %}" alt="Hera, cadela disponível para adoção">
+                            <span class="adoption-badge">À espera de um lar</span>
+                        </a>
+                        <div class="animal-info">
+                            <div class="animal-title-row"><h3>Hera</h3><span class="animal-sex">Fêmea</span></div>
+                            <p>SRD · 3 anos</p>
+                            <a class="text-link" href="#">Conhecer pet <span>→</span></a>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="tab-panel about-panel" id="tab-sobre" hidden>
+            <h3>Sobre {{ ong.nome|default:"a Patinhas Felizes" }}</h3>
+            <p>{{ ong.descricao|default:"Somos uma ONG independente que atua no resgate, cuidado e adoção de animais em situação de vulnerabilidade. Acreditamos que todo pet merece uma segunda chance!" }}</p>
+            <div class="about-details">
+                <div><span>Localização</span><strong>{{ ong.cidade|default:"Pau dos Ferros" }}{% if ong.estado %}/{{ ong.estado }}{% else %}/RN{% endif %}</strong></div>
+                {% if ong.email %}<div><span>E-mail</span><strong>{{ ong.email }}</strong></div>{% endif %}
+                {% if ong.telefone %}<div><span>Telefone</span><strong>{{ ong.telefone }}</strong></div>{% endif %}
+            </div>
+        </div>
+       </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const tabs = document.querySelectorAll(".tab");
+    const animalsPanel = document.getElementById("tab-animais");
+    const aboutPanel = document.getElementById("tab-sobre");
+
+    tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+            const showAnimals = tab.dataset.tab === "animais";
+            animalsPanel.hidden = !showAnimals;
+            aboutPanel.hidden = showAnimals;
+
+            tabs.forEach(function (item) {
+                const selected = item === tab;
+                item.classList.toggle("active", selected);
+                item.setAttribute("aria-selected", selected ? "true" : "false");
+            });
+        });
+    });
+});
+</script>
+{% endblock %}

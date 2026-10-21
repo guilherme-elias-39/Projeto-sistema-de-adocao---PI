@@ -11,7 +11,7 @@
   <div class="animal-layout">
     <section class="animal-gallery" aria-label="Fotos do animal">
       <div class="gallery-main">
-        <img id="main-animal-image" src="{% static 'core/img/cat1.avif' %}" alt="Thor, cachorro caramelo sorrindo">
+        <img id="main-animal-image" src="{% static 'core/img/thor.jpg' %}" alt="Thor, cachorro caramelo sorrindo">
         <span class="photo-counter" id="photo-counter">1/5</span>
         <button class="gallery-arrow gallery-prev" type="button" id="photo-prev" aria-label="Foto anterior">‹</button>
         <button class="gallery-arrow gallery-next" type="button" id="photo-next" aria-label="Próxima foto">›</button>
@@ -41,6 +41,7 @@
       <section class="detail-section"><h2>♡ &nbsp;Saúde</h2><p>Vacinado, vermifugado e castrado.</p></section>
       <section class="detail-section"><h2>🐾 &nbsp;Comportamento</h2><p>É muito carinhoso, adora brincar e se dá bem com outros animais. Ideal para famílias que buscam um companheiro leal e alegre.</p></section>
       <div class="animal-actions"><a class="primary-button" href="{% url 'agendar_visita' %}?animal=thor"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h3"/></svg>Agendar visita</a></div>
+      
     </section>
   </div>
 </section>

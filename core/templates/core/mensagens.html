@@ -1,0 +1,328 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Mensagens | MajestAnimais{% endblock %}
+
+{% block body_class %}messages-page{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/css/mensagens.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="messages-container">
+
+    <!-- CABEÇALHO DA PÁGINA -->
+    <section class="messages-heading">
+        <div>
+            <span class="messages-eyebrow">COMUNICAÇÃO</span>
+            <h1>Mensagens</h1>
+            <p>Converse com ONGs e acompanhe suas conversas.</p>
+        </div>
+
+        <div class="messages-total" aria-live="polite">
+            <span class="total-indicator"></span>
+            <span id="conversation-total">3 conversas</span>
+        </div>
+    </section>
+
+    <!-- ÁREA PRINCIPAL -->
+    <section class="messages-workspace">
+
+        <!-- COLUNA DE CONVERSAS -->
+        <aside class="conversations-panel"
+               aria-label="Lista de conversas">
+
+            <div class="conversations-header">
+                <div>
+                    <h2>Suas conversas</h2>
+                    <p>Suas mensagens recentes</p>
+                </div>
+
+                <span class="conversations-count" id="unread-total">2 novas</span>
+            </div>
+
+            <!-- BUSCA -->
+            <form class="conversation-search" role="search"
+                  onsubmit="return false;">
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <path d="m16 16 4 4"></path>
+                </svg>
+
+                <label class="sr-only" for="conversation-filter">
+                    Buscar conversas
+                </label>
+
+                <input
+                    type="search"
+                    id="conversation-filter"
+                    placeholder="Buscar conversas..."
+                    autocomplete="off"
+                >
+
+                <button type="button"
+                        id="clear-search"
+                        class="clear-search"
+                        aria-label="Limpar pesquisa"
+                        hidden>
+                    &times;
+                </button>
+            </form>
+
+            <!-- FILTROS -->
+            <div class="conversation-filters"
+                 aria-label="Filtrar conversas">
+                <a class="filter-button voltar" href="{% url 'pagina_principal' %}" aria-label="Voltar para a página inicial" title="Voltar">←</a>
+
+                <button type="button"
+                        class="filter-button active"
+                        data-filter="all"
+                        aria-pressed="true">
+                    Todas
+                </button>
+
+                <button type="button"
+                        class="filter-button"
+                        data-filter="unread"
+                        aria-pressed="false">
+                    Não lidas
+                </button>
+            </div>
+
+            <!-- LISTA -->
+            <div class="conversation-list" id="conversation-list">
+
+                <!-- CONVERSA 1 -->
+                <button type="button"
+                        class="conversation-item active"
+                        data-conversation="patinhas"
+                        data-name="Patinhas Felizes"
+                        data-unread="true"
+                        aria-pressed="true">
+
+                    <span class="conversation-avatar">
+                        <img
+                            src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=120&q=80"
+                            alt=""
+                            loading="lazy"
+                        >
+                    </span>
+
+                    <span class="conversation-details">
+                        <span class="conversation-topline">
+                            <strong>Patinhas Felizes</strong>
+                            <time datetime="2026-10-18T10:24">10:24</time>
+                        </span>
+
+                        <span class="conversation-preview">
+                            Olá! Temos alguns filhotes disponíveis...
+                        </span>
+                    </span>
+
+                    <span class="unread-badge" aria-label="2 mensagens não lidas">
+                        2
+                    </span>
+                </button>
+
+                <!-- CONVERSA 2 -->
+                <button type="button"
+                        class="conversation-item"
+                        data-conversation="esperanca"
+                        data-name="Esperança Animal"
+                        data-unread="false"
+                        aria-pressed="false">
+
+                    <span class="conversation-avatar">
+                        <img
+                            src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=120&q=80"
+                            alt=""
+                            loading="lazy"
+                        >
+                    </span>
+
+                    <span class="conversation-details">
+                        <span class="conversation-topline">
+                            <strong>Esperança Animal</strong>
+                            <time datetime="2026-10-17">Ontem</time>
+                        </span>
+
+                        <span class="conversation-preview">
+                            Pode ser sim! 😊
+                        </span>
+                    </span>
+                </button>
+
+                <!-- CONVERSA 3 -->
+                <button type="button"
+                        class="conversation-item"
+                        data-conversation="vida"
+                        data-name="Vida Animal"
+                        data-unread="false"
+                        aria-pressed="false">
+
+                    <span class="conversation-avatar">
+                        <img
+                            src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=120&q=80"
+                            alt=""
+                            loading="lazy"
+                        >
+                    </span>
+
+                    <span class="conversation-details">
+                        <span class="conversation-topline">
+                            <strong>Vida Animal</strong>
+                            <time datetime="2026-10-17">Ontem</time>
+                        </span>
+
+                        <span class="conversation-preview">
+                            Obrigada pelo interesse!
+                        </span>
+                    </span>
+                </button>
+
+        </aside>
+
+        <!-- PAINEL DA CONVERSA -->
+        <section class="chat-panel"
+                 aria-label="Conversa selecionada">
+
+            <!-- CABEÇALHO DO CHAT -->
+            <header class="chat-header">
+
+                <div class="chat-contact">
+
+                    <button type="button"
+                            class="mobile-back-button"
+                            id="mobile-back"
+                            aria-label="Voltar às conversas">
+                        &larr;
+                    </button>
+
+                    <span class="chat-avatar" id="chat-avatar">
+                        <img
+                            src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=120&q=80"
+                            alt=""
+                        >
+                    </span>
+
+                    <div class="chat-contact-info">
+                        <h2 id="chat-name">Patinhas Felizes</h2>
+
+                        <p>
+                            <span class="status-dot"></span>
+                            Conversa com a instituição
+                        </p>
+                    </div>
+                </div>
+
+                <button type="button"
+                        class="chat-options-button"
+                        aria-label="Informações da conversa"
+                        title="Informações da conversa">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="5" cy="12" r="1"></circle>
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <circle cx="19" cy="12" r="1"></circle>
+                    </svg>
+                </button>
+            </header>
+
+            <!-- MENSAGENS -->
+            <div class="chat-messages"
+                 id="chat-messages"
+                 aria-live="polite"
+                 aria-label="Mensagens da conversa">
+
+                <div class="chat-date-divider">
+                    <span>Hoje</span>
+                </div>
+
+                <article class="message received">
+                    <div class="message-bubble">
+                        <p>Olá! Tudo bem? 🐾</p>
+                        <time datetime="2026-10-18T10:20">10:20</time>
+                    </div>
+                </article>
+
+                <article class="message received">
+                    <div class="message-bubble">
+                        <p>Temos alguns filhotes disponíveis para adoção. Você gostaria de conhecê-los?</p>
+                        <time datetime="2026-10-18T10:24">10:24</time>
+                    </div>
+                </article>
+
+                <article class="message sent">
+                    <div class="message-bubble">
+                        <p>Olá! Gostaria, sim. Poderiam me enviar mais informações?</p>
+                        <time datetime="2026-10-18T10:26">10:26</time>
+                        <span class="message-status" aria-label="Enviada">✓✓</span>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- AVISO INFORMATIVO -->
+            <div class="chat-notice">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M12 11v5"></path>
+                    <path d="M12 7h.01"></path>
+                </svg>
+
+                <p>
+                    Mantenha a comunicação respeitosa e combine os detalhes
+                    da adoção diretamente com a instituição.
+                </p>
+            </div>
+
+            <!-- CAMPO DE ENVIO -->
+            <form class="message-composer" id="message-form">
+
+                <label class="sr-only" for="message-input">
+                    Digite sua mensagem
+                </label>
+
+                <textarea
+                    id="message-input"
+                    name="message"
+                    rows="1"
+                    maxlength="2000"
+                    placeholder="Escreva sua mensagem..."
+                    required
+                ></textarea>
+
+                <button type="submit"
+                        class="send-button"
+                        aria-label="Enviar mensagem"
+                        title="Enviar mensagem">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M22 2 11 13"></path>
+                        <path d="m22 2-7 20-4-9-9-4Z"></path>
+                    </svg>
+                </button>
+
+            </form>
+
+            <p class="composer-caption">
+                Pressione Enter para enviar · Shift + Enter para pular linha
+            </p>
+
+        </section>
+
+    </section>
+
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/mensagens.js' %}" defer></script>
+{% endblock %}
