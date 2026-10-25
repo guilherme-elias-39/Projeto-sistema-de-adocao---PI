@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("login-form");
     const password = document.getElementById("senha");
     const togglePassword = document.getElementById("toggle-password");
-    const message = document.getElementById("login-message");
 
     // Mostrar ou ocultar a senha.
     if (togglePassword && password) {
@@ -22,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         });
     }
+
 
     // Validar os campos e redirecionar para a página inicial.
     if (form) {

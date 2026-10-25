@@ -40,9 +40,13 @@
                 <p>Entre na sua conta para continuar.</p>
             </div>
 
+            
             <form id="login-form"
-                  class="login-form"
-                  data-home-url="{% url 'login' %}">
+                class="login-form"
+                method="post"
+                action="{% url 'login' %}"
+                data-home-url="{% url 'pagina_principal' %}">
+                {% csrf_token %}
 
                 <div class="form-field">
                     <label for="email" class="sr-only">E-mail</label>
@@ -96,6 +100,12 @@
                         </svg>
                     </button>
                 </div>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="login-message">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
 
                 <p id="login-message"
                    class="login-message"

@@ -49,70 +49,59 @@
                 <span class="results-caption">Encontre uma nova amizade</span>
             </div>
 
+
             <div class="results-grid" id="animals-results">
-                {# Dados demonstrativos: substitua pelos registros do banco quando models/views estiverem disponíveis. #}
-                <article class="result-card" data-search="bela vira-lata 2 anos ong patinhas felizes pau dos ferros rn cachorro">
-                    <div class="result-photo">
-                        <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=500&q=80"
-                             alt="Bela, uma cadela esperando adoção" loading="lazy"
-                             onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=500&q=80'">
-                    </div>
-                    <div class="result-info">
-                        <h3>Bela</h3>
-                        <p class="animal-meta">Vira-lata <span>•</span> 2 anos</p>
-                        <p class="result-organization">ONG Patinhas Felizes</p>
-                        <p class="result-location">Pau dos Ferros/RN</p>
-                    </div>
-                    <a class="result-arrow" href="{% url 'perfil_animal' %}" aria-label="Ver detalhes de Bela">›</a>
-                </article>
 
-                <article class="result-card" data-search="thor labrador 1 ano ong esperança animal pau dos ferros rn cachorro">
-                    <div class="result-photo">
-                        <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=500&q=80"
-                             alt="Thor, um cão da raça labrador" loading="lazy">
-                    </div>
-                    <div class="result-info">
-                        <a href="{% url 'perfil_animal' %}" aria-label="Ver detalhes de Thor">
-                            <h3>Thor</h3>
-                            <p class="animal-meta">Labrador <span>•</span> 1 ano</p>
-                            <p class="result-organization">ONG Esperança Animal</p>
-                            <p class="result-location">Pau dos Ferros/RN</p>
+                {% for pet in pets %}
+                    <article class="result-card"
+                            data-search="{{ pet.nome }} {{ pet.get_especie_display }} {{ pet.caracteristicas }} {{ pet.instituicao.nome }} {{ pet.instituicao.cidade }}">
+
+                        <div class="result-photo">
+                            {% if pet.imagem %}
+                                <img
+                                    src="{{ pet.imagem.url }}"
+                                    alt="Foto de {{ pet.nome }}"
+                                    loading="lazy"
+                                >
+                            {% else %}
+                                <img
+                                    src="{% static 'core/img/pet-placeholder.png' %}"
+                                    alt="Animal sem foto cadastrada"
+                                    loading="lazy"
+                                >
+                            {% endif %}
+                        </div>
+
+                        <div class="result-info">
+                            <h3>{{ pet.nome }}</h3>
+
+                            <p class="animal-meta">
+                                {{ pet.get_especie_display }}
+                            </p>
+
+                            <p class="result-organization">
+                                {{ pet.instituicao.nome }}
+                            </p>
+
+                            <p class="result-location">
+                                {{ pet.instituicao.cidade }}
+                            </p>
+                        </div>
+
+                        <a class="result-arrow"
+                        href="{% url 'perfil_animal' pet.id %}"
+                        aria-label="Ver detalhes de {{ pet.nome }}">
+                            ›
                         </a>
-                    </div>
+                    </article>
 
-                    <a class="result-arrow"
-                    href="{% url 'perfil_animal' %}"
-                    aria-label="Ver detalhes de Thor">›</a>
-                </article>
+                {% empty %}
+                    <p>Nenhum animal disponível foi encontrado.</p>
+                {% endfor %}
 
-                <article class="result-card" data-search="mel srd 3 anos onda vida animal apodi rn cachorro">
-                    <div class="result-photo">
-                        <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=500&q=80"
-                             alt="Mel, uma cadela de porte pequeno" loading="lazy">
-                    </div>
-                    <div class="result-info">
-                        <h3>Mel</h3>
-                        <p class="animal-meta">SRD <span>•</span> 3 anos</p>
-                        <p class="result-organization">ONG Vida Animal</p>
-                        <p class="result-location">Apodi/RN</p>
-                    </div>
-                    <a class="result-arrow" href="{% url 'perfil_animal' %}" aria-label="Ver detalhes de Mel">›</a>
-                </article>
-
-                <article class="result-card" data-search="luna vira-lata 1 ano ong patinhas felizes pau dos ferros rn cachorro">
-                    <div class="result-photo">
-                        <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=500&q=80"
-                             alt="Luna, uma cadela de orelhas grandes" loading="lazy">
-                    </div>
-                    <div class="result-info">
-                        <h3>Luna</h3>
-                        <p class="animal-meta">Vira-lata <span>•</span> 1 ano</p>
-                        <p class="result-organization">ONG Patinhas Felizes</p>
-                        <p class="result-location">Pau dos Ferros/RN</p>
-                    </div>
-                    <a class="result-arrow" href="{% url 'perfil_animal' %}" aria-label="Ver detalhes de Luna">›</a>
-                </article>
             </div>
+
+
             <p class="empty-results" id="animals-empty" hidden>Nenhum animal encontrado. Tente outro nome, raça ou localização.</p>
         </div>
 

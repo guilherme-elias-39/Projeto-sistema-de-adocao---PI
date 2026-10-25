@@ -1,49 +1,172 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Detalhes do animal | MajestAnimais{% endblock %}
+
+{% block title %}{{ animal.nome }} | MajestAnimais{% endblock %}
+
 {% block body_class %}animal-detail-page{% endblock %}
-{% block extra_css %}<link rel="stylesheet" href="{% static 'core/css/animal.css' %}">{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/css/animal.css' %}">
+{% endblock %}
+
 {% block content %}
 <section class="animal-detail">
-  <nav class="breadcrumb" aria-label="Navegação estrutural">
-    <a href="{% url 'pagina_principal' %}">Início</a><span>/</span><a href="{% url 'pesquisa_pets' %}">Encontrar animais</a><span>/</span><span aria-current="page">Detalhes</span>
-  </nav>
-  <div class="animal-layout">
-    <section class="animal-gallery" aria-label="Fotos do animal">
-      <div class="gallery-main">
-        <img id="main-animal-image" src="{% static 'core/img/thor.jpg' %}" alt="Thor, cachorro caramelo sorrindo">
-        <span class="photo-counter" id="photo-counter">1/5</span>
-        <button class="gallery-arrow gallery-prev" type="button" id="photo-prev" aria-label="Foto anterior">‹</button>
-        <button class="gallery-arrow gallery-next" type="button" id="photo-next" aria-label="Próxima foto">›</button>
-      </div>
-      <div class="gallery-thumbnails" role="group" aria-label="Escolher foto">
-        <button class="thumbnail is-active" type="button" data-image="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=1200&q=85" data-alt="Thor olhando para a câmera" aria-label="Ver foto 1"><img src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=240&q=80" alt=""></button>
-        <button class="thumbnail" type="button" data-image="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1200&q=85" data-alt="Thor sentado" aria-label="Ver foto 2"><img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=240&q=80" alt=""></button>
-        <button class="thumbnail" type="button" data-image="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=1200&q=85" data-alt="Thor de perfil" aria-label="Ver foto 3"><img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=240&q=80" alt=""></button>
-        <button class="thumbnail" type="button" data-image="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=85" data-alt="Thor passeando com outro cachorro" aria-label="Ver foto 4"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=240&q=80" alt=""></button>
-        <button class="thumbnail" type="button" data-image="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=1200&q=80" data-alt="Thor descansando" aria-label="Ver foto 5"><img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=240&q=80" alt=""></button>
-      </div>
-      <p class="gallery-hint">↔ Selecione uma foto para ampliar</p>
-    </section>
-    <section class="animal-information">
-      <div class="animal-topline">
-        <div class="organization"><div class="organization-mark" aria-hidden="true">🐾</div><div><strong>Patinhas Felizes</strong><span>ONG · Pau dos Ferros/RN</span></div></div>
-        <button class="outline-button" type="button" id="follow-organization">Seguir</button>
-      </div>
-      <div class="animal-title-row">
-        <div><p class="eyebrow">Conheça quem está esperando por você</p><h1 id="animal-name">Thor <span class="sex-symbol" aria-label="Macho">♂</span></h1></div>
-        <button class="favorite-button" type="button" id="favorite-animal" aria-label="Adicionar Thor aos favoritos" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg></button>
-      </div>
-      <div class="quick-facts"><span>▣ &nbsp;2 anos</span><span>↕ &nbsp;Médio</span><span>🐾 &nbsp;SRD</span></div>
-      <p class="location-line">⌖ &nbsp;Encontrado em Pau dos Ferros/RN</p>
-      <section class="detail-section"><h2>Características</h2><ul class="trait-list"><li>Carinhoso</li><li>Brincalhão</li><li>Sociável</li><li>Dócil</li></ul></section>
-      <section class="detail-section"><h2>▤ &nbsp;Histórico</h2><p>Thor foi encontrado na região central da cidade, com sinais de abandono. Desde então, está sob os cuidados da ONG Patinhas Felizes, recebendo todo o amor e a atenção que merece.</p></section>
-      <section class="detail-section"><h2>♡ &nbsp;Saúde</h2><p>Vacinado, vermifugado e castrado.</p></section>
-      <section class="detail-section"><h2>🐾 &nbsp;Comportamento</h2><p>É muito carinhoso, adora brincar e se dá bem com outros animais. Ideal para famílias que buscam um companheiro leal e alegre.</p></section>
-      <div class="animal-actions"><a class="primary-button" href="{% url 'agendar_visita' %}?animal=thor"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h3"/></svg>Agendar visita</a></div>
-      
-    </section>
-  </div>
+
+    <nav class="breadcrumb" aria-label="Navegação estrutural">
+        <a href="{% url 'pagina_principal' %}">Início</a>
+        <span>/</span>
+        <a href="{% url 'pesquisa_pets' %}">Encontrar animais</a>
+        <span>/</span>
+        <span aria-current="page">{{ animal.nome }}</span>
+    </nav>
+
+    <div class="animal-layout">
+
+        <!-- Foto do animal -->
+        <section class="animal-gallery" aria-label="Foto do animal">
+            <div class="gallery-main">
+                {% if animal.imagem %}
+                    <img
+                        id="main-animal-image"
+                        src="{{ animal.imagem.url }}"
+                        alt="Foto de {{ animal.nome }}"
+                    >
+                {% else %}
+                    <img
+                        id="main-animal-image"
+                        src="{% static 'core/img/pet-placeholder.png' %}"
+                        alt="Foto não cadastrada para {{ animal.nome }}"
+                    >
+                {% endif %}
+            </div>
+
+            <p class="gallery-hint">
+                Conheça mais sobre este animal!
+            </p>
+        </section>
+
+        <!-- Informações do animal -->
+        <section class="animal-information">
+
+            <!-- Instituição responsável -->
+            <div class="animal-topline">
+                <div class="organization">
+                    <div class="organization-mark" aria-hidden="true">
+                        🐾
+                    </div>
+
+                    <div>
+                        <strong>{{ animal.instituicao.nome }}</strong>
+                        <span>{{ animal.instituicao.cidade }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nome -->
+            <div class="animal-title-row">
+                <div>
+                    <p class="eyebrow">
+                        Conheça quem está esperando por você
+                    </p>
+
+                    <h1 id="animal-name">{{ animal.nome }}</h1>
+                </div>
+            </div>
+
+            <!-- Informações básicas -->
+            <div class="quick-facts">
+
+                <span>
+                    🐾 {{ animal.get_especie_display }}
+                </span>
+
+                <span>
+                    {% if animal.idade != None %}
+                        {{ animal.idade }} ano{{ animal.idade|pluralize }}
+                    {% else %}
+                        Idade não informada
+                    {% endif %}
+                </span>
+
+                <span>
+                    {{ animal.raca|default:"Raça não informada" }}
+                </span>
+
+            </div>
+
+            <!-- Localização -->
+            <p class="location-line">
+                ⌖ &nbsp;{{ animal.instituicao.cidade }}
+            </p>
+
+            <!-- Características -->
+            <section class="detail-section">
+                <h2>Características</h2>
+
+                {% if animal.caracteristicas %}
+                    <p>{{ animal.caracteristicas|linebreaksbr }}</p>
+                {% else %}
+                    <p>As características deste animal ainda não foram informadas.</p>
+                {% endif %}
+            </section>
+
+            <!-- Descrição -->
+            <section class="detail-section">
+                <h2>▤ &nbsp; Sobre o animal</h2>
+
+                {% if animal.descricao %}
+                    <p>{{ animal.descricao|linebreaksbr }}</p>
+                {% else %}
+                    <p>A instituição ainda não adicionou uma descrição para este animal.</p>
+                {% endif %}
+            </section>
+
+            <!-- Situação de adoção -->
+            <section class="detail-section">
+                <h2>♡ &nbsp; Situação</h2>
+
+                <p>{{ animal.get_situacao_display }}</p>
+            </section>
+
+            <!-- Ações -->
+            <div class="animal-actions">
+
+                {% if animal.situacao == 'disponivel' %}
+                    <a
+                        class="primary-button"
+                        href="{% url 'agendar_visita' %}?animal={{ animal.id }}"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        >
+                            <rect x="3" y="5" width="18" height="16" rx="2"/>
+                            <path d="M16 3v4M8 3v4M3 10h18M8 14h3"/>
+                        </svg>
+
+                        Agendar visita
+                    </a>
+                {% else %}
+                    <p class="adoption-unavailable">
+                        Este animal não está disponível para adoção no momento.
+                    </p>
+                {% endif %}
+
+                <a
+                    class="outline-button"
+                    href="{% url 'pesquisa_pets' %}"
+                >
+                    Voltar aos animais
+                </a>
+
+            </div>
+
+        </section>
+    </div>
 </section>
 {% endblock %}
+
 {% block extra_js %}<script src="{% static 'js/animal.js' %}" defer></script>{% endblock %}
