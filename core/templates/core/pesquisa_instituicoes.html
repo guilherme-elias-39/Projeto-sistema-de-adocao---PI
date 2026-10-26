@@ -37,75 +37,53 @@
         <div class="results-heading">
             <div>
                 <h2>Instituições encontradas</h2>
-                <span class="results-count" id="ngo-count">3 resultados</span>
+                <span class="results-count" id="ngo-count">{{ instituicoes|length }} resultado{{ instituicoes|length|pluralize }}</span>
             </div>
             <span class="results-caption">A rede de cuidado e proteção</span>
         </div>
 
         <div class="results-grid ngo-results-grid" id="ngo-results">
 
-            <!-- ONG Patinhas Felizes -->
-            <a class="result-card ngo-card"
-                href="{% url 'perfil_ong' %}"
-                data-search="ong patinhas felizes pau dos ferros rn adoção acolhimento"
-                aria-label="Ver perfil da ONG Patinhas Felizes">
-
-                    <div class="ngo-avatar" aria-hidden="true">🐾</div>
-
-                    <div class="result-info">
-                        <h3>ONG Patinhas Felizes</h3>
-                        <p class="result-organization">
-                            Adoção responsável e acolhimento
-                        </p>
-                        <p class="result-location">Pau dos Ferros/RN</p>
-                    </div>
-
-                    <span class="result-arrow" aria-hidden="true">›</span>
-            </a>
-
-
-            <!-- ONG Esperança Animal -->
+            {% for instituicao in instituicoes %}
             <a class="result-card ngo-card"
             href="{% url 'perfil_ong' %}"
-            data-search="ong esperança animal pau dos ferros rn adoção proteção"
-            aria-label="Ver perfil da ONG Esperança Animal">
+            data-search="{{ instituicao.nome|lower }} {{ instituicao.cidade|lower }} {{ instituicao.descricao|lower }}"
+            aria-label="Ver perfil de {{ instituicao.nome }}">
 
-                <div class="ngo-avatar" aria-hidden="true">💚</div>
+                <div class="ngo-avatar" aria-hidden="true">🐾</div>
 
                 <div class="result-info">
-                    <h3>ONG Esperança Animal</h3>
+                    <h3>{{ instituicao.nome }}</h3>
+
                     <p class="result-organization">
-                        Proteção e busca por novos lares
+                        {% if instituicao.descricao %}
+                            {{ instituicao.descricao }}
+                        {% else %}
+                            Instituição de proteção e adoção de animais.
+                        {% endif %}
                     </p>
-                    <p class="result-location">Pau dos Ferros/RN</p>
+
+                    <p class="result-location">
+                        {{ instituicao.cidade }}
+                    </p>
                 </div>
 
                 <span class="result-arrow" aria-hidden="true">›</span>
             </a>
 
-
-            <!-- ONG Vida Animal -->
-            <a class="result-card ngo-card"
-            href="{% url 'perfil_ong' %}"
-            data-search="ong vida animal apodi rn adoção cuidado"
-            aria-label="Ver perfil da ONG Vida Animal">
-
-                <div class="ngo-avatar" aria-hidden="true">🐶</div>
-
-                <div class="result-info">
-                    <h3>ONG Vida Animal</h3>
-                    <p class="result-organization">
-                        Cuidado e adoção de animais
-                    </p>
-                    <p class="result-location">Apodi/RN</p>
-                </div>
-
-                <span class="result-arrow" aria-hidden="true">›</span>
-            </a>
+            {% empty %}
+            <p class="empty-results">
+                Nenhuma instituição cadastrada no momento.
+            </p>
+            {% endfor %}
 
         </div>
+        <p class="empty-results" id="ngo-empty" hidden>
+            Nenhuma ONG encontrada. Tente outro nome ou localização.
+        </p>
+
         <p class="empty-results" id="ngo-empty" hidden>Nenhuma ONG encontrada. Tente outro nome ou localização.</p>
-        <p class="demo-note">As instituições exibidas são dados demonstrativos; a integração com o banco de dados pode ser feita na view do Django.</p>
+       
     </div>
 </section>
 {% endblock %}

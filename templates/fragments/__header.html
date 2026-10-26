@@ -5,7 +5,7 @@
         <div class="header-top-inner">
 
             <!-- Logotipo -->
-            <a class="brand" href="/" aria-label="Majestanimais - página inicial">
+            <a class="brand" href="{% url 'pagina_principal' %}" aria-label="Majestanimais - página inicial">
                 <span class="brand-mark" aria-hidden="true">
                     <svg viewBox="0 0 24 24">
                         <circle cx="7" cy="7" r="2"/>
@@ -22,7 +22,7 @@
             <div class="header-actions">
 
                 <a
-                    href="/notificacoes/"
+                    href="{% url 'pagina_principal' %}"
                     class="header-icon"
                     aria-label="Notificações"
                     title="Notificações"
@@ -35,7 +35,7 @@
                 </a>
 
                 <a
-                    href="/configuracoes/"
+                    href="{% url 'pagina_principal' %}"
                     class="header-icon"
                     aria-label="Configurações"
                     title="Configurações"
@@ -47,7 +47,7 @@
                 </a>
 
                 <a
-                    href="/perfil_usuario/"
+                    href="{% url 'perfil_usuario' %}"
                     class="user-avatar"
                     aria-label="Meu perfil"
                     title="Meu perfil"

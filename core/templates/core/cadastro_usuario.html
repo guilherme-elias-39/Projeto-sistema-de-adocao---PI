@@ -31,6 +31,14 @@
             <p>Cadastre-se para começar a adotar!</p>
         </header>
 
+
+        {% if messages %}
+            {% for message in messages %}
+                <p class="cadastro-mensagem">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+
         <form id="cadastro-form"
               class="cadastro-form"
               method="post"

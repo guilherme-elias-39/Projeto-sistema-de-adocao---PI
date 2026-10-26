@@ -30,32 +30,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Filtro demonstrativo por tipo de animal.
+   // Filtro de animais por espécie.
   const filter = document.getElementById("painel-pet-filter");
   const cards = [...document.querySelectorAll(".painel-pet-card")];
   const count = document.getElementById("painel-pet-count");
   const empty = document.getElementById("painel-no-pets");
+
   function applyFilter() {
     const selected = filter?.value || "todos";
     let visible = 0;
+
     cards.forEach((card) => {
-      const show = selected === "todos" || card.dataset.kind === selected;
+      const kind = (card.dataset.kind || "").toLowerCase();
+      const show = selected === "todos" || kind === selected;
+
       card.hidden = !show;
+
       if (show) visible++;
     });
-    if (count) count.textContent = `${visible} ${visible === 1 ? "amigo" : "amigos"}`;
-    if (empty) empty.hidden = visible !== 0;
-  }
-  filter?.addEventListener("change", applyFilter);
 
-  // Favoritos apenas visuais; persistência requer integração com Django.
-  document.querySelectorAll(".painel-favorite").forEach((button) => {
-    button.addEventListener("click", () => {
-      const active = button.getAttribute("aria-pressed") === "true";
-      button.setAttribute("aria-pressed", String(!active));
-      button.textContent = active ? "♡" : "♥";
-      const name = button.closest(".painel-pet-card")?.dataset.name || "animal";
-      button.setAttribute("aria-label", active ? `Favoritar ${name}` : `Remover ${name} dos favoritos`);
-    });
-  });
+    if (count) {
+      count.textContent = `${visible} ${visible === 1 ? "amigo" : "amigos"}`;
+    }
+
+    if (empty) {
+      empty.hidden = visible !== 0;
+    }
+  }
+
+  filter?.addEventListener("change", applyFilter);
+  applyFilter();
 });

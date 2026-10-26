@@ -10,22 +10,14 @@
 {% block content %}
 <div class="painel-layout">
     <aside class="painel-sidebar" aria-label="Menu principal">
-        <a class="painel-brand" href="{% url 'pagina_principal' %}">
-            <span class="painel-brand-icon" aria-hidden="true">🐾</span>
-            <span>MajestAnimais</span>
-        </a>
+      
         <p class="painel-menu-label">MENU PRINCIPAL</p>
         <nav class="painel-nav">
             <a class="painel-nav-link is-active" href="{% url 'pagina_principal' %}"><span aria-hidden="true">⌂</span> Início</a>
             <a class="painel-nav-link" href="{% url 'pesquisa_pets' %}"><span aria-hidden="true">⌕</span> Pesquisar animais</a>
             <a class="painel-nav-link" href="{% url 'pesquisa_instituicoes' %}"><span aria-hidden="true">♡</span> ONGs</a>
             <a class="painel-nav-link" href="{% url 'mensagens' %}"><span aria-hidden="true">▤</span> Mensagens <span class="painel-nav-badge">2</span></a>
-            <a class="painel-nav-link" href="{% url 'perfil_usuario' %}"><span aria-hidden="true">
-                 <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <circle cx="12" cy="8" r="4"/>
-                        <path d="M4 21v-2a8 8 0 0 1 16 0v2Z"/>
-                    </svg>
-            </span> Meu perfil</a>
+ 
         </nav>
         <div class="painel-sidebar-note">
             <span class="painel-note-paw" aria-hidden="true">🐾</span>
@@ -37,16 +29,8 @@
 
     <div class="painel-main">
         <div class="painel-topline">
-            <div class="painel-breadcrumb"><a href="{% url 'pagina_principal' %}">Início</a><span>/</span><span>Página principal</span></div>
-            <div class="painel-account-actions">
-                <button class="painel-icon-button" type="button" aria-label="Notificações" title="Notificações">♧<i></i></button>
-                <a class="painel-icon-button" href="{% url 'pesquisa_instituicoes' %}" aria-label="Mensagens" title="Mensagens">▤</a>
-                <a class="painel-user-chip" href="{% url 'perfil_usuario' %}">
-                    <span class="painel-avatar" aria-hidden="true">A</span>
-                    <span class="painel-user-copy"><strong>Olá, Ana!</strong><small>Adotante</small></span>
-                    <span class="painel-user-chevron">⌄</span>
-                </a>
-            </div>
+            <div class="painel-breadcrumb"> <a href="{% url 'pagina_principal' %}">Início</a></div>
+            
         </div>
 
         <section class="painel-welcome">
@@ -83,64 +67,78 @@
             <div class="painel-section-heading">
                 <div>
                     <span class="painel-eyebrow">SEU PRÓXIMO MELHOR AMIGO</span>
-                    <div class="painel-title-line"><h2>Animais disponíveis</h2><span class="painel-count" id="painel-pet-count">4 amigos</span></div>
+                    <div class="painel-title-line"><h2>Animais disponíveis</h2><span class="painel-count" id="painel-pet-count">{{ pets|length }} amigo{{ pets|length|pluralize }}</pan></div>
                 </div>
                 <div class="painel-section-actions">
                     <label for="painel-pet-filter">Filtrar:</label>
                     <select id="painel-pet-filter">
-                        <option value="todos">Todos</option><option value="cachorro">Cachorros</option><option value="gato">Gatos</option>
+                        <option value="todos">Todos os animais</option>
+                        <option value="cachorro">Cachorros</option>
+                        <option value="gato">Gatos</option>
+                        <option value="outro">Outros</option>
                     </select>
                     <a href="{% url 'pesquisa_pets' %}" class="painel-view-all">Ver todos <span>→</span></a>
                 </div>
             </div>
 
             <div class="painel-pet-grid" id="painel-pet-grid">
-                <article class="painel-pet-card" data-kind="cachorro" data-name="Bela" data-search="bela carinhosa vira-lata">
-                    <div class="painel-pet-photo"><img src="{% static 'core/img/cat1.avif' %}" alt="Bela, cachorro de pelagem dourada" loading="lazy"><span class="painel-pet-tag">Carinhosa</span><button class="painel-favorite" type="button" aria-label="Favoritar Bela" aria-pressed="false">♡</button></div>
-                    <div class="painel-pet-info"><div class="painel-pet-title"><h3>Bela</h3><span>Cachorro</span></div><p>Vira-lata · 2 anos</p><a href="{% url 'perfil_animal' %}" class="painel-pet-link">Conhecer pet <span>→</span></a></div>
-                </article>
-                <a href="{% url 'perfil_animal' %}"
-                    class="painel-pet-card"
-                    data-kind="cachorro"
-                    data-name="Thor"
-                    data-search="thor brincalhao labrador">
 
+                {% for pet in pets %}
+                    <article
+                        class="painel-pet-card"
+                        data-kind="{{ pet.especie }}"
+                        data-name="{{ pet.nome }}"
+                        data-search="{{ pet.nome }} {{ pet.raca }} {{ pet.caracteristicas }} {{ pet.instituicao.nome }} {{ pet.instituicao.cidade }}"
+                    >
                         <div class="painel-pet-photo">
-                            <img src="{% static 'core/img/thor.jpg' %}"
-                                alt="Thor, cachorro disponível para adoção"
-                                loading="lazy">
 
-                            <span class="painel-pet-tag">Brincalhão</span>
+                            {% if pet.imagem %}
+                                <img
+                                    src="{{ pet.imagem.url }}"
+                                    alt="Foto de {{ pet.nome }}"
+                                    loading="lazy"
+                                >
+                            {% else %}
+                                <img
+                                    src="{% static 'core/img/pet-placeholder.png' %}"
+                                    alt="Animal sem foto cadastrada"
+                                    loading="lazy"
+                                >
+                            {% endif %}
 
-                            <button class="painel-favorite"
-                                    type="button"
-                                    aria-label="Favoritar Thor"
-                                    aria-pressed="false">♡</button>
+                            <span class="painel-pet-tag">
+                                {{ pet.caracteristicas|default:"Disponível para adoção" }}
+                            </span>
+
                         </div>
 
                         <div class="painel-pet-info">
                             <div class="painel-pet-title">
-                                <h3>Thor</h3>
-                                <span>Cachorro</span>
+                                <h3>{{ pet.nome }}</h3>
+                                <span>{{ pet.get_especie_display }}</span>
                             </div>
 
-                            <p>Labrador · 1 ano</p>
+                            <p>
+                                {{ pet.raca|default:"Raça não informada" }}
+                                {% if pet.idade %}
+                                    · {{ pet.idade }} ano{{ pet.idade|pluralize }}
+                                {% endif %}
+                            </p>
 
-                            <span class="painel-pet-link">
-                                Conhecer pet <span>→</span>
-                            </span>
+                            <p>{{ pet.instituicao.nome }}</p>
+
+                            <a href="{% url 'perfil_animal' pet.id %}"class="painel-pet-link">Conhecer pet</a>
+
+                      
                         </div>
+                    </article>
 
-                </a>
-                <article class="painel-pet-card" data-kind="cachorro" data-name="Luna" data-search="luna sociavel vira-lata">
-                    <div class="painel-pet-photo"><img src="{% static 'core/img/cat3.avif' %}" alt="Luna, cachorro disponível para adoção" loading="lazy"><span class="painel-pet-tag">Sociável</span><button class="painel-favorite" type="button" aria-label="Favoritar Luna" aria-pressed="false">♡</button></div>
-                    <div class="painel-pet-info"><div class="painel-pet-title"><h3>Luna</h3><span>Cachorro</span></div><p>Vira-lata · 1 ano</p><a href="{% url 'perfil_animal' %}" class="painel-pet-link">Conhecer pet <span>→</span></a></div>
-                </article>
-                <article class="painel-pet-card" data-kind="gato" data-name="Mel" data-search="mel docil gato laranja">
-                    <div class="painel-pet-photo"><img src="{% static 'core/img/cat4.avif' %}" alt="Mel, gato disponível para adoção" loading="lazy"><span class="painel-pet-tag">Dócil</span><button class="painel-favorite" type="button" aria-label="Favoritar Mel" aria-pressed="false">♡</button></div>
-                    <div class="painel-pet-info"><div class="painel-pet-title"><h3>Mel</h3><span>Gato</span></div><p>SRD · 2 anos</p><a href="{% url 'perfil_animal' %}" class="painel-pet-link">Conhecer pet <span>→</span></a></div>
-                </article>
+                {% empty %}
+                    <p>Nenhum animal disponível para adoção no momento.</p>
+                {% endfor %}
+
             </div>
+
             <p class="painel-empty" id="painel-no-pets" hidden>Nenhum animal corresponde a esse filtro.</p>
         </section>
 
@@ -153,5 +151,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'core/js/principal.js' %}" defer></script>
+<script src="{% static 'core/js/pagina_principal.js' %}" defer></script>
 {% endblock %}
