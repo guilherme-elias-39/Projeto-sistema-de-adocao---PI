@@ -9,14 +9,14 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'core/css/cadastro_instituicao.css' %}">
 {% endblock %}
-
+{% block sidebar %}{% endblock %}
 {% block content %}
 <main class="cadastro-ong-page" id="conteudo-principal">
     <section class="cadastro-ong-layout">
         <div class="cadastro-ong-card">
 
             <header class="cadastro-ong-header">
-                <a href="{% url 'pagina_principal' %}"
+                <a href="{% url 'login' %}"
                    class="cadastro-ong-voltar"
                    aria-label="Voltar para a página inicial">
                     <svg viewBox="0 0 24 24" aria-hidden="true">

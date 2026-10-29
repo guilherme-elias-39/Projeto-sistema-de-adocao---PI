@@ -371,3 +371,272 @@
     font-size: 0.86rem;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================================
+   CORREÇÃO DO LAYOUT DESKTOP DO CADASTRO
+======================================== */
+
+html,
+body.cadastro-page {
+    width: 100%;
+    min-width: 0;
+    min-height: 100%;
+    margin: 0;
+}
+
+body.cadastro-page {
+    min-height: 100vh;
+    background: #f0f4fa;
+}
+
+/* Remove o layout compartilhado apenas do cadastro */
+body.cadastro-page .painel-layout {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+
+/* Libera toda a largura disponível */
+body.cadastro-page #conteudo-principal,
+body.cadastro-page .painel-main {
+    display: block;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 !important;
+    box-sizing: border-box;
+}
+
+/* Centraliza o formulário na tela inteira */
+body.cadastro-page .cadastro-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    min-height: 100vh;
+
+    margin: 0;
+    padding: 40px 5vw;
+    box-sizing: border-box;
+}
+
+/* Formulário espaçoso para desktop */
+body.cadastro-page .cadastro-card {
+    width: 100%;
+    max-width: 760px;
+    min-width: 0;
+
+    margin: 0 auto;
+    padding: 42px 60px;
+
+    background: #ffffff;
+    border: 1px solid #d9e4e0;
+    border-radius: 20px;
+    box-shadow: 0 18px 55px rgba(24, 67, 59, 0.09);
+
+    box-sizing: border-box;
+}
+
+/* Evita que os títulos e campos sejam comprimidos */
+body.cadastro-page .cadastro-header,
+body.cadastro-page .cadastro-form,
+body.cadastro-page .cadastro-campo,
+body.cadastro-page .cadastro-input-wrap {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+body.cadastro-page .cadastro-header h1 {
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+body.cadastro-page .cadastro-input-wrap input {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Desktop com mais espaço entre os campos */
+@media (min-width: 1100px) {
+    body.cadastro-page .cadastro-card {
+        max-width: 820px;
+        padding: 48px 72px;
+    }
+
+    body.cadastro-page .cadastro-form {
+        gap: 19px;
+    }
+}
+
+/* Telas menores */
+@media (max-width: 650px) {
+    body.cadastro-page .cadastro-layout {
+        min-height: 100vh;
+        padding: 20px 14px;
+    }
+
+    body.cadastro-page .cadastro-card {
+        width: 100%;
+        max-width: 480px;
+        padding: 28px 22px;
+        border-radius: 15px;
+    }
+}
+
+
+
+
+
+
+/* ========================================
+   AJUSTE FINAL — CADASTRO EM DESKTOP
+======================================== */
+
+body.cadastro-page .painel-layout {
+    display: block !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 100vh !important;
+    margin: 0 !important;
+}
+
+body.cadastro-page main#conteudo-principal.painel-main {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    min-height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.cadastro-page .cadastro-layout {
+    display: flex !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+    margin: 0 !important;
+    padding: 40px 24px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+}
+
+body.cadastro-page .cadastro-card {
+    flex: 0 1 820px !important;
+    width: 100% !important;
+    max-width: 820px !important;
+    min-width: 0 !important;
+    margin: 0 auto !important;
+    padding: 42px 60px !important;
+    box-sizing: border-box !important;
+}
+
+body.cadastro-page .cadastro-form,
+body.cadastro-page .cadastro-campo,
+body.cadastro-page .cadastro-input-wrap {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+@media (max-width: 650px) {
+    body.cadastro-page .cadastro-layout {
+        padding: 20px 14px !important;
+    }
+
+    body.cadastro-page .cadastro-card {
+        flex-basis: 100% !important;
+        max-width: 480px !important;
+        padding: 28px 22px !important;
+    }
+}
+
+
+
+
+
+
+/* CORREÇÃO DEFINITIVA DA ESTRUTURA DO CADASTRO */
+
+body.cadastro-page {
+    display: block !important;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+}
+
+body.cadastro-page .painel-layout {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+body.cadastro-page #conteudo-principal {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    min-height: 100vh;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.cadastro-page .cadastro-layout {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 5vw;
+    box-sizing: border-box;
+}
+
+body.cadastro-page .cadastro-card {
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+@media (max-width: 650px) {
+    body.cadastro-page .cadastro-layout {
+        padding: 20px 14px;
+    }
+
+    body.cadastro-page .cadastro-card {
+        max-width: 480px;
+        padding: 28px 22px;
+    }
+}

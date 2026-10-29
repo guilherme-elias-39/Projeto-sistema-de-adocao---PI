@@ -361,3 +361,127 @@
     font-size: 0.86rem;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   AJUSTE DESKTOP — CADASTRO DE ONG/ABRIGO
+   ========================================== */
+
+html,
+body {
+    margin: 0;
+}
+
+body:has(.cadastro-ong-page) {
+    display: block !important;
+    width: 100%;
+    min-width: 0;
+    min-height: 100vh;
+    margin: 0;
+    background: #f0f4fa;
+}
+
+/* Remove a estrutura de painel herdada do base.html */
+body:has(.cadastro-ong-page) .painel-layout {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+
+/* Libera toda a largura da página */
+body:has(.cadastro-ong-page) #conteudo-principal {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    min-height: 100vh;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+}
+
+/* Centraliza o formulário na tela */
+.cadastro-ong-page .cadastro-ong-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 5vw;
+    box-sizing: border-box;
+}
+
+/* Aumenta a largura do cartão no desktop */
+.cadastro-ong-page .cadastro-ong-card {
+    width: 100%;
+    max-width: 820px;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 48px 72px;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #d9e4e0;
+    border-radius: 20px;
+    box-shadow: 0 18px 55px rgba(24, 67, 59, 0.09);
+}
+
+/* Campos ocupam a largura disponível */
+.cadastro-ong-page .cadastro-ong-form,
+.cadastro-ong-page .ong-campo {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.cadastro-ong-page .ong-input-wrap {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.cadastro-ong-page .ong-input-wrap input,
+.cadastro-ong-page .ong-input-wrap textarea {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Botão ocupa a largura do formulário */
+.cadastro-ong-page .cadastro-ong-submit {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 650px) {
+    .cadastro-ong-page .cadastro-ong-layout {
+        padding: 20px 14px;
+    }
+
+    .cadastro-ong-page .cadastro-ong-card {
+        max-width: 480px;
+        padding: 28px 22px;
+        border-radius: 16px;
+    }
+}

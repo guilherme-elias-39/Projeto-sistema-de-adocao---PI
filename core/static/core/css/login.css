@@ -2,20 +2,7 @@
    3. LOGIN — FUNDO E CARTÃO
 ======================================== */
 
-.login-page {
-    min-height: 100vh;
-    background:
-        radial-gradient(
-            ellipse at 50% 35%,
-            #ffffff 0%,
-            #f5f9f8 65%,
-            #edf4f2 100%
-        );
-}
 
-.login-page #conteudo-principal {
-    min-height: 100vh;
-}
 
 .login-layout {
     min-height: 100vh;
@@ -556,5 +543,143 @@
     *::after {
         scroll-behavior: auto !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+/* ========================================
+   CORREÇÃO DO LAYOUT DESKTOP DO LOGIN
+======================================== */
+
+html,
+body.login-page {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
+
+body.login-page {
+    min-height: 100vh;
+    background: #f0f4fa;
+}
+
+/* Remove limitações de largura do contêiner principal */
+body.login-page #conteudo-principal {
+    display: block;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+/* Centraliza o cartão na página */
+body.login-page .login-layout {
+    display: flex;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    min-height: calc(100vh - 80px);
+    margin: 0 auto;
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* Cartão largo, com duas colunas */
+body.login-page .login-card {
+    display: grid !important;
+    grid-template-columns: 42% 58%;
+    width: 100%;
+    max-width: 1320px;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 0;
+    border: none;
+    border-radius: 26px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Impede que as colunas encolham indevidamente */
+body.login-page .login-hero,
+body.login-page .login-content {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    box-sizing: border-box;
+}
+
+/* Imagem ocupando toda a coluna esquerda */
+body.login-page .login-hero {
+    min-height: 540px;
+    height: 100%;
+    position: relative;
+}
+
+/* Formulário com espaço suficiente */
+body.login-page .login-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px clamp(32px, 5vw, 76px);
+}
+
+body.login-page .login-heading,
+body.login-page .login-form,
+body.login-page .create-account,
+body.login-page .login-divider,
+body.login-page .btn-outline {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+body.login-page .login-heading h2 {
+    font-size: 2rem;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+body.login-page .login-heading p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+body.login-page .form-field {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Adaptação para telas menores */
+@media (max-width: 650px) {
+    body.login-page #conteudo-principal {
+        padding: 18px 14px;
+    }
+
+    body.login-page .login-layout {
+        min-height: calc(100vh - 36px);
+    }
+
+    body.login-page .login-card {
+        grid-template-columns: minmax(0, 1fr);
+        max-width: 480px;
+    }
+
+    body.login-page .login-hero {
+        min-height: 190px;
+        height: 190px;
+    }
+
+    body.login-page .login-content {
+        padding: 30px 22px;
+    }
+
+    body.login-page .login-heading h2 {
+        font-size: 1.45rem;
     }
 }

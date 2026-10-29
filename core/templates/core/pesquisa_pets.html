@@ -25,12 +25,30 @@
                 <span aria-hidden="true">←</span>
             </a>
 
-            <label class="search-input-wrap" for="result-search">
+            <form class="search-input-wrap" method="get" action="">
                 <span class="search-icon" aria-hidden="true">⌕</span>
-                <input id="result-search" type="search" placeholder="Pesquisar por nome, raça, ONG ou localização..."
-                       autocomplete="off" aria-describedby="search-help">
-                <button id="clear-search" class="clear-search" type="button" aria-label="Limpar pesquisa" title="Limpar pesquisa">×</button>
-            </label>
+
+                <input
+                    id="ngo-search"
+                    name="q"
+                    type="search"
+                    value="{{ termo }}"
+                    placeholder="Pesquisar por Categoria ou localização do animal..."
+                    autocomplete="off"
+                >
+
+                <button
+                    id="ngo-clear"
+                    class="clear-search"
+                    type="button"
+                    aria-label="Limpar pesquisa"
+                    title="Limpar pesquisa"
+                >×</button>
+
+                <button type="submit" aria-label="Pesquisar ONG">
+                    Pesquisar
+                </button>
+            </form>
         </div>
         <p id="search-help" class="sr-only">Digite para filtrar os resultados exibidos nesta página.</p>
 
