@@ -14,8 +14,17 @@
       <h1>Conheça seu novo melhor amigo.</h1>
       <p>Preencha o formulário para demonstrar interesse em conhecer o animal. A ONG entrará em contato para confirmar a disponibilidade e combinar os detalhes.</p>
       <div class="visit-pet-card">
-        <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=600&q=85" alt="Thor, cachorro caramelo">
-        <div><span>Visita para conhecer</span><strong id="visit-animal-name">Thor</strong><small>Patinhas Felizes · Pau dos Ferros/RN</small></div>
+          {% if animal.imagem %}
+              <img src="{{ animal.imagem.url }}" alt="Foto de {{ animal.nome }}">
+          {% else %}
+              <img src="{% static 'core/img/pet-placeholder.png' %}" alt="Animal sem foto cadastrada">
+          {% endif %}
+
+          <div>
+              <span>Visita para conhecer</span>
+              <strong id="visit-animal-name">{{ animal.nome }}</strong>
+              <small>{{ animal.instituicao.nome }} · {{ animal.instituicao.cidade }}</small>
+          </div>
       </div>
       <div class="visit-reassurance"><span aria-hidden="true">♡</span><p>O envio deste formulário é uma solicitação. O agendamento só estará confirmado após o retorno da instituição.</p></div>
     </aside>

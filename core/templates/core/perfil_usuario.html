@@ -38,8 +38,9 @@
                 </div>
 
                 <div class="profile-user-info">
-                    <h2>Ana Silva</h2>
-                    <p>Ana.silva@email.com</p>
+                    <h2>{{ usuario.nome }}</h2>
+                    <p>{{ usuario.email }}</p>
+                    <p>{{ usuario.cpf }}</p>
                 </div>
             </div>
 
@@ -180,8 +181,8 @@
                     </span>
                 </div>
 
-                <form class="profile-form" id="profile-form">
-
+              <form class="profile-form" id="profile-form" method="POST">
+                    {% csrf_token %}
                     <div class="profile-form-grid">
 
                         <div class="profile-field">
@@ -190,7 +191,7 @@
                                 type="text"
                                 id="user-name"
                                 name="nome"
-                                value="Ana Silva"
+                                value="{{ usuario.nome }}"
                                 autocomplete="name"
                                 required
                             >
@@ -202,33 +203,19 @@
                                 type="email"
                                 id="user-email"
                                 name="email"
-                                value="ana.silva@email.com"
+                                value="{{ usuario.email }}"
                                 autocomplete="email"
                                 required
                             >
                         </div>
 
                         <div class="profile-field">
-                            <label for="user-phone">Telefone</label>
-                            <input
-                                type="tel"
-                                id="user-phone"
-                                name="telefone"
-                                value="(84) 9867-3994"
-                                placeholder="(00) 00000-0000"
-                                autocomplete="tel"
-                            >
-                        </div>
-
-                        <div class="profile-field">
-                            <label for="user-city">Cidade</label>
+                            <label for="user-cpf">CPF</label>
                             <input
                                 type="text"
-                                id="user-city"
-                                name="cidade"
-                                value="Pau dos Ferros/RN"
-                                placeholder="Informe sua cidade"
-                                autocomplete="address-level2"
+                                id="user-cpf"
+                                value="{{ usuario.cpf }}"
+                                readonly
                             >
                         </div>
 
@@ -244,10 +231,12 @@
                         </button>
                     </div>
 
-                    <p class="profile-feedback"
-                       id="profile-feedback"
-                       role="status"
-                       aria-live="polite"></p>
+                   <p class="profile-feedback"
+                        id="profile-feedback"
+                        role="status"
+                        aria-live="polite">
+                            {{ mensagem }}
+                    </p>
 
                 </form>
 

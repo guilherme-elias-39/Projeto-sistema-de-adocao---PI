@@ -4,13 +4,17 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 
+
 class Usuario(AbstractUser):
     nome = models.CharField(max_length=150)
     cpf = models.CharField(max_length=14, unique=True)
     email = models.EmailField(unique=True)
 
+    REQUIRED_FIELDS = ['email', 'nome', 'cpf']
+
     def __str__(self):
         return self.nome
+
 
 
 class Instituicao(models.Model):
@@ -101,3 +105,76 @@ class Agendamento(models.Model):
 
     def __str__(self):
         return f'{self.animal.nome} - {self.data} {self.horario}'
+
+
+
+class Conversa(models.Model):
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name='conversas'
+    )
+    instituicao = models.ForeignKey(
+        Instituicao,
+        on_delete=models.CASCADE,
+        related_name='conversas'
+    )
+    criada_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('usuario', 'instituicao')
+
+    def __str__(self):
+        return f'{self.usuario.nome} - {self.instituicao.nome}'
+
+
+class Mensagem(models.Model):
+    conversa = models.ForeignKey(
+        Conversa,
+        on_delete=models.CASCADE,
+        related_name='mensagens'
+    )
+    remetente = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name='mensagens_enviadas'
+    )
+    conteudo = models.TextField(max_length=2000)
+    enviada_em = models.DateTimeField(auto_now_add=True)
+    lida = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['enviada_em']
+
+    def __str__(self):
+        return f'Mensagem de {self.remetente.nome}'
+
+
+class Notificacao(models.Model):
+    CATEGORIAS = [
+        ('agendamento', 'Agendamento'),
+        ('mensagem', 'Mensagem'),
+        ('animal', 'Animal'),
+        ('conta', 'Conta'),
+    ]
+
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name='notificacoes'
+    )
+    titulo = models.CharField(max_length=150)
+    descricao = models.TextField()
+    categoria = models.CharField(
+        max_length=20,
+        choices=CATEGORIAS
+    )
+    criada_em = models.DateTimeField(auto_now_add=True)
+    lida = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-criada_em']
+
+    def __str__(self):
+        return self.titulo
+

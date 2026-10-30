@@ -66,7 +66,7 @@
 
             {% for instituicao in instituicoes %}
             <a class="result-card ngo-card"
-            href="{% url 'perfil_ong' %}"
+            href="{% url 'perfil_ong' ong_id=instituicao.id %}"
             data-search="{{ instituicao.nome|lower }} {{ instituicao.cidade|lower }} {{ instituicao.descricao|lower }}"
             aria-label="Ver perfil de {{ instituicao.nome }}">
 

@@ -134,7 +134,7 @@
                 {% if animal.situacao == 'disponivel' %}
                     <a
                         class="primary-button"
-                        href="{% url 'agendar_visita' %}?animal={{ animal.id }}"
+                        href="{% url 'agendar_visita' animal.id %}"
                     >
                         <svg
                             viewBox="0 0 24 24"
