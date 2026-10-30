@@ -296,3 +296,515 @@ input:focus-visible {
     }
 }
 
+
+/* ========================================
+   MENU LATERAL - MAJESTANIMAIS
+   ======================================== */
+
+/* Layout compartilhado entre o menu e o conteúdo */
+.painel-layout {
+    display: grid;
+    grid-template-columns: 245px minmax(0, 1fr);
+    max-width: 1600px;
+    min-height: calc(100vh - 120px);
+    margin: 0 auto;
+}
+
+/* Estrutura do menu lateral */
+.painel-sidebar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 28px 18px;
+    border-right: 1px solid var(--painel-border, #dce5e2);
+    background: #fff;
+}
+
+/* Título do menu */
+.painel-menu-label {
+    margin: 38px 10px 12px;
+    color: #98a5a1;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .12em;
+}
+
+/* Navegação */
+.painel-nav {
+    display: grid;
+    gap: 6px;
+}
+
+/* Links do menu */
+.painel-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    padding: 0 12px;
+    border-radius: 10px;
+    color: #667873;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .2s, color .2s;
+}
+
+/* Ícones dos links */
+.painel-nav-link > span:first-child {
+    width: 22px;
+    text-align: center;
+    font-size: 20px;
+}
+
+/* Efeito ao passar o mouse e link ativo */
+.painel-nav-link:hover,
+.painel-nav-link.is-active {
+    color: var(--painel-green, #145b52);
+    background: var(--painel-light, #e6f0ed);
+}
+
+.painel-nav-link.is-active {
+    font-weight: 800;
+}
+
+/* Contador de mensagens */
+.painel-nav-badge {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    border-radius: 50%;
+    color: #fff;
+    background: var(--painel-green, #145b52);
+    font-size: 10px;
+}
+
+/* Cartão inferior do menu */
+.painel-sidebar-note {
+    margin-top: auto;
+    padding: 20px 16px;
+    border: 1px solid #d6e7e1;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #f1f8f5, #e5f0ec);
+}
+
+/* Ícone de pata */
+.painel-note-paw {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    color: #fff;
+    background: var(--painel-green, #145b52);
+    font-size: 20px;
+}
+
+/* Título do cartão */
+.painel-sidebar-note h2 {
+    margin: 14px 0 7px;
+    color: var(--painel-dark, #10473f);
+    font-size: 16px;
+    line-height: 1.35;
+}
+
+/* Texto do cartão */
+.painel-sidebar-note p {
+    margin: 0;
+    color: #6e807b;
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+/* Link do cartão */
+.painel-sidebar-note > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 15px;
+    color: var(--painel-green, #145b52);
+    font-size: 11px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+/* ========================================
+   RESPONSIVIDADE DO MENU LATERAL
+   ======================================== */
+
+@media (max-width: 1120px) {
+    .painel-layout {
+        grid-template-columns: 210px minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 760px) {
+    .painel-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .painel-sidebar {
+        padding: 14px 16px;
+        border-right: 0;
+        border-bottom: 1px solid var(--painel-border, #dce5e2);
+    }
+
+    .painel-menu-label,
+    .painel-sidebar-note {
+        display: none;
+    }
+
+    .painel-nav {
+        display: flex;
+        gap: 5px;
+        overflow-x: auto;
+    }
+
+    .painel-nav-link {
+        flex: 0 0 auto;
+        min-height: 38px;
+        padding: 0 10px;
+        font-size: 11px;
+    }
+
+    .painel-nav-link > span:first-child {
+        font-size: 17px;
+    }
+}
+
+
+/* ==========================================
+   ESTRUTURA COMPARTILHADA DE TODAS AS PÁGINAS
+   ========================================== */
+
+.painel-layout {
+    display: grid;
+    grid-template-columns: 285px minmax(0, 1fr);
+    width: 100%;
+    min-height: calc(100vh - 90px);
+    margin: 0;
+    background: #f4f8f7;
+}
+
+/* Conteúdo principal de cada página */
+
+.painel-main {
+    min-width: 0;
+    padding: 28px clamp(24px, 3.3vw, 52px) 54px;
+}
+
+/* Menu lateral */
+
+.painel-sidebar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+    padding: 28px 22px;
+    border-right: 1px solid #dce5e2;
+    background: #ffffff;
+}
+
+/* Título do menu */
+
+.painel-menu-label {
+    margin: 38px 10px 12px;
+    color: #98a5a1;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+/* Links de navegação */
+
+.painel-nav {
+    display: grid;
+    gap: 8px;
+}
+
+.painel-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 48px;
+    padding: 0 12px;
+    border-radius: 10px;
+    color: #536b65;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.painel-nav-link > span:first-child {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 22px;
+    font-size: 20px;
+}
+
+.painel-nav-link:hover,
+.painel-nav-link.is-active {
+    color: #145b52;
+    background: #e6f0ed;
+}
+
+.painel-nav-link.is-active {
+    font-weight: 800;
+}
+
+/* Contador de mensagens */
+
+.painel-nav-badge {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 23px;
+    height: 23px;
+    margin-left: auto;
+    border-radius: 50%;
+    color: #ffffff;
+    background: #145b52;
+    font-size: 11px;
+}
+
+/* Cartão inferior do menu */
+
+.painel-sidebar-note {
+    margin-top: auto;
+    padding: 20px 16px;
+    border: 1px solid #d6e7e1;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #f1f8f5, #e5f0ec);
+}
+
+.painel-note-paw {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    color: #ffffff;
+    background: #145b52;
+    font-size: 20px;
+}
+
+.painel-sidebar-note h2 {
+    margin: 14px 0 7px;
+    color: #10473f;
+    font-size: 16px;
+    line-height: 1.35;
+}
+
+.painel-sidebar-note p {
+    margin: 0;
+    color: #6e807b;
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+.painel-sidebar-note > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 15px;
+    color: #145b52;
+    font-size: 11px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+/* Ajustes para telas menores */
+
+@media (max-width: 1120px) {
+    .painel-layout {
+        grid-template-columns: 230px minmax(0, 1fr);
+    }
+
+    .painel-main {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 760px) {
+    .painel-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .painel-sidebar {
+        padding: 14px 16px;
+        border-right: 0;
+        border-bottom: 1px solid #dce5e2;
+    }
+
+    .painel-menu-label,
+    .painel-sidebar-note {
+        display: none;
+    }
+
+    .painel-nav {
+        display: flex;
+        gap: 5px;
+        overflow-x: auto;
+    }
+
+    .painel-nav-link {
+        flex: 0 0 auto;
+        min-height: 40px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    .painel-main {
+        padding: 20px 16px 35px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================================
+   CORREÇÃO DEFINITIVA DA TELA DE LOGIN
+======================================== */
+
+/* O login não deve reservar espaço para o menu lateral */
+body.login-page .painel-layout {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #f0f4fa;
+}
+
+/* O conteúdo ocupa toda a largura da janela */
+body.login-page #conteudo-principal,
+body.login-page .painel-main {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    min-height: 100vh !important;
+    margin: 0 !important;
+    padding: 40px !important;
+    box-sizing: border-box !important;
+}
+
+/* Centraliza o cartão */
+body.login-page .login-layout {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    min-height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 18px;
+    box-sizing: border-box !important;
+}
+
+/* Cartão amplo em duas colunas */
+body.login-page .login-card {
+    display: grid !important;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr) !important;
+    width: 100% !important;
+    max-width: 1320px !important;
+    min-width: 0 !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 26px;
+    overflow: hidden;
+    background: #fff;
+    box-sizing: border-box !important;
+}
+
+/* Coluna da imagem */
+body.login-page .login-hero {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 540px !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Coluna do formulário */
+body.login-page .login-content {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    padding: 55px clamp(28px, 5vw, 75px) !important;
+    box-sizing: border-box !important;
+}
+
+/* Evita que os textos e campos sejam comprimidos */
+body.login-page .login-heading,
+body.login-page .login-form,
+body.login-page .form-field {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+body.login-page .login-heading h2 {
+    font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+/* Cartão empilhado em celulares */
+@media (max-width: 650px) {
+    body.login-page #conteudo-principal,
+    body.login-page .painel-main {
+        padding: 18px 14px !important;
+    }
+
+    body.login-page .login-card {
+        grid-template-columns: minmax(0, 1fr) !important;
+        max-width: 480px !important;
+    }
+
+    body.login-page .login-hero {
+        min-height: 190px !important;
+        height: 190px !important;
+    }
+
+    body.login-page .login-content {
+        padding: 30px 22px !important;
+    }
+}

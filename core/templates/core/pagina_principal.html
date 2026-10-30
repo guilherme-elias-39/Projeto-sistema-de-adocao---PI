@@ -2,152 +2,202 @@
 {% load static %}
 
 {% block title %}Painel principal | MajestAnimais{% endblock %}
+
 {% block body_class %}painel-principal-page{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'core/css/principal.css' %}">
 {% endblock %}
 
+
 {% block content %}
-<div class="painel-layout">
-    <aside class="painel-sidebar" aria-label="Menu principal">
-      
-        <p class="painel-menu-label">MENU PRINCIPAL</p>
-        <nav class="painel-nav">
-            <a class="painel-nav-link is-active" href="{% url 'pagina_principal' %}"><span aria-hidden="true">⌂</span> Início</a>
-            <a class="painel-nav-link" href="{% url 'pesquisa_pets' %}"><span aria-hidden="true">⌕</span> Pesquisar animais</a>
-            <a class="painel-nav-link" href="{% url 'pesquisa_instituicoes' %}"><span aria-hidden="true">♡</span> ONGs</a>
-            <a class="painel-nav-link" href="{% url 'mensagens' %}"><span aria-hidden="true">▤</span> Mensagens <span class="painel-nav-badge">2</span></a>
- 
-        </nav>
-        <div class="painel-sidebar-note">
-            <span class="painel-note-paw" aria-hidden="true">🐾</span>
-            <h2>Um novo amigo espera por você!</h2>
-            <p>Adotar transforma duas vidas: a sua e a dele.</p>
-            <a href="{% url 'pesquisa_pets' %}">Encontrar meu amigo <span>→</span></a>
+
+<div class="painel-main">
+
+    <div class="painel-topline">
+        <div class="painel-breadcrumb">
+            <a href="{% url 'pagina_principal' %}">Início</a>
         </div>
-    </aside>
-
-    <div class="painel-main">
-        <div class="painel-topline">
-            <div class="painel-breadcrumb"> <a href="{% url 'pagina_principal' %}">Início</a></div>
-            
-        </div>
-
-        <section class="painel-welcome">
-            <div class="painel-welcome-copy">
-                <span class="painel-eyebrow">BEM-VINDA À COMUNIDADE</span>
-                <h1>Um lar cheio de amor <span>começa aqui.</span></h1>
-                <p>Encontre seu novo melhor amigo e transforme uma vida para sempre.</p>
-            </div>
-            <form class="painel-search" id="painel-search-form" action="{% url 'pesquisa_pets' %}" method="get" role="search">
-                <label for="painel-search-input" class="painel-sr-only">Buscar animais ou ONGs</label>
-                <span aria-hidden="true">⌕</span>
-                <input id="painel-search-input" name="q" type="search" placeholder="Buscar animais ou ONGs..." autocomplete="off">
-                <label class="painel-sr-only" for="painel-search-type">Categoria</label>
-                <select id="painel-search-type" aria-label="Pesquisar por" name="tipo">
-                    <option value="animais">Animais</option>
-                    <option value="ongs">ONGs</option>
-                </select>
-                <button type="submit" aria-label="Pesquisar">Buscar <span aria-hidden="true">→</span></button>
-            </form>
-        </section>
-
-        <section class="painel-hero" aria-label="Adoção responsável">
-            <div class="painel-hero-overlay"></div>
-            <div class="painel-hero-content">
-                <span class="painel-hero-label">ADOÇÃO RESPONSÁVEL</span>
-                <h2>Adote um amigo<br>para toda a vida!</h2>
-                <p>Amor verdadeiro não se compra. Se adota.</p>
-                <a class="painel-hero-button" href="{% url 'pesquisa_pets' %}">Encontrar meu amigo <span>→</span></a>
-            </div>
-            <div class="painel-hero-note"><span>♥</span> Uma adoção muda tudo</div>
-        </section>
-
-        <section class="painel-pets" id="animais-disponiveis">
-            <div class="painel-section-heading">
-                <div>
-                    <span class="painel-eyebrow">SEU PRÓXIMO MELHOR AMIGO</span>
-                    <div class="painel-title-line"><h2>Animais disponíveis</h2><span class="painel-count" id="painel-pet-count">{{ pets|length }} amigo{{ pets|length|pluralize }}</pan></div>
-                </div>
-                <div class="painel-section-actions">
-                    <label for="painel-pet-filter">Filtrar:</label>
-                    <select id="painel-pet-filter">
-                        <option value="todos">Todos os animais</option>
-                        <option value="cachorro">Cachorros</option>
-                        <option value="gato">Gatos</option>
-                        <option value="outro">Outros</option>
-                    </select>
-                    <a href="{% url 'pesquisa_pets' %}" class="painel-view-all">Ver todos <span>→</span></a>
-                </div>
-            </div>
-
-            <div class="painel-pet-grid" id="painel-pet-grid">
-
-                {% for pet in pets %}
-                    <article
-                        class="painel-pet-card"
-                        data-kind="{{ pet.especie }}"
-                        data-name="{{ pet.nome }}"
-                        data-search="{{ pet.nome }} {{ pet.raca }} {{ pet.caracteristicas }} {{ pet.instituicao.nome }} {{ pet.instituicao.cidade }}"
-                    >
-                        <div class="painel-pet-photo">
-
-                            {% if pet.imagem %}
-                                <img
-                                    src="{{ pet.imagem.url }}"
-                                    alt="Foto de {{ pet.nome }}"
-                                    loading="lazy"
-                                >
-                            {% else %}
-                                <img
-                                    src="{% static 'core/img/pet-placeholder.png' %}"
-                                    alt="Animal sem foto cadastrada"
-                                    loading="lazy"
-                                >
-                            {% endif %}
-
-                            <span class="painel-pet-tag">
-                                {{ pet.caracteristicas|default:"Disponível para adoção" }}
-                            </span>
-
-                        </div>
-
-                        <div class="painel-pet-info">
-                            <div class="painel-pet-title">
-                                <h3>{{ pet.nome }}</h3>
-                                <span>{{ pet.get_especie_display }}</span>
-                            </div>
-
-                            <p>
-                                {{ pet.raca|default:"Raça não informada" }}
-                                {% if pet.idade %}
-                                    · {{ pet.idade }} ano{{ pet.idade|pluralize }}
-                                {% endif %}
-                            </p>
-
-                            <p>{{ pet.instituicao.nome }}</p>
-
-                            <a href="{% url 'perfil_animal' pet.id %}"class="painel-pet-link">Conhecer pet</a>
-
-                      
-                        </div>
-                    </article>
-
-                {% empty %}
-                    <p>Nenhum animal disponível para adoção no momento.</p>
-                {% endfor %}
-
-            </div>
-
-            <p class="painel-empty" id="painel-no-pets" hidden>Nenhum animal corresponde a esse filtro.</p>
-        </section>
-
-        <section class="painel-ongs">
-            <div><span class="painel-eyebrow">JUNTOS PELA ADOÇÃO</span><h2>ONGs em destaque</h2><p>Conheça as instituições que cuidam dos animais e ajudam cada um a encontrar uma família.</p></div>
-            <a href="{% url 'pesquisa_instituicoes' %}">Ver ONGs <span>→</span></a>
-        </section>
     </div>
+
+    <!-- Apresentação e pesquisa -->
+    <section class="painel-welcome">
+
+        <div class="painel-welcome-copy">
+            <span class="painel-eyebrow">BEM-VINDA À COMUNIDADE</span>
+
+            <h1>
+                Um lar cheio de amor
+                <span>começa aqui.</span>
+            </h1>
+
+            <p>
+                Encontre seu novo melhor amigo e transforme uma vida para sempre.
+            </p>
+        </div>
+
+
+    </section>
+
+    <!-- Banner de adoção -->
+    <section class="painel-hero" aria-label="Adoção responsável">
+
+        <div class="painel-hero-overlay"></div>
+
+        <div class="painel-hero-content">
+            <span class="painel-hero-label">ADOÇÃO RESPONSÁVEL</span>
+
+            <h2>
+                Adote um amigo<br>
+                para toda a vida!
+            </h2>
+
+            <p>Amor verdadeiro não se compra. Se adota.</p>
+
+            <a
+                class="painel-hero-button"
+                href="{% url 'pesquisa_pets' %}"
+            >
+                Encontrar meu amigo <span>→</span>
+            </a>
+        </div>
+
+        <div class="painel-hero-note">
+            <span>♥</span> Uma adoção muda tudo
+        </div>
+
+    </section>
+
+    <!-- Animais disponíveis -->
+    <section class="painel-pets" id="animais-disponiveis">
+
+        <div class="painel-section-heading">
+
+            <div>
+                <span class="painel-eyebrow">
+                    SEU PRÓXIMO MELHOR AMIGO
+                </span>
+
+                <div class="painel-title-line">
+                    <h2>Animais disponíveis</h2>
+
+                    <span class="painel-count" id="painel-pet-count">
+                        {{ pets|length }}
+                        amigo{{ pets|length|pluralize }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="painel-section-actions">
+
+                <a
+                    href="{% url 'pesquisa_pets' %}"
+                    class="painel-view-all"
+                >
+                    Ver todos <span>→</span>
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="painel-pet-grid" id="painel-pet-grid">
+
+            {% for pet in pets %}
+
+                <article
+                    class="painel-pet-card"
+                    data-kind="{{ pet.especie }}"
+                    data-name="{{ pet.nome }}"
+                    data-search="{{ pet.nome }} {{ pet.raca }} {{ pet.caracteristicas }} {{ pet.instituicao.nome }} {{ pet.instituicao.cidade }}"
+                >
+
+                    <div class="painel-pet-photo">
+
+                        {% if pet.imagem %}
+                            <img
+                                src="{{ pet.imagem.url }}"
+                                alt="Foto de {{ pet.nome }}"
+                                loading="lazy"
+                            >
+                        {% else %}
+                            <img
+                                src="{% static 'core/img/pet-placeholder.png' %}"
+                                alt="Animal sem foto cadastrada"
+                                loading="lazy"
+                            >
+                        {% endif %}
+
+                        <span class="painel-pet-tag">
+                            {{ pet.caracteristicas|default:"Disponível para adoção" }}
+                        </span>
+
+                    </div>
+
+                    <div class="painel-pet-info">
+
+                        <div class="painel-pet-title">
+                            <h3>{{ pet.nome }}</h3>
+                            <span>{{ pet.get_especie_display }}</span>
+                        </div>
+
+                        <p>
+                            {{ pet.raca|default:"Raça não informada" }}
+
+                            {% if pet.idade %}
+                                · {{ pet.idade }} ano{{ pet.idade|pluralize }}
+                            {% endif %}
+                        </p>
+
+                        <p>{{ pet.instituicao.nome }}</p>
+
+                        <a
+                            href="{% url 'perfil_animal' pet.id %}"
+                            class="painel-pet-link"
+                        >
+                            Conhecer pet
+                        </a>
+
+                    </div>
+
+                </article>
+
+            {% empty %}
+
+                <p>Nenhum animal disponível para adoção no momento.</p>
+
+            {% endfor %}
+
+        </div>
+
+        <p class="painel-empty" id="painel-no-pets" hidden>
+            Nenhum animal corresponde a esse filtro.
+        </p>
+
+    </section>
+
+    <!-- ONGs em destaque -->
+    <section class="painel-ongs">
+
+        <div>
+            <span class="painel-eyebrow">JUNTOS PELA ADOÇÃO</span>
+
+            <h2>ONGs em destaque</h2>
+
+            <p>
+                Conheça as instituições que cuidam dos animais e ajudam
+                cada um a encontrar uma família.
+            </p>
+        </div>
+
+        <a href="{% url 'pesquisa_instituicoes' %}">
+            Ver ONGs <span>→</span>
+        </a>
+
+    </section>
+
 </div>
+
 {% endblock %}
 
 {% block extra_js %}

@@ -486,3 +486,36 @@
     font-style: inherit;
     letter-spacing: inherit;
 }
+
+
+
+
+
+
+
+
+
+
+/* Botão Pesquisar minimalista */
+.search-input-wrap button[type="submit"] {
+    background-color: #145b52;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-family: "Nunito", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.search-input-wrap button[type="submit"]:hover {
+    background-color: #10473f;
+}
+
+.search-input-wrap button[type="submit"]:focus-visible {
+    outline: 2px solid #145b52;
+    outline-offset: 2px;
+}

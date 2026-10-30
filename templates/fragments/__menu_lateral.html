@@ -1,0 +1,38 @@
+{% load static %}
+
+<aside class="painel-sidebar" aria-label="Menu principal">
+
+    <p class="painel-menu-label">MENU PRINCIPAL</p>
+
+    <nav class="painel-nav">
+        <a class="painel-nav-link" href="{% url 'pagina_principal' %}">
+            <span aria-hidden="true">⌂</span> Início
+        </a>
+
+        <a class="painel-nav-link" href="{% url 'pesquisa_pets' %}">
+            <span aria-hidden="true">⌕</span> Pesquisar animais
+        </a>
+
+        <a class="painel-nav-link" href="{% url 'pesquisa_instituicoes' %}">
+            <span aria-hidden="true">♡</span> ONGs
+        </a>
+
+        <a class="painel-nav-link" href="{% url 'mensagens' %}">
+            <span aria-hidden="true">▤</span> Mensagens
+            <span class="painel-nav-badge">2</span>
+        </a>
+    </nav>
+
+    <div class="painel-sidebar-note">
+        <span class="painel-note-paw" aria-hidden="true">🐾</span>
+
+        <h2>Um novo amigo espera por você!</h2>
+
+        <p>Adotar transforma duas vidas: a sua e a dele.</p>
+
+        <a href="{% url 'pesquisa_pets' %}">
+            Encontrar meu amigo <span>→</span>
+        </a>
+    </div>
+
+</aside>

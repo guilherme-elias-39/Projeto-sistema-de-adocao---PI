@@ -101,28 +101,30 @@ def login(request):
 
 
 def pesquisa_pets(request):
-    pets = Animal.objects.filter(situacao='disponivel')
+    termo = request.GET.get('q', '').strip()
 
-    pesquisa = request.GET.get('q', '').strip()
-    especie = request.GET.get('especie', '').strip()
+    pets = Animal.objects.filter(
+        # Mantenha aqui os filtros de disponibilidade
+        # que sua função já utiliza, se houver.
+    )
 
-    if pesquisa:
-        pets = pets.filter(nome__icontains=pesquisa)
-
-    if especie in ['cachorro', 'gato', 'outro']:
-        pets = pets.filter(especie=especie)
+    if termo:
+        pets = pets.filter(
+            Q(nome__icontains=termo) |
+            Q(especie__icontains=termo) |
+            Q(caracteristicas__icontains=termo) |
+            Q(instituicao__nome__icontains=termo) |
+            Q(instituicao__cidade__icontains=termo)
+        )
 
     return render(
         request,
         'core/pesquisa_pets.html',
         {
             'pets': pets,
-            'pesquisa': pesquisa,
-            'especie_selecionada': especie,
+            'termo': termo,
         }
     )
-
-
 
 
 def pagina_principal(request):
@@ -134,16 +136,31 @@ def pagina_principal(request):
         'pets': pets,
     })
 
-
+from django.db.models import Q
 
 def pesquisa_instituicoes(request):
-    instituicoes = Instituicao.objects.all().order_by('nome')
+    termo = request.GET.get('q', '').strip()
+
+    instituicoes = Instituicao.objects.all()
+
+    if termo:
+        instituicoes = instituicoes.filter(
+            Q(nome__icontains=termo) |
+            Q(cidade__icontains=termo) |
+            Q(descricao__icontains=termo)
+        )
+
+    instituicoes = instituicoes.order_by('nome')
 
     return render(
         request,
         'core/pesquisa_instituicoes.html',
-        {'instituicoes': instituicoes}
+        {
+            'instituicoes': instituicoes,
+            'termo': termo,
+        }
     )
+
 
 
 def perfil_animal(request, animal_id):

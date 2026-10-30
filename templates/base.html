@@ -19,14 +19,26 @@
         {% include "fragments/__header.html" %}
     {% endblock %}
 
-    <main id="conteudo-principal">
-        {% block content %}{% endblock %}
-    </main>
+
+    <div class="painel-layout">
+
+        {% block sidebar %}
+            {% if mostrar_menu_lateral|default:True %}
+                {% include "fragments/__menu_lateral.html" %}
+            {% endif %}
+        {% endblock %}
+
+        <main id="conteudo-principal" class="painel-main">
+            {% block content %}{% endblock %}
+        </main>
+
+    </div>
 
     {% block footer %}
         {% include "fragments/__footer.html" %}
     {% endblock %}
 
     {% block extra_js %}{% endblock %}
+
 </body>
 </html>

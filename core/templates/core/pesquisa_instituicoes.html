@@ -22,11 +22,31 @@
     <div class="search-panel">
         <div class="search-toolbar">
             <a class="back-link" href="{% url 'pagina_principal' %}" aria-label="Voltar para a página inicial" title="Voltar">←</a>
-            <label class="search-input-wrap" for="ngo-search">
+
+            <form class="search-input-wrap" method="get" action="">
                 <span class="search-icon" aria-hidden="true">⌕</span>
-                <input id="ngo-search" type="search" placeholder="Pesquisar por nome da ONG ou localização..." autocomplete="off">
-                <button id="ngo-clear" class="clear-search" type="button" aria-label="Limpar pesquisa" title="Limpar pesquisa">×</button>
-            </label>
+
+                <input
+                    id="ngo-search"
+                    name="q"
+                    type="search"
+                    value="{{ termo }}"
+                    placeholder="Pesquisar por localização da ONG..."
+                    autocomplete="off"
+                >
+
+                <button
+                    id="ngo-clear"
+                    class="clear-search"
+                    type="button"
+                    aria-label="Limpar pesquisa"
+                    title="Limpar pesquisa"
+                >×</button>
+
+                <button type="submit" aria-label="Pesquisar ONG">
+                    Pesquisar
+                </button>
+            </form>
         </div>
 
         <nav class="search-tabs" aria-label="Tipo de resultado">
@@ -82,7 +102,7 @@
             Nenhuma ONG encontrada. Tente outro nome ou localização.
         </p>
 
-        <p class="empty-results" id="ngo-empty" hidden>Nenhuma ONG encontrada. Tente outro nome ou localização.</p>
+        
        
     </div>
 </section>
