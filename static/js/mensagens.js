@@ -1,3 +1,4 @@
+
 /* =========================================
    MAJESTANIMAIS — MENSAGENS / CONVERSAS
    Arquivo: static/js/mensagens.js
@@ -13,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("conversation-filter");
     const clearSearchButton = document.getElementById("clear-search");
     const filterButtons = Array.from(
-        document.querySelectorAll(".filter-button")
+        document.querySelectorAll(".filter-button[data-filter]")
     );
 
     const chatName = document.getElementById("chat-name");
@@ -29,7 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const mobileBackButton = document.getElementById("mobile-back");
 
-    if (!workspace || !conversationList || !messageForm) {
+    if (!workspace || !conversationList || !messageForm ||
+        !searchInput || !chatName || !chatAvatar || !chatMessages ||
+        !messageInput || !conversationTotal || !unreadTotal) {
         return;
     }
 
@@ -38,9 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /*
      * Mensagens demonstrativas.
-     *
-     * Posteriormente, esses dados poderão ser substituídos
-     * pelas mensagens recuperadas do banco de dados Django.
      */
 
     const conversations = {
@@ -164,19 +164,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /*
-     * Escapa caracteres especiais antes de inserir
-     * textos nas prévias das conversas.
-     */
-
-    function escapeHTML(text) {
-        const element = document.createElement("span");
-
-        element.textContent = text;
-
-        return element.innerHTML;
-    }
-
-    /*
      * Formata a hora da mensagem.
      */
 
@@ -222,8 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /*
-     * Atualiza o indicador de mensagens não lidas
-     * em cada conversa.
+     * Atualiza o indicador de mensagens não lidas.
      */
 
     function updateUnreadBadge(id) {
@@ -264,8 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /*
-     * Atualiza a prévia e o horário da conversa
-     * depois do envio de uma mensagem.
+     * Atualiza a prévia da conversa.
      */
 
     function updateConversationPreview(id, text, time) {
@@ -290,8 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /*
-     * Cria um balão de mensagem sem inserir
-     * o conteúdo do usuário diretamente como HTML.
+     * Cria um balão de mensagem.
      */
 
     function createMessage(message) {
@@ -302,15 +286,12 @@ document.addEventListener("DOMContentLoaded", function () {
             : "message received";
 
         const bubble = document.createElement("div");
-
         bubble.className = "message-bubble";
 
         const paragraph = document.createElement("p");
-
         paragraph.textContent = message.text;
 
         const time = document.createElement("time");
-
         time.textContent = message.time;
 
         bubble.appendChild(paragraph);
@@ -345,11 +326,9 @@ document.addEventListener("DOMContentLoaded", function () {
         chatMessages.replaceChildren();
 
         const dateDivider = document.createElement("div");
-
         dateDivider.className = "chat-date-divider";
 
         const dateLabel = document.createElement("span");
-
         dateLabel.textContent = "Histórico da conversa";
 
         dateDivider.appendChild(dateLabel);
@@ -376,8 +355,7 @@ document.addEventListener("DOMContentLoaded", function () {
         currentConversation = id;
 
         conversationItems.forEach(function (item) {
-            const selected =
-                item.dataset.conversation === id;
+            const selected = item.dataset.conversation === id;
 
             item.classList.toggle("active", selected);
 
@@ -391,33 +369,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const avatarImage = chatAvatar.querySelector("img");
 
-        if (avatarImage) {
+        if (avatarImage && conversation.photo) {
             avatarImage.src = conversation.photo;
             avatarImage.alt = "";
         }
-
-        /*
-         * Ao abrir uma conversa, suas mensagens
-         * demonstrativas são marcadas como lidas.
-         */
 
         conversation.unread = 0;
 
         updateUnreadBadge(id);
         updateCounters();
-
         renderMessages(id);
 
         workspace.classList.add("chat-open");
 
-        messageInput.focus({
-            preventScroll: true
-        });
+        messageInput.focus({ preventScroll: true });
     }
 
     /*
-     * Pesquisa por nome da ONG ou conteúdo
-     * da última mensagem.
+     * Pesquisa e filtra as conversas.
      */
 
     function filterConversations() {
@@ -437,22 +406,17 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const lastMessage =
-                conversation.messages[
-                    conversation.messages.length - 1
-                ];
+                conversation.messages[conversation.messages.length - 1];
 
             const searchText = (
-                conversation.name +
-                " " +
+                conversation.name + " " +
                 (lastMessage ? lastMessage.text : "")
             ).toLocaleLowerCase("pt-BR");
 
-            const matchesSearch =
-                searchText.includes(searchTerm);
+            const matchesSearch = searchText.includes(searchTerm);
 
             const matchesFilter =
-                currentFilter === "all" ||
-                conversation.unread > 0;
+                currentFilter === "all" || conversation.unread > 0;
 
             const visible = matchesSearch && matchesFilter;
 
@@ -463,9 +427,13 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        noConversations.hidden = visibleCount !== 0;
+        if (noConversations) {
+            noConversations.hidden = visibleCount !== 0;
+        }
 
-        clearSearchButton.hidden = searchInput.value.length === 0;
+        if (clearSearchButton) {
+            clearSearchButton.hidden = searchInput.value.length === 0;
+        }
 
         updateCounters();
     }
@@ -484,17 +452,15 @@ document.addEventListener("DOMContentLoaded", function () {
      * Busca de conversas.
      */
 
-    searchInput.addEventListener("input", function () {
-        filterConversations();
-    });
+    searchInput.addEventListener("input", filterConversations);
 
-    clearSearchButton.addEventListener("click", function () {
-        searchInput.value = "";
-
-        filterConversations();
-
-        searchInput.focus();
-    });
+    if (clearSearchButton) {
+        clearSearchButton.addEventListener("click", function () {
+            searchInput.value = "";
+            filterConversations();
+            searchInput.focus();
+        });
+    }
 
     /*
      * Filtro: todas ou não lidas.
@@ -505,8 +471,7 @@ document.addEventListener("DOMContentLoaded", function () {
             currentFilter = button.dataset.filter;
 
             filterButtons.forEach(function (filterButton) {
-                const selected =
-                    filterButton === button;
+                const selected = filterButton === button;
 
                 filterButton.classList.toggle("active", selected);
 
@@ -521,116 +486,93 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /*
-     * Envio de mensagem demonstrativa.
+     * Envio de mensagem demonstrativa com resposta automática.
      */
 
-/*
- * Envio de mensagem com resposta automática do agente virtual.
- */
+    messageForm.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-messageForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+        const text = messageInput.value.trim();
 
-    const text = messageInput.value.trim();
-
-    if (!text) {
-        messageInput.focus();
-        return;
-    }
-
-    const conversation = conversations[currentConversation];
-
-    if (!conversation) {
-        return;
-    }
-
-    const time = getCurrentTime();
-
-    // 1. Cria a mensagem enviada pelo usuário.
-    const newMessage = {
-    text: text,
-    time: time,
-    sent: true,
-    conversationId: currentConversation
-    };
-
-    conversation.messages.push(newMessage);
-
-    chatMessages.appendChild(createMessage(newMessage));
-
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    updateConversationPreview(
-        currentConversation,
-        text,
-        time
-    );
-
-    // 2. Coloca a conversa no início da lista.
-    const currentItem = conversationItems.find(function (item) {
-        return item.dataset.conversation === currentConversation;
-    });
-
-    if (currentItem) {
-        conversationList.prepend(currentItem);
-    }
-
-    // 3. Limpa o campo de digitação.
-    messageInput.value = "";
-    messageInput.style.height = "auto";
-
-    filterConversations();
-
-    messageInput.focus();
-
-    // 4. Define a resposta automática do agente virtual.
-    const automaticResponse =
-        "Olá! 🐾 Agradecemos por entrar em contato conosco. " +
-        "Sua mensagem foi recebida com sucesso! Nossa equipe " +
-        "analisará sua solicitação e responderá assim que possível. " +
-        "Enquanto isso, fique à vontade para conhecer nossos " +
-        "animais disponíveis para adoção!";
-
-    // 5. Aguarda 1,5 segundo antes de responder.
-    setTimeout(function () {
-        const targetConversation = conversations[
-            newMessage.conversationId
-        ];
-
-        if (!targetConversation) {
+        if (!text) {
+            messageInput.focus();
             return;
         }
 
-        const replyTime = getCurrentTime();
+        const conversation = conversations[currentConversation];
 
-        // 6. Cria a resposta automática.
-        const reply = {
-            text: automaticResponse,
-            time: replyTime,
-            sent: false
-        };
-
-        targetConversation.messages.push(reply);
-
-        /*
-         * Atualiza o histórico somente se a conversa
-         * que recebeu a resposta ainda estiver aberta.
-         */
-        if (currentConversation === newMessage.conversationId) {
-            chatMessages.appendChild(createMessage(reply));
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+        if (!conversation) {
+            return;
         }
 
-        // 7. Atualiza a prévia da conversa na barra lateral.
-        updateConversationPreview(
-            newMessage.conversationId,
-            automaticResponse,
-            replyTime
-        );
+        const time = getCurrentTime();
+
+        const newMessage = {
+            text: text,
+            time: time,
+            sent: true,
+            conversationId: currentConversation
+        };
+
+        conversation.messages.push(newMessage);
+
+        chatMessages.appendChild(createMessage(newMessage));
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        updateConversationPreview(currentConversation, text, time);
+
+        const currentItem = conversationItems.find(function (item) {
+            return item.dataset.conversation === currentConversation;
+        });
+
+        if (currentItem) {
+            conversationList.prepend(currentItem);
+        }
+
+        messageInput.value = "";
+        messageInput.style.height = "auto";
 
         filterConversations();
+        messageInput.focus();
 
-    }, 1500);
+        const automaticResponse =
+            "Olá! 🐾 Agradecemos por entrar em contato conosco. " +
+            "Sua mensagem foi recebida com sucesso! Nossa equipe " +
+            "analisará sua solicitação e responderá assim que possível. " +
+            "Enquanto isso, fique à vontade para conhecer nossos " +
+            "animais disponíveis para adoção!";
+
+        setTimeout(function () {
+            const targetConversation =
+                conversations[newMessage.conversationId];
+
+            if (!targetConversation) {
+                return;
+            }
+
+            const replyTime = getCurrentTime();
+
+            const reply = {
+                text: automaticResponse,
+                time: replyTime,
+                sent: false
+            };
+
+            targetConversation.messages.push(reply);
+
+            if (currentConversation === newMessage.conversationId) {
+                chatMessages.appendChild(createMessage(reply));
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            updateConversationPreview(
+                newMessage.conversationId,
+                automaticResponse,
+                replyTime
+            );
+
+            filterConversations();
+        }, 1500);
     });
 
     /*
@@ -645,14 +587,12 @@ messageForm.addEventListener("submit", function (event) {
             !event.isComposing
         ) {
             event.preventDefault();
-
             messageForm.requestSubmit();
         }
     });
 
     /*
-     * Ajusta a altura do campo de texto
-     * de acordo com o conteúdo digitado.
+     * Ajusta a altura do campo de texto.
      */
 
     messageInput.addEventListener("input", function () {
@@ -666,9 +606,11 @@ messageForm.addEventListener("submit", function (event) {
      * Volta à lista de conversas em telas pequenas.
      */
 
-    mobileBackButton.addEventListener("click", function () {
-        workspace.classList.remove("chat-open");
-    });
+    if (mobileBackButton) {
+        mobileBackButton.addEventListener("click", function () {
+            workspace.classList.remove("chat-open");
+        });
+    }
 
     /*
      * Inicialização.
@@ -679,8 +621,11 @@ messageForm.addEventListener("submit", function (event) {
     });
 
     updateCounters();
-
     filterConversations();
 
-    selectConversation(currentConversation);
+    if (conversations[currentConversation]) {
+        selectConversation(currentConversation);
+    } else if (conversationItems.length > 0) {
+        selectConversation(conversationItems[0].dataset.conversation);
+    }
 });

@@ -22,9 +22,4 @@ document.addEventListener("DOMContentLoaded", () => {
     else if (digits.length) digits = digits.replace(/^(\d+)/, "($1");
     phone.value = digits;
   });
-  document.getElementById("schedule-form")?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const status = document.getElementById("form-status");
-    status.textContent = "Formulário validado nesta demonstração. Para registrar e enviar a solicitação, conecte-o à view Django.";
-  });
 });

@@ -84,9 +84,9 @@
             <div class="animal-grid">
                 {% for animal in animais %}
                     <article class="animal-card">
-                        <a class="animal-photo" href="{% url 'detalhe_animal' animal.id %}">
-                            {% if animal.foto %}
-                                <img src="{{ animal.foto.url }}" alt="{{ animal.nome }}">
+                        <a class="animal-photo" href="{% url 'perfil_animal' animal.id %}">
+                            {% if animal.imagem %}
+                                <img src="{{ animal.imagem.url }}" alt="{{ animal.nome }}">
                             {% else %}
                                 <div class="photo-placeholder">🐶</div>
                             {% endif %}
@@ -95,10 +95,9 @@
                         <div class="animal-info">
                             <div class="animal-title-row">
                                 <h3>{{ animal.nome }}</h3>
-                                {% if animal.sexo %}<span class="animal-sex">{{ animal.sexo }}</span>{% endif %}
                             </div>
                             <p>{{ animal.raca|default:"Sem raça definida" }}{% if animal.idade %} · {{ animal.idade }}{% endif %}</p>
-                            <a class="text-link" href="{% url 'detalhe_animal' animal.id %}">Conhecer pet <span>→</span></a>
+                            <a class="text-link" href="{% url 'perfil_animal' animal.id %}">Conhecer pet <span>→</span></a>
                         </div>
                     </article>
                 {% empty %}
