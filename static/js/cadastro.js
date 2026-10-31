@@ -130,8 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Se os dados forem válidos, o formulário será enviado
         // para a view Django definida no atributo action.
-        // Redirecionamento temporário para a página principal.
-        event.preventDefault();
-        window.location.href = "/pagina-principal/";
+    
             });
 });

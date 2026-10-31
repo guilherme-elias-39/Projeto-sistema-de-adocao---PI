@@ -19,10 +19,23 @@ class Usuario(AbstractUser):
 
 class Instituicao(models.Model):
     nome = models.CharField(max_length=150)
+
+    cnpj = models.CharField(
+        max_length=18,
+        unique=True,
+        null=True,
+        blank=True
+    )
+
     descricao = models.TextField(blank=True)
     email = models.EmailField(blank=True)
     telefone = models.CharField(max_length=20, blank=True)
-    cidade = models.CharField(max_length=100)
+
+    cidade = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
     endereco = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
