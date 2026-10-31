@@ -1,10 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
-from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
-from .models import Animal, Instituicao
+from .models import Animal, Instituicao, Agendamento, Conversa, Usuario, Notificacao
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
+
+
+
 # Create your views here.
 
 def confirmacao(request):
@@ -12,15 +16,6 @@ def confirmacao(request):
 
 def home(request):
     return render(request, 'home.html')
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import get_user_model
-from django.db import IntegrityError
-
-
-
-
 
 
 def cadastro_usuario(request):
@@ -178,48 +173,168 @@ def perfil_animal(request, animal_id):
     )
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def cadastro_instituicao(request):
     return render(request, 'core/cadastro_instituicao.html')
 
 
 
+@login_required(login_url='login')
+def agendar_visita(request, animal_id):
+    animal = Animal.objects.filter(id=animal_id).first()
 
-def agendar_visita(request):
-    return render(request, 'core/agendar_visitas.html')
+    if animal is None:
+        raise Http404("Animal não encontrado.")
 
+    if request.method == 'POST':
+        data = request.POST.get('data')
+        periodo = request.POST.get('periodo')
 
+        if periodo == 'manha':
+            horario = '10:00'
+        elif periodo == 'tarde':
+            horario = '15:00'
+        else:
+            messages.error(request, 'Selecione um período válido.')
+            return render(
+                request,
+                'core/agendar_visitas.html',
+                {'animal': animal}
+            )
 
+        try:
+            agendamento = Agendamento.objects.create(
+                usuario=request.user,
+                animal=animal,
+                data=data,
+                horario=horario
+            )
+        except Exception:
+            messages.error(
+                request,
+                'Não foi possível realizar o agendamento. Verifique a data e o horário.'
+            )
+            return render(
+                request,
+                'core/agendar_visitas.html',
+                {'animal': animal}
+            )
 
+        return redirect(
+            'agend_completo',
+            agendamento_id=agendamento.id
+        )
 
-def perfil_ong(request):
-    return render(request, 'core/perfil_ong.html')
+    return render(
+        request,
+        'core/agendar_visitas.html',
+        {'animal': animal}
+    )
 
+def perfil_ong(request, ong_id):
+    ong = get_object_or_404(Instituicao, id=ong_id)
+
+    animais = Animal.objects.filter(
+        instituicao=ong,
+        situacao='disponivel'
+    )
+
+    total_animais = animais.count()
+
+    return render(request, 'core/perfil_ong.html', {
+        'ong': ong,
+        'animais': animais,
+        'total_animais': total_animais,
+    })
+
+@login_required
 def mensagens(request):
-    return render(request, 'core/mensagens.html')
+    conversas = Conversa.objects.filter(
+        usuario=request.user
+    ).select_related('instituicao').prefetch_related('mensagens')
 
+    return render(request, 'core/mensagens.html', {
+        'conversas': conversas,
+    })
+
+
+@login_required
 def perfil_usuario(request):
-    return render(request, 'core/perfil_usuario.html')
+    usuario = request.user
+    mensagem = ''
 
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        email = request.POST.get('email')
+
+        if not nome or not email:
+            mensagem = 'Preencha todos os campos obrigatórios.'
+
+        elif Usuario.objects.filter(email=email).exclude(pk=usuario.pk).exists():
+            mensagem = 'Este e-mail já está cadastrado.'
+
+        else:
+            usuario.nome = nome
+            usuario.email = email
+            usuario.save()
+
+            mensagem = 'Dados atualizados com sucesso!'
+
+    return render(request, 'core/perfil_usuario.html', {
+        'usuario': usuario,
+        'mensagem': mensagem,
+    })
+
+@login_required(login_url='login')
 def agendamentos(request):
-    return render(request, 'core/agendamentos.html')
+    agendamentos = Agendamento.objects.filter(
+        usuario=request.user
+    ).select_related('animal', 'animal__instituicao').order_by('-id')
 
+    return render(
+        request,
+        'core/agendamentos.html',
+        {'agendamentos': agendamentos}
+    )
+
+@login_required
 def notificacoes(request):
-    return render(request, 'core/notificacoes.html')
+    notificacoes = Notificacao.objects.filter(usuario=request.user)
 
-def agend_completo(request):
-    return render(request, "core/agend_completo.html")
+    total = notificacoes.count()
+    nao_lidas = notificacoes.filter(lida=False).count()
+    lidas = notificacoes.filter(lida=True).count()
+
+    return render(request, 'core/notificacoes.html', {
+        'notificacoes': notificacoes,
+        'total': total,
+        'nao_lidas': nao_lidas,
+        'lidas': lidas,
+    })
+
+@login_required(login_url='login')
+def agend_completo(request, agendamento_id):
+    agendamento = Agendamento.objects.filter(
+        id=agendamento_id,
+        usuario=request.user
+    ).select_related('animal', 'animal__instituicao').first()
+
+    if agendamento is None:
+        raise Http404("Agendamento não encontrado.")
+
+    if request.method == 'POST':
+        if request.POST.get('cancelar_agendamento') == '1':
+            if agendamento.situacao != 'cancelado':
+                agendamento.situacao = 'cancelado'
+                agendamento.save(update_fields=['situacao'])
+                messages.success(request, 'Agendamento cancelado com sucesso!')
+
+            return redirect('agendamentos')
+
+    return render(
+        request,
+        'core/agend_completo.html',
+        {'agendamento': agendamento}
+    )
+
+
 

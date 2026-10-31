@@ -100,29 +100,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (profileForm) {
 
-        profileForm.addEventListener("submit", function (event) {
+    profileForm.addEventListener("reset", function () {
 
-            event.preventDefault();
-
-            if (!profileForm.checkValidity()) {
-
-                profileForm.reportValidity();
-
-                return;
-            }
-
-            profileFeedback.textContent =
-                "Os campos estão válidos, mas as alterações ainda não foram salvas no servidor.";
+        profileFeedback.textContent = "";
 
         });
 
-        profileForm.addEventListener("reset", function () {
-
-            profileFeedback.textContent = "";
-
-        });
-
-    }
+    }   
 
     /*
      * PREFERÊNCIAS DEMONSTRATIVAS

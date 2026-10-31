@@ -1,17 +1,21 @@
-
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block title %}Agendamento completo | MajestAnimais{% endblock %}
 
+
 {% block body_class %}agendamento-completo-page{% endblock %}
+
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'core/css/agend_completo.css' %}">
 {% endblock %}
 
+
 {% block content %}
 <section class="agendamento-page">
+
 
     <!-- Título da página -->
     <div class="agendamento-heading">
@@ -21,44 +25,63 @@
             <p>Confira as informações da sua visita e acompanhe o agendamento.</p>
         </div>
 
+
         <a href="{% url 'agendamentos' %}" class="agendamento-back">
             <span aria-hidden="true">←</span>
             Voltar
         </a>
     </div>
 
+
     <!-- Cartão principal -->
     <article class="agendamento-card" id="agendamento-card">
 
+
         <!-- Fotografia do animal -->
         <div class="agendamento-cover">
-            <img
-                src="{% static 'core/img/thor.jpg' %}"
-                alt="Thor, cachorro disponível para adoção"
-            >
+            {% if agendamento and agendamento.animal.imagem %}
+                <img
+                    src="{{ agendamento.animal.imagem.url }}"
+                    alt="{{ agendamento.animal.nome }}"
+                >
+            {% else %}
+                <img
+                    src="{% static 'core/img/thor.jpg' %}"
+                    alt="Animal para adoção"
+                >
+            {% endif %}
+
 
             <span class="agendamento-cover-label">Visita de adoção</span>
         </div>
 
+
         <!-- Informações -->
         <div class="agendamento-content">
 
+
             <!-- Animal e instituição -->
+            {% if agendamento %}
             <div class="agendamento-animal">
                 <div class="agendamento-ong-avatar" aria-hidden="true">🐾</div>
 
+
                 <div class="agendamento-animal-text">
-                    <h2>Thor</h2>
-                    <p>ONG Esperança Animal</p>
+                    <h2>{{ agendamento.animal.nome }}</h2>
+                    <p>{{ agendamento.animal.instituicao.nome }}</p>
                 </div>
+
 
                 <span class="agendamento-status" id="agendamento-status">
                     <span class="status-dot"></span>
-                    Confirmado
+                    {{ agendamento.get_situacao_display }}
                 </span>
             </div>
+            {% endif %}
+
 
             <div class="agendamento-divider"></div>
+
 
             <!-- Data -->
             <div class="agendamento-detail">
@@ -69,11 +92,13 @@
                     </svg>
                 </div>
 
+
                 <div>
                     <h3>Data da visita</h3>
-                    <p>16 de abril de 2026</p>
+                    <p>{{ agendamento.data|date:"d/m/Y" }}</p>
                 </div>
             </div>
+
 
             <!-- Horário -->
             <div class="agendamento-detail">
@@ -84,11 +109,13 @@
                     </svg>
                 </div>
 
+
                 <div>
                     <h3>Horário</h3>
-                    <p>14:00</p>
+                    <p>{{ agendamento.horario|time:"H:i" }}</p>
                 </div>
             </div>
+
 
             <!-- Local -->
             <div class="agendamento-detail agendamento-location">
@@ -99,12 +126,14 @@
                     </svg>
                 </div>
 
+
                 <div>
                     <h3>Local</h3>
-                    <p>Rua das Flores, 123 - Centro</p>
-                    <p>Pau dos Ferros/RN</p>
+                    <p>{{ agendamento.animal.instituicao.endereco }}</p>
+                    <p>{{ agendamento.animal.instituicao.cidade }}</p>
                 </div>
             </div>
+
 
             <!-- Mensagem de confirmação -->
             <div class="agendamento-notice" id="agendamento-notice">
@@ -114,27 +143,41 @@
                 <p>Seu agendamento está confirmado. Esperamos por você!</p>
             </div>
 
+
             <!-- Ações -->
             <div class="agendamento-actions" id="agendamento-actions">
 
-                <a href="{% url 'perfil_animal' %}" class="agendamento-animal-link">
-                    Conhecer o perfil de Thor
-                    <span aria-hidden="true">→</span>
-                </a>
 
-                <button
-                    type="button"
-                    class="agendamento-cancel"
-                    id="cancelar-agendamento"
-                >
-                    Cancelar agendamento
-                </button>
+                {% if agendamento and agendamento.animal_id %}
+                    <a href="{% url 'perfil_animal' agendamento.animal_id %}" class="agendamento-animal-link">
+                        Conhecer o perfil de {{ agendamento.animal.nome }}
+                        <span aria-hidden="true">→</span>
+                    </a>
+                {% endif %}
+
+
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="cancelar_agendamento" value="1">
+
+
+                    <button
+                        type="submit"
+                        class="agendamento-cancel"
+                        id="cancelar-agendamento"
+                    >
+                        Cancelar agendamento
+                    </button>
+                </form>
+
 
             </div>
+
 
             <!-- Exibido somente após confirmar o cancelamento -->
             <div class="agendamento-cancelled" id="agendamento-cancelled" style="display: none;">
                 <span class="cancelled-icon" aria-hidden="true">×</span>
+
 
                 <div>
                     <h3>Agendamento cancelado</h3>
@@ -144,13 +187,16 @@
                     </p>
                 </div>
 
+
                 <a href="{% url 'agendamentos' %}" class="agendamento-new-link">
                     Voltar
                 </a>
             </div>
 
+
         </div>
     </article>
+
 
     <!-- Informação complementar -->
     <p class="agendamento-help">
@@ -158,8 +204,10 @@
         Em caso de dúvidas sobre a visita, entre em contato com a ONG responsável.
     </p>
 
+
 </section>
 {% endblock %}
+
 
 {% block extra_js %}
 <script src="{% static 'core/js/agenda_completo.js' %}" defer></script>

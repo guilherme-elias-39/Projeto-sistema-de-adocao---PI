@@ -11,6 +11,14 @@
 
 {% block content %}
 
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
 <section class="appointments-container">
 
     <!-- CABEÇALHO DA PÁGINA -->
@@ -124,290 +132,133 @@
 
 
         <!-- LISTA DE PRÓXIMOS AGENDAMENTOS -->
-        <div
-            class="appointments-list"
-            id="panel-upcoming"
-            role="tabpanel"
-            aria-labelledby="tab-upcoming">
+        
+        {% for agendamento in agendamentos %}
+            {% if agendamento.situacao != 'concluido' %}
+                <article class="appointment-card"
+                        data-status="upcoming"
+                        onclick="window.location.href='{% url 'agend_completo' agendamento.id %}'"
+                        style="cursor: pointer;">
 
-            <!-- THOR -->
-            <article class="appointment-card" data-status="upcoming"
-                    onclick="window.location.href='/agend_completo/'"
-                    style="cursor: pointer;">
+                    {% if agendamento.animal.imagem %}
+                        <img class="appointment-image"
+                            src="{{ agendamento.animal.imagem.url }}"
+                            alt="Foto de {{ agendamento.animal.nome }}">
+                    {% else %}
+                        <img class="appointment-image"
+                            src="{% static 'core/img/pet-placeholder.png' %}"
+                            alt="Animal sem foto cadastrada">
+                    {% endif %}
 
-                <img
-                    class="appointment-image"
-                    src="{% static 'core/img/thor.jpg' %}"
-                    alt="Thor, cachorro disponível para adoção"
-                    onerror="this.onerror=null;this.src='https://placehold.co/160x160/e6f0ed/145b52?text=Thor';">
+                    <div class="appointment-information">
+                        <div class="appointment-animal-heading">
+                            <h3>{{ agendamento.animal.nome }}</h3>
+                            <span class="appointment-reference">
+                                Agendamento #{{ agendamento.id }}
+                            </span>
+                        </div>
 
-                <div class="appointment-information">
-
-                    <div class="appointment-animal-heading">
-                        <h3>Thor</h3>
-                        <span class="appointment-reference">Agendamento #001</span>
-                    </div>
-
-                    <a href="/ongs/esperanca-animal/"
-                       class="appointment-organization">
-                        ONG Patinhas Felizes
-                    </a>
-
-                    <div class="appointment-details">
-
-                        <span class="appointment-detail">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
-                                <path d="M16 3v4M8 3v4M3 10h18"></path>
-                            </svg>
-                            16 de novembro de 2026
+                        <span class="appointment-organization">
+                            {{ agendamento.animal.instituicao.nome }}
                         </span>
 
-                        <span class="appointment-detail">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <circle cx="12" cy="12" r="9"></circle>
-                                <path d="M12 7v5l3 2"></path>
-                            </svg>
-                            14h00
-                        </span>
+                        <div class="appointment-details">
+                            <span class="appointment-detail">
+                                {{ agendamento.data|date:"d/m/Y" }}
+                            </span>
+                            <span class="appointment-detail">
+                                {{ agendamento.horario|time:"H:i" }}
+                            </span>
+                        </div>
 
+                        <div class="appointment-card-bottom">
+                            <span class="appointment-status">
+                                <span class="status-dot"></span>
+                                {{ agendamento.get_situacao_display }}
+                            </span>
+                            <span class="appointment-type">Visita presencial</span>
+                        </div>
                     </div>
 
-                    <div class="appointment-card-bottom">
-                        <span class="appointment-status status-confirmed">
-                            <span class="status-dot"></span>
-                            Confirmado
-                        </span>
-
-                        <span class="appointment-type">Visita presencial</span>
-                    </div>
-
-                </div>
-
-                <a
-                    href="{% url 'agend_completo' %}"
+                    <a href="{% url 'agend_completo' agendamento.id %}"
                     class="appointment-open"
-                    aria-label="Ver detalhes do agendamento de Thor"
-                    title="Ver detalhes">
-
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="m9 18 6-6-6-6"></path>
-                    </svg>
-
-                </a>
-
-            </article>
-
-            <!-- LUNA -->
-            <article class="appointment-card" data-status="upcoming">
-
-                <img
-                    class="appointment-image"
-                    src="{% static 'core/img/luna.jpg' %}"
-                    alt="Luna, cachorro disponível para adoção"
-                    onerror="this.onerror=null;this.src='https://placehold.co/160x160/e6f0ed/145b52?text=Luna';">
-
-                <div class="appointment-information">
-
-                    <div class="appointment-animal-heading">
-                        <h3>Luna</h3>
-                        <span class="appointment-reference">Agendamento #002</span>
-                    </div>
-
-                    <a href="/ongs/patinhas-felizes/"
-                       class="appointment-organization">
-                        ONG Patinhas Felizes
+                    aria-label="Ver detalhes do agendamento {{ agendamento.id }}"
+                    title="Ver detalhes"
+                    onclick="event.stopPropagation();">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
                     </a>
-
-                    <div class="appointment-details">
-
-                        <span class="appointment-detail">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
-                                <path d="M16 3v4M8 3v4M3 10h18"></path>
-                            </svg>
-                            20 de novembro de 2026
-                        </span>
-
-                        <span class="appointment-detail">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <circle cx="12" cy="12" r="9"></circle>
-                                <path d="M12 7v5l3 2"></path>
-                            </svg>
-                            10h00
-                        </span>
-
-                    </div>
-
-                    <div class="appointment-card-bottom">
-                        <span class="appointment-status status-pending">
-                            <span class="status-dot"></span>
-                            Pendente
-                        </span>
-
-                        <span class="appointment-type">Visita presencial</span>
-                    </div>
-
-                </div>
-
-                <a
-                    href="/agendamentos/2/"
-                    class="appointment-open"
-                    aria-label="Ver detalhes do agendamento de Luna"
-                    title="Ver detalhes">
-
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="m9 18 6-6-6-6"></path>
-                    </svg>
-
-                </a>
-
-            </article>
-
-            <!-- LUNA -->
-            <article class="appointment-card" data-status="upcoming">
-
-                <img
-                    class="appointment-image"
-                    src="{% static 'core/img/Hera.png' %}"
-                    alt="Luna, cachorro disponível para adoção"
-                    onerror="this.onerror=null;this.src='https://placehold.co/160x160/e6f0ed/145b52?text=Luna';">
-
-                <div class="appointment-information">
-
-                    <div class="appointment-animal-heading">
-                        <h3>Luna</h3>
-                        <span class="appointment-reference">Agendamento #002</span>
-                    </div>
-
-                    <a href="/ongs/patinhas-felizes/"
-                       class="appointment-organization">
-                        ONG Patinhas Felizes
-                    </a>
-
-                    <div class="appointment-details">
-
-                        <span class="appointment-detail">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
-                                <path d="M16 3v4M8 3v4M3 10h18"></path>
-                            </svg>
-                            20 de novembro de 2026
-                        </span>
-
-                        <span class="appointment-detail">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <circle cx="12" cy="12" r="9"></circle>
-                                <path d="M12 7v5l3 2"></path>
-                            </svg>
-                            10h00
-                        </span>
-
-                    </div>
-
-                    <div class="appointment-card-bottom">
-                        <span class="appointment-status status-pending">
-                            <span class="status-dot"></span>
-                            Pendente
-                        </span>
-
-                        <span class="appointment-type">Visita presencial</span>
-                    </div>
-
-                </div>
-
-                <a
-                    href="/agendamentos/2/"
-                    class="appointment-open"
-                    aria-label="Ver detalhes do agendamento de Luna"
-                    title="Ver detalhes">
-
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="m9 18 6-6-6-6"></path>
-                    </svg>
-
-                </a>
-
-            </article>
-
-        </div>
-
+                </article>
+            {% endif %}
+        {% empty %}
+            <p>Nenhum agendamento cadastrado.</p>
+        {% endfor %}
 
         <!-- LISTA DE AGENDAMENTOS FINALIZADOS -->
-        <div
-            class="appointments-list"
-            id="panel-finished"
-            role="tabpanel"
-            aria-labelledby="tab-finished"
-            hidden>
+        
+        {% for agendamento in agendamentos %}
+            {% if agendamento.situacao == 'concluido' %}
+                <article class="appointment-card"
+                        data-status="finished"
+                        onclick="window.location.href='{% url 'agend_completo' agendamento.id %}'"
+                        style="cursor: pointer;">
 
-            <!-- MEL -->
-            <article class="appointment-card" data-status="finished">
+                    {% if agendamento.animal.imagem %}
+                        <img class="appointment-image"
+                            src="{{ agendamento.animal.imagem.url }}"
+                            alt="Foto de {{ agendamento.animal.nome }}">
+                    {% else %}
+                        <img class="appointment-image"
+                            src="{% static 'core/img/pet-placeholder.png' %}"
+                            alt="Animal sem foto cadastrada">
+                    {% endif %}
 
-                <img
-                    class="appointment-image"
-                    src="{% static 'core/img/mel-gato.png' %}"
-                    alt="Mel, cachorro disponível para adoção"
-                    onerror="this.onerror=null;this.src='https://placehold.co/160x160/e6f0ed/145b52?text=Mel';">
+                    <div class="appointment-information">
+                        <div class="appointment-animal-heading">
+                            <h3>{{ agendamento.animal.nome }}</h3>
+                            <span class="appointment-reference">
+                                Agendamento #{{ agendamento.id }}
+                            </span>
+                        </div>
 
-                <div class="appointment-information">
-
-                    <div class="appointment-animal-heading">
-                        <h3>Mel</h3>
-                        <span class="appointment-reference">Agendamento #003</span>
-                    </div>
-
-                    <a href="/ongs/vida-animal/"
-                       class="appointment-organization">
-                        ONG Vida Animal
-                    </a>
-
-                    <div class="appointment-details">
-
-                        <span class="appointment-detail">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
-                                <path d="M16 3v4M8 3v4M3 10h18"></path>
-                            </svg>
-                            10 de outubro de 2026
+                        <span class="appointment-organization">
+                            {{ agendamento.animal.instituicao.nome }}
                         </span>
 
-                        <span class="appointment-detail">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <circle cx="12" cy="12" r="9"></circle>
-                                <path d="M12 7v5l3 2"></path>
-                            </svg>
-                            16h00
-                        </span>
+                        <div class="appointment-details">
+                            <span class="appointment-detail">
+                                {{ agendamento.data|date:"d/m/Y" }}
+                            </span>
+                            <span class="appointment-detail">
+                                {{ agendamento.horario|time:"H:i" }}
+                            </span>
+                        </div>
 
+                        <div class="appointment-card-bottom">
+                            <span class="appointment-status status-finished">
+                                <span class="status-dot"></span>
+                                {{ agendamento.get_situacao_display }}
+                            </span>
+                            <span class="appointment-type">Visita presencial</span>
+                        </div>
                     </div>
 
-                    <div class="appointment-card-bottom">
-                        <span class="appointment-status status-finished">
-                            <span class="status-dot"></span>
-                            Finalizado
-                        </span>
-
-                        <span class="appointment-type">Visita presencial</span>
-                    </div>
-
-                </div>
-
-                <a
-                    href="/agendamentos/3/"
+                    <a href="{% url 'agend_completo' agendamento.id %}"
                     class="appointment-open"
-                    aria-label="Ver detalhes do agendamento de Mel"
-                    title="Ver detalhes">
+                    aria-label="Ver detalhes do agendamento {{ agendamento.id }}"
+                    title="Ver detalhes"
+                    onclick="event.stopPropagation();">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </a>
+                </article>
+            {% endif %}
+        {% empty %}
+            <p>Nenhum agendamento cadastrado.</p>
+        {% endfor %}
 
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="m9 18 6-6-6-6"></path>
-                    </svg>
-
-                </a>
-
-            </article>
-
-        </div>
 
 
         <!-- MENSAGEM PARA LISTAS VAZIAS -->
@@ -466,5 +317,5 @@
 
 
 {% block extra_js %}
-<script src="{% static 'js/meus_agendamentos.js' %}"></script>
+<script src="{% static 'js/agendamentos.js' %}"></script>
 {% endblock %}
