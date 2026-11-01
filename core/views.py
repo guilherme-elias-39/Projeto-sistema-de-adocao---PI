@@ -299,6 +299,7 @@ def mensagens(request):
         usuario=request.user
     ).select_related('instituicao').prefetch_related('mensagens')
 
+
     return render(request, 'core/mensagens.html', {
         'conversas': conversas,
     })
