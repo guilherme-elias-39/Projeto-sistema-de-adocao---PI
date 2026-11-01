@@ -173,8 +173,55 @@ def perfil_animal(request, animal_id):
     )
 
 
+
 def cadastro_instituicao(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome_instituicao', '').strip()
+        cnpj = request.POST.get('cnpj', '').strip()
+        contato = request.POST.get('contato', '').strip()
+        endereco = request.POST.get('endereco', '').strip()
+        descricao = request.POST.get('descricao', '').strip()
+
+        if not all([nome, cnpj, contato, endereco, descricao]):
+            messages.error(request, 'Preencha todos os campos.')
+            return render(request, 'core/cadastro_instituicao.html')
+
+        numeros_cnpj = ''.join(filter(str.isdigit, cnpj))
+
+        if len(numeros_cnpj) != 14:
+            messages.error(request, 'Informe um CNPJ válido.')
+            return render(request, 'core/cadastro_instituicao.html')
+
+        if Instituicao.objects.filter(cnpj=cnpj).exists():
+            messages.error(request, 'Este CNPJ já está cadastrado.')
+            return render(request, 'core/cadastro_instituicao.html')
+
+        if '@' in contato:
+            email = contato
+            telefone = ''
+        else:
+            email = ''
+            telefone = contato
+
+        try:
+            Instituicao.objects.create(
+                nome=nome,
+                cnpj=cnpj,
+                email=email,
+                telefone=telefone,
+                endereco=endereco,
+                descricao=descricao
+            )
+        except IntegrityError:
+            messages.error(request, 'Não foi possível realizar o cadastro.')
+            return render(request, 'core/cadastro_instituicao.html')
+
+        messages.success(request, 'ONG cadastrada com sucesso!')
+        return redirect('login')
+
     return render(request, 'core/cadastro_instituicao.html')
+
+
 
 
 
