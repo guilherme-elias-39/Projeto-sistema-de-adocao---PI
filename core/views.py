@@ -277,12 +277,17 @@ def agendar_visita(request, animal_id):
         {'animal': animal}
     )
 
-def perfil_ong(request, ong_id):
-    ong = get_object_or_404(Instituicao, id=ong_id)
 
-    animais = Animal.objects.filter(
-        instituicao=ong,
-        situacao='disponivel'
+
+
+
+def perfil_ong(request, ong_id):
+
+    ong = get_object_or_404(Instituicao, id=ong_id) #procura um registro banco de dados
+
+    animais = Animal.objects.filter( #objects permite cunsultar e filter seleciona registros
+        instituicao=ong, #seleciona apenas os animais vinculados à ong
+        situacao='disponivel' 
     )
 
     total_animais = animais.count()
@@ -291,23 +296,25 @@ def perfil_ong(request, ong_id):
         'ong': ong,
         'animais': animais,
         'total_animais': total_animais,
-    })
+    }) #envio do template juntos com as informações
 
-@login_required
 def mensagens(request):
-    conversas = Conversa.objects.filter(
-        usuario=request.user
-    ).select_related('instituicao').prefetch_related('mensagens')
 
+    conversas = Conversa.objects.filter(
+        usuario=request.user 
+    ).select_related('instituicao').prefetch_related('mensagens') 
+    #select_related permite obter os dados da ong junto com o da conversa.
+    #prefetch_related acessa mensagens relacionadas a uma conversa
 
     return render(request, 'core/mensagens.html', {
-        'conversas': conversas,
+        'conversas': conversas, #envia as conversas para o templ que apres. cada uma
     })
 
 
 @login_required
-def perfil_usuario(request):
-    usuario = request.user
+def perfil_usuario(request): #usuario atent, vizualize e altere o perfil
+
+    usuario = request.user #objeto correspondente ao usuário autenticado
     mensagem = ''
 
     if request.method == 'POST':
@@ -316,9 +323,6 @@ def perfil_usuario(request):
 
         if not nome or not email:
             mensagem = 'Preencha todos os campos obrigatórios.'
-
-        elif Usuario.objects.filter(email=email).exclude(pk=usuario.pk).exists():
-            mensagem = 'Este e-mail já está cadastrado.'
 
         else:
             usuario.nome = nome
@@ -334,9 +338,11 @@ def perfil_usuario(request):
 
 @login_required(login_url='login')
 def agendamentos(request):
+
     agendamentos = Agendamento.objects.filter(
-        usuario=request.user
+        usuario=request.user #agendamentos relacionados ao usuário
     ).select_related('animal', 'animal__instituicao').order_by('-id')
+#select_related- recurso Django ORM para buscar os dados de objetos numa única consulta, sem várias ao banco.
 
     return render(
         request,
@@ -346,7 +352,8 @@ def agendamentos(request):
 
 @login_required
 def notificacoes(request):
-    notificacoes = Notificacao.objects.filter(usuario=request.user)
+
+    notificacoes = Notificacao.objects.filter(usuario=request.user) #Consulta o model Notificacao e as notificações do usuário conectado.
 
     total = notificacoes.count()
     nao_lidas = notificacoes.filter(lida=False).count()
@@ -357,20 +364,22 @@ def notificacoes(request):
         'total': total,
         'nao_lidas': nao_lidas,
         'lidas': lidas,
-    })
+    }) #Envia as notificações e os resultados para o template
 
 @login_required(login_url='login')
 def agend_completo(request, agendamento_id):
-    agendamento = Agendamento.objects.filter(
-        id=agendamento_id,
-        usuario=request.user
-    ).select_related('animal', 'animal__instituicao').first()
+
+    agendamento = Agendamento.objects.filter( #acessa, consulta e verifica se pertence ao user
+        id=agendamento_id, #busca o agendamento
+        usuario=request.user #verifica se foi feito pelo usuário
+    ).select_related('animal', 'animal__instituicao').first() 
+    #first retorna o primeiro objeto encontrado ou None, caso nenhum registro corresponda ao dados durante consulta.
 
     if agendamento is None:
         raise Http404("Agendamento não encontrado.")
 
     if request.method == 'POST':
-        if request.POST.get('cancelar_agendamento') == '1':
+        if request.POST.get('cancelar_agendamento') == '1': #verifica se o formulário enviado está relacionado ao cancelamento
             if agendamento.situacao != 'cancelado':
                 agendamento.situacao = 'cancelado'
                 agendamento.save(update_fields=['situacao'])
