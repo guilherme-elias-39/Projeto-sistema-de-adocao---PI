@@ -6,37 +6,57 @@ from .models import Animal, Instituicao, Agendamento, Conversa, Usuario, Notific
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.db.models import Q
 
 
+def login(request):
+    if request.method == 'POST':  # Se info do user foi pelo método de envio 
+        email = request.POST.get('email', '').strip() # Acessa os dados do forms, procura o campo, se não vazio. Ao final remove espaços vazios
+        senha = request.POST.get('senha', '')
 
-# Create your views here.
+        Usuario = get_user_model() # Modelo de usuário está sendo
 
-def confirmacao(request):
-    return render(request, 'core/confirmacao.html')
+        try:
+            usuario = Usuario.objects.get(email=email) # Usuário cadastrado com e-mail informado?
+        except Usuario.DoesNotExist:
+            messages.error(request, 'E-mail ou senha incorretos.') # Se não, mensagem de erro
+            return render(request, 'core/login.html')
 
-def home(request):
-    return render(request, 'home.html')
+        # A função authenticate do Django para verificar a senha
+        usuario_autenticado = authenticate(request,
+            username=usuario.username, password=senha
+        )
+
+        if usuario_autenticado is not None:
+            auth_login(request, usuario_autenticado) # Armazena a verificação
+            return redirect('pagina_principal')
+        # Se nao for bem sucedida
+        messages.error(request, 'E-mail ou senha incorretos.')
+        return render(request, 'core/login.html')
+
+    return render(request, 'core/login.html')
+
 
 
 def cadastro_usuario(request):
     if request.method == 'POST':
-        nome = request.POST.get('nome', '').strip()
+        nome = request.POST.get('nome', '').strip() # Captura info do user do forms
         cpf = request.POST.get('cpf', '').strip()
         email = request.POST.get('email', '').strip()
         senha = request.POST.get('senha', '')
         confirmar_senha = request.POST.get('confirmar_senha', '')
 
-        if not all([nome, cpf, email, senha, confirmar_senha]):
+        if not all([nome, cpf, email, senha, confirmar_senha]): # Campos verdadeiros?
             messages.error(request, 'Preencha todos os campos.')
             return render(request, 'core/cadastro_usuario.html')
 
-        if senha != confirmar_senha:
+        if senha != confirmar_senha: # != diferente
             messages.error(request, 'As senhas não coincidem.')
             return render(request, 'core/cadastro_usuario.html')
 
-        Usuario = get_user_model()
+        Usuario = get_user_model() # Recupera modelo
 
-        if Usuario.objects.filter(email=email).exists():
+        if Usuario.objects.filter(email=email).exists(): # exists = tem algum resultado
             messages.error(request, 'Este e-mail já está cadastrado.')
             return render(request, 'core/cadastro_usuario.html')
 
@@ -45,8 +65,8 @@ def cadastro_usuario(request):
             return render(request, 'core/cadastro_usuario.html')
 
         try:
-            usuario = Usuario.objects.create_user(
-                username=email,
+            usuario = Usuario.objects.create_user( # cria o user no banco
+                username=email, # email como nome do user
                 nome=nome,
                 cpf=cpf,
                 email=email,
@@ -66,114 +86,6 @@ def cadastro_usuario(request):
 
 
 
-def login(request):
-    if request.method == 'POST':
-        email = request.POST.get('email', '').strip()
-        senha = request.POST.get('senha', '')
-
-        Usuario = get_user_model()
-
-        try:
-            usuario = Usuario.objects.get(email=email)
-        except Usuario.DoesNotExist:
-            messages.error(request, 'E-mail ou senha incorretos.')
-            return render(request, 'core/login.html')
-
-        usuario_autenticado = authenticate(
-            request,
-            username=usuario.username,
-            password=senha
-        )
-
-        if usuario_autenticado is not None:
-            auth_login(request, usuario_autenticado)
-            return redirect('pagina_principal')
-
-        messages.error(request, 'E-mail ou senha incorretos.')
-        return render(request, 'core/login.html')
-
-    return render(request, 'core/login.html')
-
-
-def pesquisa_pets(request):
-    termo = request.GET.get('q', '').strip()
-
-    pets = Animal.objects.filter(
-        # Mantenha aqui os filtros de disponibilidade
-        # que sua função já utiliza, se houver.
-    )
-
-    if termo:
-        pets = pets.filter(
-            Q(nome__icontains=termo) |
-            Q(especie__icontains=termo) |
-            Q(caracteristicas__icontains=termo) |
-            Q(instituicao__nome__icontains=termo) |
-            Q(instituicao__cidade__icontains=termo)
-        )
-
-    return render(
-        request,
-        'core/pesquisa_pets.html',
-        {
-            'pets': pets,
-            'termo': termo,
-        }
-    )
-
-
-def pagina_principal(request):
-    pets = Animal.objects.filter(
-        situacao='disponivel'
-    ).select_related('instituicao').order_by('-id')[:4]
-
-    return render(request, 'core/pagina_principal.html', {
-        'pets': pets,
-    })
-
-from django.db.models import Q
-
-def pesquisa_instituicoes(request):
-    termo = request.GET.get('q', '').strip()
-
-    instituicoes = Instituicao.objects.all()
-
-    if termo:
-        instituicoes = instituicoes.filter(
-            Q(nome__icontains=termo) |
-            Q(cidade__icontains=termo) |
-            Q(descricao__icontains=termo)
-        )
-
-    instituicoes = instituicoes.order_by('nome')
-
-    return render(
-        request,
-        'core/pesquisa_instituicoes.html',
-        {
-            'instituicoes': instituicoes,
-            'termo': termo,
-        }
-    )
-
-
-
-def perfil_animal(request, animal_id):
-    animal = Animal.objects.filter(
-        id=animal_id
-    ).select_related('instituicao').first()
-
-    if animal is None:
-        raise Http404("Animal não encontrado.")
-
-    return render(
-        request,
-        'core/animal.html',
-        {'animal': animal}
-    )
-
-
-
 def cadastro_instituicao(request):
     if request.method == 'POST':
         nome = request.POST.get('nome_instituicao', '').strip()
@@ -186,7 +98,7 @@ def cadastro_instituicao(request):
             messages.error(request, 'Preencha todos os campos.')
             return render(request, 'core/cadastro_instituicao.html')
 
-        numeros_cnpj = ''.join(filter(str.isdigit, cnpj))
+        numeros_cnpj = ''.join(filter(str.isdigit, cnpj)) # str.isdigit = cada caracter é número? Junta sem espaço
 
         if len(numeros_cnpj) != 14:
             messages.error(request, 'Informe um CNPJ válido.')
@@ -195,7 +107,7 @@ def cadastro_instituicao(request):
         if Instituicao.objects.filter(cnpj=cnpj).exists():
             messages.error(request, 'Este CNPJ já está cadastrado.')
             return render(request, 'core/cadastro_instituicao.html')
-
+        # contato é email ou telefone?
         if '@' in contato:
             email = contato
             telefone = ''
@@ -220,6 +132,76 @@ def cadastro_instituicao(request):
         return redirect('login')
 
     return render(request, 'core/cadastro_instituicao.html')
+
+
+
+def pagina_principal(request):
+    pets = Animal.objects.filter(
+        situacao='disponivel'
+    ).select_related('instituicao').order_by('-id')[:4] # limita o resultado do animal aos 4 primeiros, decrescente.
+
+    return render(request, 'core/pagina_principal.html', {
+        'pets': pets,
+    })
+
+
+
+
+def pesquisa_pets(request):
+    termo = request.GET.get('q', '').strip()
+
+    pets = Animal.objects.filter(
+    )
+
+    if termo:
+        pets = pets.filter(
+            Q(nome__icontains=termo) |
+            Q(especie__icontains=termo) |
+            Q(caracteristicas__icontains=termo) |
+            Q(instituicao__nome__icontains=termo) |
+            Q(instituicao__cidade__icontains=termo)
+        )
+
+    return render(
+        request,
+        'core/pesquisa_pets.html',{'pets': pets, 'termo': termo,
+        }
+    )
+
+
+
+def pesquisa_instituicoes(request):
+    termo = request.GET.get('q', '').strip() # pesquisa
+
+    instituicoes = Instituicao.objects.all() # retoma todos os registros da instituição
+
+    if termo:
+        instituicoes = instituicoes.filter(
+            Q(nome__icontains=termo) |
+            Q(cidade__icontains=termo) |
+            Q(descricao__icontains=termo)
+        )
+
+    instituicoes = instituicoes.order_by('nome')
+
+    return render(
+        request,
+        'core/pesquisa_instituicoes.html',{'instituicoes': instituicoes,'termo': termo,
+        }
+    )
+
+
+
+def perfil_animal(request, animal_id):
+    animal = Animal.objects.filter(id=animal_id
+    ).select_related('instituicao').first() # first=retorna o primeiro resultado encontrado.
+
+    if animal is None:
+        raise Http404("Animal não encontrado.")
+
+    return render(request,'core/animal.html',{'animal': animal}
+    )
+
 
 
 
