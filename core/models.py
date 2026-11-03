@@ -5,12 +5,12 @@ from django.contrib.auth.models import AbstractUser
 
 
 
-class Usuario(AbstractUser):
+class Usuario(AbstractUser): # Herda funcionalidades que o sistema Django oferece
     nome = models.CharField(max_length=150)
     cpf = models.CharField(max_length=14, unique=True)
     email = models.EmailField(unique=True)
 
-    REQUIRED_FIELDS = ['email', 'nome', 'cpf']
+    REQUIRED_FIELDS = ['email', 'nome', 'cpf'] # Campos adicionais o Django para super
 
     def __str__(self):
         return self.nome
@@ -23,8 +23,8 @@ class Instituicao(models.Model):
     cnpj = models.CharField(
         max_length=18,
         unique=True,
-        null=True,
-        blank=True
+        null=True, # pode ficar sem valor no banco
+        blank=True # permite não preenchimento do django nesse campo
     )
 
     descricao = models.TextField(blank=True)
@@ -40,6 +40,7 @@ class Instituicao(models.Model):
 
     def __str__(self):
         return self.nome
+
 
 
 class Animal(models.Model):
@@ -68,16 +69,17 @@ class Animal(models.Model):
     situacao = models.CharField(
         max_length=20,
         choices=SITUACOES,
-        default='disponivel'
+        default='disponivel' # Se não colocar nada bota isso
     )
     instituicao = models.ForeignKey(
         Instituicao,
-        on_delete=models.CASCADE,
+        on_delete=models.CASCADE, # se instituição excluida os animais também
         related_name='animais'
     )
 
     def __str__(self):
         return self.nome
+
 
 
 class Agendamento(models.Model):
@@ -118,6 +120,8 @@ class Agendamento(models.Model):
 
     def __str__(self):
         return f'{self.animal.nome} - {self.data} {self.horario}'
+
+
 
 
 
