@@ -136,12 +136,19 @@
 
 
             <!-- Mensagem de confirmação -->
-            <div class="agendamento-notice" id="agendamento-notice">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="m5 12 4 4L19 6"/>
-                </svg>
-                <p>Seu agendamento está confirmado. Esperamos por você!</p>
-            </div>
+
+            {% if agendamento.situacao == 'cancelado' %}
+                <div class="agendamento-notice" id="agendamento-notice">
+                    <p>Este agendamento foi cancelado.</p>
+                </div>
+            {% elif agendamento.situacao == 'confirmado' %}
+                <div class="agendamento-notice" id="agendamento-notice">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m5 12 4 4L19 6"/>
+                    </svg>
+                    <p>Seu agendamento está confirmado. Esperamos por você!</p>
+                </div>
+            {% endif %}
 
 
             <!-- Ações -->
@@ -155,20 +162,23 @@
                     </a>
                 {% endif %}
 
+                
+                {% if agendamento.situacao != 'cancelado' %}
 
-                <form method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="cancelar_agendamento" value="1">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="cancelar_agendamento" value="1">
 
 
-                    <button
-                        type="submit"
-                        class="agendamento-cancel"
-                        id="cancelar-agendamento"
-                    >
-                        Cancelar agendamento
-                    </button>
-                </form>
+                        <button
+                            type="submit"
+                            class="agendamento-cancel"
+                            id="cancelar-agendamento"
+                        >
+                            Cancelar agendamento
+                        </button>
+                    </form>
+                {% endif %}
 
 
             </div>
