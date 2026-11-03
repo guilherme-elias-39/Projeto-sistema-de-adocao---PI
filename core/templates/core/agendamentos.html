@@ -116,7 +116,9 @@
 
         </div>
 
-
+        {% if not agendamentos %}
+            <p>Nenhum agendamento cadastrado.</p>
+        {% else %}
         <!-- LISTA DE PRÓXIMOS AGENDAMENTOS -->
         
         {% for agendamento in agendamentos %}
@@ -177,8 +179,6 @@
                     </a>
                 </article>
             {% endif %}
-        {% empty %}
-            <p>Nenhum agendamento cadastrado.</p>
         {% endfor %}
 
         <!-- LISTA DE AGENDAMENTOS FINALIZADOS -->
@@ -241,11 +241,7 @@
                     </a>
                 </article>
             {% endif %}
-        {% empty %}
-            <p>Nenhum agendamento cadastrado.</p>
         {% endfor %}
-
-
 
         <!-- MENSAGEM PARA LISTAS VAZIAS -->
         <div class="appointments-empty" id="appointments-empty" hidden>
@@ -299,6 +295,7 @@
 
 </section>
 
+{% endif %}
 {% endblock %}
 
 

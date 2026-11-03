@@ -376,8 +376,8 @@ def agend_completo(request, agendamento_id):
     #first retorna o primeiro objeto encontrado ou None, caso nenhum registro corresponda ao dados durante consulta.
 
     if agendamento is None:
-        raise Http404("Agendamento não encontrado.")
-
+        raise Http404("Agendamento não encontrado!") #caso o usuário tente acessar um agendamento inexistente
+    
     if request.method == 'POST':
         if request.POST.get('cancelar_agendamento') == '1': #verifica se o formulário enviado está relacionado ao cancelamento
             if agendamento.situacao != 'cancelado':
@@ -387,11 +387,7 @@ def agend_completo(request, agendamento_id):
 
             return redirect('agendamentos')
 
-    return render(
-        request,
-        'core/agend_completo.html',
-        {'agendamento': agendamento}
-    )
+    return render(request,'core/agend_completo.html',{'agendamento': agendamento})
 
 
 
