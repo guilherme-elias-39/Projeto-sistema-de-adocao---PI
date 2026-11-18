@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="{% static 'core/css/login.css' %}">
 {% endblock %}
 
-
 {% block sidebar %}{% endblock %}
 
 {% block content %}
@@ -30,9 +29,7 @@
 
             <div class="hero-content">
                 <span class="hero-paw" aria-hidden="true">🐾</span>
-
                 <h1>MajestAnimais</h1>
-
                 <p>Encontre. Conheça. Adote.</p>
             </div>
         </div>
@@ -43,12 +40,12 @@
                 <p>Entre na sua conta para continuar.</p>
             </div>
 
-            
-            <form id="login-form"
+            <form
+                id="login-form"
                 class="login-form"
                 method="post"
                 action="{% url 'login' %}"
-                data-home-url="{% url 'pagina_principal' %}">
+            >
                 {% csrf_token %}
 
                 <div class="form-field">
@@ -67,9 +64,17 @@
                         name="email"
                         placeholder="E-mail"
                         autocomplete="email"
+                        value="{{ form.email.value|default:'' }}"
                         required
+                        {% if form.email.errors %}aria-invalid="true"{% endif %}
                     >
                 </div>
+
+                {% if form.email.errors %}
+                    {% for error in form.email.errors %}
+                        <p class="login-message">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
 
                 <div class="form-field">
                     <label for="senha" class="sr-only">Senha</label>
@@ -88,6 +93,7 @@
                         placeholder="Senha"
                         autocomplete="current-password"
                         required
+                        {% if form.senha.errors %}aria-invalid="true"{% endif %}
                     >
 
                     <button
@@ -104,16 +110,23 @@
                     </button>
                 </div>
 
+                {% if form.senha.errors %}
+                    {% for error in form.senha.errors %}
+                        <p class="login-message">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <p class="login-message" role="alert">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+
                 {% if messages %}
                     {% for message in messages %}
                         <p class="login-message">{{ message }}</p>
                     {% endfor %}
                 {% endif %}
-
-                <p id="login-message"
-                   class="login-message"
-                   role="status"
-                   aria-live="polite"></p>
 
                 <button type="submit" class="btn-primary">
                     Entrar

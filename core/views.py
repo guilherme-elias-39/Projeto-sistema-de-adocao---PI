@@ -7,35 +7,50 @@ from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.db.models import Q
+from .forms import LoginForm
 
 
 def login(request):
-    if request.method == 'POST':  # Se info do user foi pelo método de envio 
-        email = request.POST.get('email', '').strip() # Acessa os dados do forms, procura o campo, se não vazio. Ao final remove espaços vazios
-        senha = request.POST.get('senha', '')
+    form = LoginForm(
+        request.POST if request.method == 'POST' else None
+    )
 
-        Usuario = get_user_model() # Modelo de usuário está sendo
+    if request.method == 'POST':
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            senha = form.cleaned_data['senha']
 
-        try:
-            usuario = Usuario.objects.get(email=email) # Usuário cadastrado com e-mail informado?
-        except Usuario.DoesNotExist:
-            messages.error(request, 'E-mail ou senha incorretos.') # Se não, mensagem de erro
-            return render(request, 'core/login.html')
+            Usuario = get_user_model()
 
-        # A função authenticate do Django para verificar a senha
-        usuario_autenticado = authenticate(request,
-            username=usuario.username, password=senha
-        )
+            try:
+                usuario = Usuario.objects.get(email=email)
 
-        if usuario_autenticado is not None:
-            auth_login(request, usuario_autenticado) # Armazena a verificação
-            return redirect('pagina_principal')
-        # Se nao for bem sucedida
-        messages.error(request, 'E-mail ou senha incorretos.')
-        return render(request, 'core/login.html')
+                usuario_autenticado = authenticate(
+                    request,
+                    username=usuario.username,
+                    password=senha
+                )
 
-    return render(request, 'core/login.html')
+                if usuario_autenticado is not None:
+                    auth_login(request, usuario_autenticado)
 
+                    resposta = redirect('pagina_principal')
+                    resposta.status_code = 303
+
+                    return resposta
+
+                form.add_error(
+                    None,
+                    'E-mail ou senha incorretos.'
+                )
+
+            except Usuario.DoesNotExist:
+                form.add_error(
+                    None,
+                    'E-mail ou senha incorretos.'
+                )
+
+    return render(request, 'core/login.html', {'form': form})
 
 
 def cadastro_usuario(request):
@@ -370,6 +385,3 @@ def agend_completo(request, agendamento_id):
             return redirect('agendamentos')
 
     return render(request,'core/agend_completo.html',{'agendamento': agendamento})
-
-
-

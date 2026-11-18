@@ -118,6 +118,7 @@
     display: flex;
     flex-direction: column;
     gap: 11px;
+    min-height: 190px;
 }
 
 .form-field {
@@ -285,6 +286,7 @@
     margin: 0;
     color: #a63b35;
     font-size: 0.84rem;
+    min-height: 18px;
 }
 
 .login-message:empty {
@@ -397,6 +399,7 @@
     width: auto;
     margin-top: 25px;
 }
+
 
 
 /* ========================================
