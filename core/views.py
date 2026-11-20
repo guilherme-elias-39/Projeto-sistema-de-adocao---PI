@@ -10,6 +10,7 @@ from django.db.models import Q
 from .forms import LoginForm
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from .forms import LoginForm, CadastroUsuarioForm
 
 
 def login(request):
@@ -56,50 +57,47 @@ def login(request):
 
 
 def cadastro_usuario(request):
+
+    form = CadastroUsuarioForm(
+        request.POST if request.method == 'POST' else None
+    )
+
     if request.method == 'POST':
-        nome = request.POST.get('nome', '').strip() # Captura info do user do forms
-        cpf = request.POST.get('cpf', '').strip()
-        email = request.POST.get('email', '').strip()
-        senha = request.POST.get('senha', '')
-        confirmar_senha = request.POST.get('confirmar_senha', '')
 
-        if not all([nome, cpf, email, senha, confirmar_senha]): # Campos verdadeiros?
-            messages.error(request, 'Preencha todos os campos.')
-            return render(request, 'core/cadastro_usuario.html')
+        if form.is_valid():
 
-        if senha != confirmar_senha: # != diferente
-            messages.error(request, 'As senhas não coincidem.')
-            return render(request, 'core/cadastro_usuario.html')
+            dados = form.cleaned_data
 
-        Usuario = get_user_model() # Recupera modelo
+            Usuario = get_user_model()
 
-        if Usuario.objects.filter(email=email).exists(): # exists = tem algum resultado
-            messages.error(request, 'Este e-mail já está cadastrado.')
-            return render(request, 'core/cadastro_usuario.html')
+            try:
+                Usuario.objects.create_user(
+                    username=dados['email'],
+                    nome=dados['nome'],
+                    cpf=dados['cpf'],
+                    email=dados['email'],
+                    password=dados['senha']
+                )
 
-        if Usuario.objects.filter(cpf=cpf).exists():
-            messages.error(request, 'Este CPF já está cadastrado.')
-            return render(request, 'core/cadastro_usuario.html')
+            except IntegrityError:
+                form.add_error(
+                    None,
+                    'Não foi possível concluir o cadastro. Verifique os dados.'
+                )
 
-        try:
-            usuario = Usuario.objects.create_user( # cria o user no banco
-                username=email, # email como nome do user
-                nome=nome,
-                cpf=cpf,
-                email=email,
-                password=senha,
-            )
-        except IntegrityError:
-            messages.error(
-                request,
-                'Não foi possível concluir o cadastro. Verifique os dados.'
-            )
-            return render(request, 'core/cadastro_usuario.html')
+            else:
+                messages.success(
+                    request,
+                    'Cadastro realizado com sucesso!'
+                )
 
-        messages.success(request, 'Cadastro realizado com sucesso!')
-        return redirect('login')
+                return redirect('pagina_principal')
 
-    return render(request, 'core/cadastro_usuario.html')
+    return render(
+        request,
+        'core/cadastro_usuario.html',
+        {'form': form}
+    )
 
 
 

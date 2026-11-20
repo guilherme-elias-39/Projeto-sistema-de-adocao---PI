@@ -28,7 +28,7 @@ class CadastroUsuarioForm(forms.Form):
     nome = forms.CharField(max_length=150)
     cpf = forms.CharField(max_length=14)
     email = forms.EmailField()
-    senha = forms.CharField(widget=forms.PasswordInput())
+    senha = forms.CharField( min_length=8, widget=forms.PasswordInput())
     confirmar_senha = forms.CharField(widget=forms.PasswordInput())
 
     def clean_cpf(self):
