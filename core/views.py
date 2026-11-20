@@ -7,6 +7,9 @@ from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.db.models import Q
+from .forms import LoginForm
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 from .forms import LoginForm, CadastroUsuarioForm
 
 
@@ -99,51 +102,101 @@ def cadastro_usuario(request):
 
 
 def cadastro_instituicao(request):
+
     if request.method == 'POST':
-        nome = request.POST.get('nome_instituicao', '').strip()
+
+        # Recebe os dados do formulário
+        nome = request.POST.get('nome', '').strip()
         cnpj = request.POST.get('cnpj', '').strip()
-        contato = request.POST.get('contato', '').strip()
+        email = request.POST.get('email', '').strip()
+        telefone = request.POST.get('telefone', '').strip()
+        cidade = request.POST.get('cidade', '').strip()
         endereco = request.POST.get('endereco', '').strip()
         descricao = request.POST.get('descricao', '').strip()
 
-        if not all([nome, cnpj, contato, endereco, descricao]):
-            messages.error(request, 'Preencha todos os campos.')
-            return render(request, 'core/cadastro_instituicao.html')
+        # Verifica os campos obrigatórios
+        if not all([nome, cnpj, endereco, descricao]):
+            messages.error(request, 'Preencha todos os campos obrigatórios.')
+            return render(
+                request,
+                'core/cadastro_instituicao.html'
+            )
 
-        numeros_cnpj = ''.join(filter(str.isdigit, cnpj)) # str.isdigit = cada caracter é número? Junta sem espaço
+        # Exige pelo menos um meio de contato
+        if not email and not telefone:
+            messages.error(
+                request,
+                'Informe um e-mail ou telefone para contato.'
+            )
+            return render(
+                request,
+                'core/cadastro_instituicao.html'
+            )
+
+        # Validação do CNPJ
+        numeros_cnpj = ''.join(filter(str.isdigit, cnpj))
 
         if len(numeros_cnpj) != 14:
             messages.error(request, 'Informe um CNPJ válido.')
-            return render(request, 'core/cadastro_instituicao.html')
+            return render(
+                request,
+                'core/cadastro_instituicao.html'
+            )
 
+        # Verifica se o CNPJ já existe
         if Instituicao.objects.filter(cnpj=cnpj).exists():
             messages.error(request, 'Este CNPJ já está cadastrado.')
-            return render(request, 'core/cadastro_instituicao.html')
-        # contato é email ou telefone?
-        if '@' in contato:
-            email = contato
-            telefone = ''
-        else:
-            email = ''
-            telefone = contato
+            return render(
+                request,
+                'core/cadastro_instituicao.html'
+            )
 
+        # Valida o e-mail, caso tenha sido informado
+        if email:
+            try:
+                validate_email(email)
+            except ValidationError:
+                messages.error(request, 'Informe um e-mail válido.')
+                return render(
+                    request,
+                    'core/cadastro_instituicao.html'
+                )
+
+        # Salva a instituição no banco de dados
         try:
+
             Instituicao.objects.create(
                 nome=nome,
                 cnpj=cnpj,
                 email=email,
                 telefone=telefone,
+                cidade=cidade,
                 endereco=endereco,
                 descricao=descricao
             )
-        except IntegrityError:
-            messages.error(request, 'Não foi possível realizar o cadastro.')
-            return render(request, 'core/cadastro_instituicao.html')
 
-        messages.success(request, 'ONG cadastrada com sucesso!')
+        except IntegrityError:
+            messages.error(
+                request,
+                'Não foi possível realizar o cadastro. Verifique os dados.'
+            )
+
+            return render(
+                request,
+                'core/cadastro_instituicao.html'
+            )
+
+        messages.success(
+            request,
+            'ONG cadastrada com sucesso!'
+        )
+
         return redirect('login')
 
-    return render(request, 'core/cadastro_instituicao.html')
+    return render(
+        request,
+        'core/cadastro_instituicao.html'
+    )
 
 
 

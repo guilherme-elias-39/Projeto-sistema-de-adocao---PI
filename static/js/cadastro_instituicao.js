@@ -1,19 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     const form = document.getElementById("cadastro-ong-form");
 
     if (!form) return;
 
+    // Campos do formulário
     const cnpj = document.getElementById("cnpj");
     const cnpjErro = document.getElementById("cnpj-erro");
-    const contato = document.getElementById("contato");
-    const contatoErro = document.getElementById("contato-erro");
+
+    const email = document.getElementById("email");
+    const telefone = document.getElementById("telefone");
+
     const descricao = document.getElementById("descricao");
     const contagem = document.getElementById("descricao-contagem");
+
     const mensagem = document.getElementById("cadastro-ong-erro");
     const botao = document.getElementById("cadastro-ong-submit");
 
-    // Formata o CNPJ: 00.000.000/0000-00.
+
+    // =====================================
+    // FORMATAÇÃO DO CNPJ
+    // =====================================
+
     cnpj.addEventListener("input", () => {
+
         let valor = cnpj.value.replace(/\D/g, "").slice(0, 14);
 
         valor = valor
@@ -23,18 +33,27 @@ document.addEventListener("DOMContentLoaded", () => {
             .replace(/(\d{4})(\d)/, "$1-$2");
 
         cnpj.value = valor;
+
         cnpjErro.textContent = "";
         mensagem.textContent = "";
+
     });
 
-    // Validação do CNPJ numérico tradicional.
+
+    // =====================================
+    // VALIDAÇÃO DO CNPJ
+    // =====================================
+
     function cnpjValido(valor) {
+
         const numeros = valor.replace(/\D/g, "");
 
         if (numeros.length !== 14) return false;
+
         if (/^(\d)\1{13}$/.test(numeros)) return false;
 
         const calcularDigito = (base, pesos) => {
+
             const soma = base
                 .split("")
                 .reduce(
@@ -44,10 +63,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
             const resto = soma % 11;
+
             return resto < 2 ? 0 : 11 - resto;
         };
 
         const pesos1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+
         const pesos2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
 
         const primeiro = calcularDigito(
@@ -65,62 +86,133 @@ document.addEventListener("DOMContentLoaded", () => {
         return segundo === Number(numeros[13]);
     }
 
-    // Atualiza a contagem da descrição.
-    descricao.addEventListener("input", () => {
+
+    // =====================================
+    // CONTADOR DA DESCRIÇÃO
+    // =====================================
+
+    function atualizarContagem() {
+
         contagem.textContent = descricao.value.length;
-        mensagem.textContent = "";
-    });
 
-    // Limpa mensagens ao editar o contato.
-    contato.addEventListener("input", () => {
-        contatoErro.textContent = "";
-        mensagem.textContent = "";
-    });
-
-    function contatoValido(valor) {
-        const texto = valor.trim();
-
-        // E-mail.
-        const emailValido =
-            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(texto);
-
-        // Telefone brasileiro com DDD, com ou sem formatação.
-        const numeros = texto.replace(/\D/g, "");
-        const telefoneValido =
-            numeros.length >= 10 && numeros.length <= 13;
-
-        return emailValido || telefoneValido;
     }
 
-    form.addEventListener("submit", (event) => {
-        cnpjErro.textContent = "";
-        contatoErro.textContent = "";
+    descricao.addEventListener("input", () => {
+
+        atualizarContagem();
         mensagem.textContent = "";
 
-        if (!form.checkValidity()) {
-            event.preventDefault();
-            form.reportValidity();
-            return;
-        }
-
-        if (!cnpjValido(cnpj.value)) {
-            event.preventDefault();
-            cnpjErro.textContent = "Informe um CNPJ válido.";
-            cnpj.focus();
-            return;
-        }
-
-        if (!contatoValido(contato.value)) {
-            event.preventDefault();
-            contatoErro.textContent =
-                "Informe um e-mail válido ou telefone com DDD.";
-            contato.focus();
-            return;
-        }
-
-        // Evita cliques repetidos enquanto o formulário é enviado.
-        // A view do Django ainda precisa validar e salvar os dados.
-        botao.disabled = true;
-        botao.textContent = "Enviando...";
     });
+
+    atualizarContagem();
+
+
+    // =====================================
+    // VALIDAÇÃO DO E-MAIL
+    // =====================================
+
+    function emailValido(valor) {
+
+        if (!valor.trim()) return true;
+
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor.trim());
+
+    }
+
+
+    // =====================================
+    // VALIDAÇÃO DO TELEFONE
+    // =====================================
+
+    function telefoneValido(valor) {
+
+        if (!valor.trim()) return true;
+
+        const numeros = valor.replace(/\D/g, "");
+
+        return numeros.length === 10 || numeros.length === 11;
+
+    }
+
+
+    // =====================================
+    // LIMPAR MENSAGENS AO EDITAR
+    // =====================================
+
+    email.addEventListener("input", () => {
+        mensagem.textContent = "";
+    });
+
+    telefone.addEventListener("input", () => {
+        mensagem.textContent = "";
+    });
+
+
+    // =====================================
+    // ENVIO DO FORMULÁRIO
+    // =====================================
+
+    form.addEventListener("submit", (event) => {
+
+        cnpjErro.textContent = "";
+        mensagem.textContent = "";
+
+        // Verifica os campos obrigatórios do HTML
+        if (!form.checkValidity()) {
+
+            event.preventDefault();
+
+            form.reportValidity();
+
+            return;
+        }
+
+
+        // Valida CNPJ
+        if (!cnpjValido(cnpj.value)) {
+
+            event.preventDefault();
+
+            cnpjErro.textContent = "Informe um CNPJ válido.";
+
+            cnpj.focus();
+
+            return;
+        }
+
+
+        // Valida e-mail
+        if (!emailValido(email.value)) {
+
+            event.preventDefault();
+
+            mensagem.textContent = "Informe um e-mail válido.";
+
+            email.focus();
+
+            return;
+        }
+
+
+        // Valida telefone
+        if (!telefoneValido(telefone.value)) {
+
+            event.preventDefault();
+
+            mensagem.textContent =
+                "Informe um telefone válido com DDD.";
+
+            telefone.focus();
+
+            return;
+        }
+
+
+        // Evita envios repetidos
+        botao.disabled = true;
+
+        botao.textContent = "Enviando...";
+
+    });
+
 });
