@@ -61,33 +61,96 @@ class CadastroUsuarioForm(forms.Form):
 
         return dados
 
-
 class CadastroInstituicaoForm(forms.Form):
     nome_instituicao = forms.CharField(max_length=150)
     cnpj = forms.CharField(max_length=18)
-    contato = forms.CharField(max_length=150)
+    email = forms.EmailField(max_length=150)
+    telefone = forms.CharField(max_length=20)
+    cidade = forms.CharField(max_length=100)
     endereco = forms.CharField(max_length=200)
-    descricao = forms.CharField(widget=forms.Textarea())
+    descricao = forms.CharField(
+        max_length=1000,
+        widget=forms.Textarea()
+    )
 
     def clean_cnpj(self):
         cnpj = self.cleaned_data['cnpj']
         numeros_cnpj = ''.join(filter(str.isdigit, cnpj))
 
-        if len(numeros_cnpj) != 14:
+        if len(numeros_cnpj) != 14 or numeros_cnpj == numeros_cnpj[0] * 14:
+            raise forms.ValidationError('digite um CNPJ válido.')
+
+        soma = 0
+        pesos = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+
+        for i in range(12):
+            soma += int(numeros_cnpj[i]) * pesos[i]
+
+        resto = soma % 11
+        digito1 = 0 if resto < 2 else 11 - resto
+
+        soma = 0
+        pesos = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+
+        for i in range(13):
+            if i == 12:
+                soma += digito1 * pesos[i]
+            else:
+                soma += int(numeros_cnpj[i]) * pesos[i]
+
+        resto = soma % 11
+        digito2 = 0 if resto < 2 else 11 - resto
+
+        if numeros_cnpj[12] != str(digito1) or numeros_cnpj[13] != str(digito2):
             raise forms.ValidationError('Informe um CNPJ válido.')
 
-        if Instituicao.objects.filter(cnpj=cnpj).exists():
+        cnpj_formatado = (
+            numeros_cnpj[:2] + '.' +
+            numeros_cnpj[2:5] + '.' +
+            numeros_cnpj[5:8] + '/' +
+            numeros_cnpj[8:12] + '-' +
+            numeros_cnpj[12:]
+        )
+
+        if Instituicao.objects.filter(cnpj=cnpj_formatado).exists():
             raise forms.ValidationError('Este CNPJ já está cadastrado.')
 
-        return cnpj
+        return cnpj_formatado
 
-    def clean_contato(self):
-        contato = self.cleaned_data['contato']
+    def clean_email(self):
+        email = self.cleaned_data['email']
 
-        if '@' in contato:
-            forms.EmailField().clean(contato)
+        if Instituicao.objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError(
+                'Este e-mail já está cadastrado.'
+            )
 
-        return contato
+        return email
+
+    
+    def clean_telefone(self):
+        telefone = self.cleaned_data['telefone']
+        numeros = ''.join(filter(str.isdigit, telefone))
+
+        if len(numeros) < 10 or len(numeros) > 13:
+            raise forms.ValidationError('Informe um telefone válido.')
+
+        telefones_cadastrados = Instituicao.objects.exclude(
+            telefone=''
+        ).values_list('telefone', flat=True)
+
+        for telefone_cadastrado in telefones_cadastrados:
+            numeros_cadastrados = ''.join(
+                filter(str.isdigit, telefone_cadastrado)
+            )
+
+            if numeros == numeros_cadastrados:
+                raise forms.ValidationError(
+                    'Este telefone já está cadastrado.'
+                )
+
+        return telefone
+
 
 
 class AgendamentoForm(forms.Form):

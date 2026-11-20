@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% load static %}
 
@@ -20,12 +21,10 @@
                 <a href="{% url 'login' %}"
                    class="cadastro-ong-voltar"
                    aria-label="Voltar para a página de login">
-
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M19 12H5"></path>
                         <path d="m12 19-7-7 7-7"></path>
                     </svg>
-
                 </a>
 
                 <h1>Cadastrar ONG/Abrigo</h1>
@@ -51,60 +50,49 @@
                 {% if form.errors %}
                     <div class="ong-mensagem ong-mensagem-erro"
                          role="alert">
-
                         Não foi possível realizar o cadastro.
                         Confira os dados informados.
-
                         {{ form.non_field_errors }}
                     </div>
                 {% endif %}
-
 
                 <!-- NOME DA INSTITUIÇÃO -->
                 <div class="ong-campo">
                     <label for="nome">Nome da instituição</label>
 
                     <div class="ong-input-wrap">
-
                         <svg class="ong-icone"
                              viewBox="0 0 24 24"
                              aria-hidden="true">
-
                             <circle cx="12" cy="8" r="4"></circle>
                             <path d="M4 21v-2a8 8 0 0 1 16 0v2"></path>
-
                         </svg>
 
                         <input type="text"
                                id="nome"
-                               name="nome"
+                               name="nome_instituicao"
                                placeholder="Digite o nome da ONG"
                                maxlength="150"
                                autocomplete="organization"
-                               value="{{ form.nome.value|default:'' }}"
+                               value="{{ form.nome_instituicao.value|default:'' }}"
                                required>
-
                     </div>
 
-                    {% for error in form.nome.errors %}
+                    {% for error in form.nome_instituicao.errors %}
                         <small class="ong-erro">{{ error }}</small>
                     {% endfor %}
                 </div>
-
 
                 <!-- CNPJ -->
                 <div class="ong-campo">
                     <label for="cnpj">CNPJ</label>
 
                     <div class="ong-input-wrap">
-
                         <svg class="ong-icone"
                              viewBox="0 0 24 24"
                              aria-hidden="true">
-
                             <rect x="3" y="4" width="18" height="16" rx="2"></rect>
                             <path d="M7 8h4M7 12h10M7 16h6"></path>
-
                         </svg>
 
                         <input type="text"
@@ -116,58 +104,48 @@
                                autocomplete="off"
                                value="{{ form.cnpj.value|default:'' }}"
                                required>
-
                     </div>
 
-                    <small class="ong-erro" id="cnpj-erro">
-                        {% for error in form.cnpj.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </small>
+                    {% for error in form.cnpj.errors %}
+                        <small class="ong-erro" id="cnpj-erro">{{ error }}</small>
+                    {% endfor %}
                 </div>
-
 
                 <!-- E-MAIL -->
                 <div class="ong-campo">
                     <label for="email">E-mail da instituição</label>
 
                     <div class="ong-input-wrap">
-
                         <svg class="ong-icone"
                              viewBox="0 0 24 24"
                              aria-hidden="true">
-
                             <rect x="3" y="5" width="18" height="14" rx="2"></rect>
                             <path d="m3 7 9 6 9-6"></path>
-
                         </svg>
 
                         <input type="email"
                                id="email"
                                name="email"
                                placeholder="exemplo@ong.com.br"
-                               maxlength="254"
+                               maxlength="150"
                                autocomplete="email"
-                               value="{{ form.email.value|default:'' }}">
-
+                               value="{{ form.email.value|default:'' }}"
+                               required>
                     </div>
 
                     {% for error in form.email.errors %}
-                        <small class="ong-erro">{{ error }}</small>
+                        <small class="ong-erro" id="email-erro">{{ error }}</small>
                     {% endfor %}
                 </div>
-
 
                 <!-- TELEFONE -->
                 <div class="ong-campo">
                     <label for="telefone">Telefone para contato</label>
 
                     <div class="ong-input-wrap">
-
                         <svg class="ong-icone"
                              viewBox="0 0 24 24"
                              aria-hidden="true">
-
                             <path d="M22 16.9v3a2 2 0 0 1-2.2 2
                             19.8 19.8 0 0 1-8.6-3.1
                             19.4 19.4 0 0 1-6-6
@@ -180,7 +158,6 @@
                             a2 2 0 0 1 2.1-.5
                             c.9.3 1.9.6 2.9.7
                             a2 2 0 0 1 1.7 2z"></path>
-
                         </svg>
 
                         <input type="tel"
@@ -189,42 +166,35 @@
                                placeholder="(00) 00000-0000"
                                maxlength="20"
                                autocomplete="tel"
-                               value="{{ form.telefone.value|default:'' }}">
-
+                               value="{{ form.telefone.value|default:'' }}"
+                               required>
                     </div>
 
                     {% for error in form.telefone.errors %}
-                        <small class="ong-erro">{{ error }}</small>
+                        <small class="ong-erro" id="telefone-erro">{{ error }}</small>
                     {% endfor %}
                 </div>
-
 
                 <!-- CIDADE -->
                 <div class="ong-campo">
                     <label for="cidade">Cidade</label>
 
                     <div class="ong-input-wrap">
-
                         <svg class="ong-icone"
                              viewBox="0 0 24 24"
                              aria-hidden="true">
-
-                            <path d="M3 21h18"></path>
-                            <path d="M5 21V7l8-4v18"></path>
-                            <path d="M13 10h6v11"></path>
-                            <path d="M8 9h2M8 13h2M8 17h2"></path>
-                            <path d="M16 14h1M16 17h1"></path>
-
+                            <path d="M3 21h18M5 21V7l7-4 7 4v14"></path>
+                            <path d="M9 21v-5h6v5M9 9h.01M15 9h.01"></path>
                         </svg>
 
                         <input type="text"
                                id="cidade"
                                name="cidade"
-                               placeholder="Digite a cidade"
+                               placeholder="Digite a cidade da instituição"
                                maxlength="100"
                                autocomplete="address-level2"
-                               value="{{ form.cidade.value|default:'' }}">
-
+                               value="{{ form.cidade.value|default:'' }}"
+                               required>
                     </div>
 
                     {% for error in form.cidade.errors %}
@@ -232,32 +202,27 @@
                     {% endfor %}
                 </div>
 
-
                 <!-- ENDEREÇO -->
                 <div class="ong-campo">
                     <label for="endereco">Endereço completo</label>
 
                     <div class="ong-input-wrap">
-
                         <svg class="ong-icone"
                              viewBox="0 0 24 24"
                              aria-hidden="true">
-
                             <path d="M20 10c0 5-8 12-8 12S4 15 4 10
                             a8 8 0 1 1 16 0Z"></path>
-
                             <circle cx="12" cy="10" r="2.5"></circle>
-
                         </svg>
 
                         <input type="text"
                                id="endereco"
                                name="endereco"
-                               placeholder="Rua, número e bairro"
+                               placeholder="Digite o endereço completo"
                                maxlength="200"
                                autocomplete="street-address"
-                               value="{{ form.endereco.value|default:'' }}">
-
+                               value="{{ form.endereco.value|default:'' }}"
+                               required>
                     </div>
 
                     {% for error in form.endereco.errors %}
@@ -265,32 +230,28 @@
                     {% endfor %}
                 </div>
 
-
                 <!-- DESCRIÇÃO -->
                 <div class="ong-campo ong-campo-descricao">
                     <label for="descricao">Descrição</label>
 
                     <div class="ong-input-wrap ong-textarea-wrap">
-
                         <svg class="ong-icone ong-icone-descricao"
                              viewBox="0 0 24 24"
                              aria-hidden="true">
-
                             <path d="M12 3v3"></path>
                             <path d="M9 6h6"></path>
                             <path d="M6 6H5a2 2 0 0 0-2 2v11
                             a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8
                             a2 2 0 0 0-2-2h-1"></path>
                             <path d="M7 12h10M7 16h7"></path>
-
                         </svg>
 
                         <textarea id="descricao"
                                   name="descricao"
                                   placeholder="Conte um pouco sobre a ONG"
                                   rows="3"
-                                  maxlength="1000">{{ form.descricao.value|default:'' }}</textarea>
-
+                                  maxlength="1000"
+                                  required>{{ form.descricao.value|default:'' }}</textarea>
                     </div>
 
                     <small class="ong-contador">
@@ -302,21 +263,17 @@
                     {% endfor %}
                 </div>
 
-
                 <!-- MENSAGEM DE ERRO -->
                 <p class="ong-mensagem ong-mensagem-erro"
                    id="cadastro-ong-erro"
                    role="alert"
                    aria-live="polite"></p>
 
-
                 <!-- BOTÃO -->
                 <button type="submit"
                         class="btn-primary cadastro-ong-submit"
                         id="cadastro-ong-submit">
-
                     Cadastrar
-
                 </button>
 
             </form>
