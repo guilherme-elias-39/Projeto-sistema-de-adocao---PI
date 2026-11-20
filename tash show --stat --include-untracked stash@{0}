@@ -1,0 +1,8 @@
+ core/models.py                       |  19 [32m+[m[31m--[m
+ core/static/core/css/login.css       |   3 [32m+[m
+ core/templates/core/confirmacao.html |  11 [31m--[m
+ core/templates/core/login.html       |  37 [32m++++[m[31m--[m
+ core/urls.py                         |   6 [32m+[m[31m-[m
+ core/views.py                        | 217 [32m+++++++++++++++++[m[31m------------------[m
+ static/js/login.js                   |  33 [32m+[m[31m-----[m
+ 7 files changed, 147 insertions(+), 179 deletions(-)
